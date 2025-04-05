@@ -1,0 +1,29 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 100px;
+}
+
+.navbar li {
+  list-style: none;
+  padding: 0px 50px;
+  float: left;
+  text-align: center;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.navbar li a:hover {
+  color: darkolivegreen;
+  text-decoration: underline;
+  font-weight: bolder;
+}
