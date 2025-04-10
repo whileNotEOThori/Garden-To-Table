@@ -1,7 +1,27 @@
+h1 {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 80px;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 20px;
+}
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
 }
 
 .logo {
@@ -10,9 +30,10 @@ header {
 
 .navbar li {
   list-style: none;
-  padding: 0px 50px;
+  padding: 0px 49px;
   float: left;
   text-align: center;
+  justify-content: center;
 }
 
 .navbar li a {
@@ -26,4 +47,39 @@ header {
   color: darkolivegreen;
   text-decoration: underline;
   font-weight: bolder;
+}
+
+body {
+  background-color: darkolivegreen;
+}
+
+.heading {
+  color: white;
+  text-align: center;
+}
+
+.hero {
+  height: 90vh;
+  width: 100%;
+  background-image: url('images/hero_background_image.jpg');
+  background-size: cover;
+}
+
+.about {
+  background-color: white;
+  padding: 0px;
+}
+
+.about h2,
+.about p {
+  color: darkolivegreen;
+}
+
+.FAQ {
+  text-align: right;
+  justify-content: right;
+}
+
+.FAQ h2, .FAQ h3, .FAQ p {
+  color: white;
 }
