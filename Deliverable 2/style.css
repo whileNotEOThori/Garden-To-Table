@@ -1,4 +1,4 @@
-h1 {
+/*h1 {
   font-size: 100px;
   font-weight: bold;
 }
@@ -80,6 +80,57 @@ body {
   justify-content: right;
 }
 
-.FAQ h2, .FAQ h3, .FAQ p {
+.FAQ h2,
+.FAQ h3,
+.FAQ p {
   color: white;
+}*/
+
+/* /////////////////////////////////////////////////////////////// */
+body {
+  background-color: darkolivegreen;
+}
+
+h2 {
+  font-size: 80px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+header {
+  background-color: white;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 45px;
+  font-weight: bold;
+  color: darkolivegreen;
+}
+
+.navbar-brand:hover {
+  color: darkolivegreen;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-link {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}
+
+.nav-link:hover {
+  color: darkolivegreen;
+  text-decoration: underline;
+  font-weight: bolder;
 }
