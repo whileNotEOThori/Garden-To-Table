@@ -33,13 +33,13 @@
           <!-- Navbar links -->
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link" href="sell.html">Sell</a></li>
-              <li class="nav-item"><a class="nav-link" href="buy.html">Buy</a></li>
-              <li class="nav-item"><a class="nav-link" href="">About Us</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
-              <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="signin.html">Sign In</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sell.html">Sell</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="buy.html">Buy</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#about">About Us</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#faq">FAQ</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#contact">Contact Us</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="signup.html">Sign Up</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" aria-current="page" href="signin.html">Sign In</a></li>
             </ul>
           </div>
         </div>
@@ -47,15 +47,34 @@
     </header>
 
     <main>
-      <!-- <section class="hero"></section>
+      <!-- Hero -->
+      <section id="hero-section">
+        <div class="px-4 py-5 my-5 text-center" id="hero">
+          <h1 id="hero-title">Garden To Table</h1>
+          <div class="col-lg-6 mx-auto">
+            <h3 class="lead mb-4" id="call-to-action">Affordable. Nutritious. Quality. Locally grown produce.</h3>
+            <div class="d-flex gap-3 justify-content-center lead fw-normal">
+              <a class="icon-link" href="sell.html">
+                Sell
+                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
+              </a>
+              <a class="icon-link" href="buy.html">
+                Buy
+                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <section class="about">
+      <!-- About -->
+      <section id="about">
         <h2>About Us</h2>
         <p>Garden To Table is a community-centric C2C E-Commerce website targeted towards cultivating entreprenuership</p>
       </section>
-      -->
 
-      <section class="faq">
+      <!-- FAQ -->
+      <section id="faq">
         <!-- FAQ Heading -->
         <h2>FAQ</h2>
         <!-- FAQ Accordion -->
@@ -63,9 +82,11 @@
           <!-- Collection/delivery -->
           <div class="accordion-item">
             <h2 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How do I get my order?</button>
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                How do I get my order?
+              </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 Orders need to be collected by the buyer from the seller. If the buyer requires delivery of a product they would need to arrange delivery for themselves and coordinate the collection
                 process with the seller. We recommend buyers make use of services like Uber Courier and Bolt Send
@@ -97,5 +118,19 @@
         </div>
       </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="sell.html" class="nav-link px-2 text-body-secondary">Sell</a></li>
+        <li class="nav-item"><a href="buy.html" class="nav-link px-2 text-body-secondary">Buy</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
+        <li class="nav-item"><a href="#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+        <li class="nav-item"><a href="signup.html" class="nav-link px-2 text-body-secondary">Sign Up</a></li>
+        <li class="nav-item"><a href="signin.html" class="nav-link px-2 text-body-secondary">Sign In</a></li>
+      </ul>
+      <p class="text-center text-body-secondary">Garden To Table ©. All rights reserved.</p>
+    </footer>
   </body>
 </html>
