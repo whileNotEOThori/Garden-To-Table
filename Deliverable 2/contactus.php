@@ -10,7 +10,7 @@ if (isset($_POST['contactUs']))
     $message = $_POST['message'];
 
     //set table name
-    $tableName = "contactMessages";
+    $tableName = "messages";
 
     $messageInsertQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName,emailAddress, message) VALUES (?,?,?,?)");
 
@@ -25,7 +25,11 @@ if (isset($_POST['contactUs']))
         die("Execution failed: " . $messageInsertQuery->error);
     }
     else{
-        echo 'We have received your message';
+        // echo 'We have received your message';
+//         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+//   We hae received your message.
+//   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+// </div>';
     }
 
     $messageInsertQuery->close();

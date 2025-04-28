@@ -51,58 +51,44 @@
       <h2 style="display: flex; justify-content: center">Sign Up</h2>
 
       <!-- Sign Up Form -->
-      <form id="" action="" method="">
+      <form id="signUpForm" action="signup.php" method="POST">
         <div class="container" style="width: 550px">
           <!-- First Name Input Div -->
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="firstName" placeholder="First Name" required />
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required />
             <label for="firstName">First Name</label>
           </div>
 
           <!-- Last Name Input Div -->
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="lastName" placeholder="Last Name" required />
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required />
             <label for="lastName">Last Name</label>
           </div>
 
           <!-- Phone Number Input Div -->
           <div class="form-floating mb-3">
-            <input type="tel" class="form-control" id="phoneNum" placeholder="Phone Number" required />
+            <input type="tel" class="form-control" id="phoneNum" name="phoneNum" placeholder="Phone Number" required />
             <label for="phoneNum">Phone Number</label>
           </div>
 
           <!-- Email Address Input Div -->
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="emailAddress" placeholder="name@example.com" required />
+            <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="name@example.com" required />
             <label for="emailAddress">Email address</label>
           </div>
 
           <!-- Password Input Div -->
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" placeholder="Password" required />
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
             <label for="password">Password</label>
           </div>
 
-          <!-- Confirm Password Input Div -->
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required />
-            <label for="confirmPassword">Confirm Password</label>
-          </div>
-
           <!-- User Type Selection -->
-          <div class="container" style="display: flex; justify-content: center">
-            <!-- Buyer Radio -->
-            <div class="form-check form-check-inline mb-3">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="buyerRadio" value="buyer" required />
-              <label class="form-check-label" for="buyerRadio">Buyer</label>
-            </div>
-
-            <!-- Seller Radio -->
-            <div class="form-check form-check-inline mb-3">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sellerRadio" value="seller" required />
-              <label class="form-check-label" for="sellerRadio">Seller</label>
-            </div>
-          </div>
+          <select class="form-select mb-3" id="userType" name="userType" aria-label="User type select">
+            <option selected>User type</option>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+          </select>
 
           <!-- Terms and Conditions -->
           <div class="container" style="display: flex; justify-content: center">
@@ -110,8 +96,8 @@
           </div>
 
           <!-- Sign In Button -->
-          <div class="container pb-3" style="display: flex; justify-content: center">
-            <button type="submit" class="btn btn-primary">Sign In</button>
+          <div class="container mb-3" style="display: flex; justify-content: center">
+            <button type="submit" name="signUp" value="signUp" class="btn btn-primary">Sign In</button>
           </div>
 
           <!-- Redirect To Sign Up Page -->
