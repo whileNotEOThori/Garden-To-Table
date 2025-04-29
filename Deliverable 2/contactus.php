@@ -15,22 +15,17 @@ if (isset($_POST['contactUs']))
     $messageInsertQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName,emailAddress, message) VALUES (?,?,?,?)");
 
     // Check for SQL errors
-    if (!$messageInsertQuery) {
+    if (!$messageInsertQuery)
         die("Prepare failed: " . $conn->error);
-    }
 
     $messageInsertQuery->bind_param("ssss", $firstName, $lastName, $emailAddress,$message);
 
-    if (!$messageInsertQuery->execute()) {
+    if (!$messageInsertQuery->execute())
         die("Execution failed: " . $messageInsertQuery->error);
-    }
-    else{
-        // echo 'We have received your message';
-//         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-//   We hae received your message.
-//   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-// </div>';
-    }
+
+    echo "<script> alert('We have received your message') </script>";
+    sleep(3);
+    header('location: homepage.html');
 
     $messageInsertQuery->close();
     $conn->close();

@@ -4,6 +4,18 @@ CREATE TABLE sellers(
 	sID INT AUTO_INCREMENT PRIMARY KEY,
     uID INT NOT NULL,
     physicalAddress TEXT NOT NULL,
-    totalSales decimal(10,2) default 0.00,
+    totalSales DECIMAL(10,2) DEFAULT 0.00,
     FOREIGN KEY (uID) REFERENCES users(uID)
 );
+
+SELECT * FROM garden_to_table.sellers;
+
+ALTER TABLE garden_to_table.sellers DROP COLUMN physicalAddress;
+
+ALTER TABLE garden_to_table.sellers ADD streetAddress VARCHAR(100) NOT NULL;
+
+ALTER TABLE garden_to_table.sellers ADD postcode VARCHAR(5) NOT NULL;
+
+ALTER TABLE `garden_to_table`.`sellers` 
+ADD UNIQUE INDEX `uID_UNIQUE` (`uID` ASC) VISIBLE;
+;
