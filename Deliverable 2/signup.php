@@ -13,6 +13,13 @@ if (isset($_POST['signUp']))
     $streetAddress = $_POST['streetAddress'];
     $postcode = $_POST['postcode'];
 
+    if ($userType != "buyer" && $userType != "seller")
+    {
+        // send a bootstrap alert that the user type is invalid
+        echo "<script> alert('Select a valid user type.') </script>";
+        exit();
+    }
+
     //encrypt password
     $password = password_hash($password,PASSWORD_BCRYPT);
 
@@ -33,13 +40,60 @@ if (isset($_POST['signUp']))
     $emailCheckQueryResult = $emailCheckQuery->get_result();
 
     //check if the email address is already linked to an account
-    if ($emailCheckQueryResult->num_rows != 0)
+    if ($emailCheckQueryResult->num_rows > 0)
     {
-        //send a bootstrap alert that the email address already exists
-        echo "<script> alert('The entered email is already registered to an account') </script>";
-        exit();
+        $userID = $emailCheckQueryResult->fetch_assoc()['uID'];
+
+        if ($userType == "buyer")
+        {
+            $tableName = "buyers";
+
+            $buyerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+
+            if (!$buyerCheckQuery)
+                die("Buyer check query prepare failed: ".$conn->error);
+
+            $buyerCheckQuery->bind_param("s", $userID);
+
+            if(!$buyerCheckQuery->execute())
+                die("Buyer check query execution failed: " . $buyerCheckQuery->error);
+
+            if ($buyerCheckQuery->get_result()->num_rows > 0)
+            {
+                // send a bootstrap alert that the email address already exists
+                echo "<script> alert('The entered email is already registered to an account') </script>";
+                exit();
+            }
+
+            $buyerCheckQuery->close();
+        }
+        else //if ($userType == "seller")
+        {
+            $tableName = "sellers";
+
+            $sellerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+
+            if (!$sellerCheckQuery)
+                die("Seller check query prepare failed: ".$conn->error);
+
+            $sellerCheckQuery->bind_param("s", $userID);
+
+            if(!$sellerCheckQuery->execute())
+                die("Seller check query execution failed: " . $sellerCheckQuery->error);
+
+            if ($sellerCheckQuery->get_result()->num_rows > 0)
+            {
+                // send a bootstrap alert that the email address already exists
+                echo "<script> alert('The entered email is already registered to an account') </script>";
+                exit();
+            }
+
+            $sellerCheckQuery->close();
+        }
     }
     $emailCheckQuery->close();
+
+    $tableName = "users";
 
     //insert the details into the 
     $signUpQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
