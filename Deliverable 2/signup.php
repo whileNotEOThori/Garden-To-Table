@@ -91,23 +91,25 @@ if (isset($_POST['signUp']))
             $sellerCheckQuery->close();
         }
     }
+    else
+    {
+        //insert the details into the 
+        $signUpQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
+        
+        // Check for SQL errors
+        if (!$signUpQuery)
+            die("Signup query prepare failed: " . $conn->error);
+
+        $signUpQuery->bind_param("sssss", $firstName, $lastName, $phoneNumber, $emailAddress, $password);
+
+        if (!$signUpQuery->execute())
+            die("Signup query execution failed: " . $signUpQuery->error);
+
+        $signUpQuery->close();
+    }
     $emailCheckQuery->close();
 
     $tableName = "users";
-
-    //insert the details into the 
-    $signUpQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
-    
-    // Check for SQL errors
-    if (!$signUpQuery)
-        die("Signup query prepare failed: " . $conn->error);
-
-    $signUpQuery->bind_param("sssss", $firstName, $lastName, $phoneNumber, $emailAddress, $password);
-
-    if (!$signUpQuery->execute())
-        die("Signup query execution failed: " . $signUpQuery->error);
-
-    $signUpQuery->close();
 
     //add the user to either the buyer or sell table
     $userIDQuery = $conn->prepare("SELECT uID as userID FROM $tableName WHERE emailAddress = ?");
