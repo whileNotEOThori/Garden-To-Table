@@ -164,8 +164,13 @@ if (isset($_POST['signUp']))
 
     //send a bootstrap alert that the email address already exists
     echo "<script> alert('Account created successfully') </script>";
-    //redirect the user to the specific page
     
+    if ($userType == "seller")
+        header("location: sellerhomepage.html");
+
+    /*if ($userType == "buyer")
+        header("location: sellerhomepage.html");*/
+
     $conn->close();
 }
 ?>

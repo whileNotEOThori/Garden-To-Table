@@ -75,6 +75,15 @@ if (isset($_POST['signIn']))
             $lastName = $userRow['lastName'];
             echo "<script> alert('Welcome back to Garden To Table $firstName $lastName.') </script>";
             // header("location: welcome.php"); 
+
+            if ($userType == "seller")
+                header("location: sellerhomepage.html");
+
+            /*if ($userType == "buyer")
+                header("location: sellerhomepage.html");
+
+            if ($userType == "admin")
+                header("location: sellerhomepage.html");*/
             exit; 
         } 
         else 
