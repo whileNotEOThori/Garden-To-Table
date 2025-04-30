@@ -5,3 +5,5 @@ CREATE TABLE admins(
     uID INT NOT NULL,
     FOREIGN KEY (uID) REFERENCES users(uID)
 );
+
+select * from garden_to_table.admins;
