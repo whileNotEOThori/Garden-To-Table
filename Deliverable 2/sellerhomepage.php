@@ -38,13 +38,12 @@
           <!-- Navbar links -->
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sell.html">Sell</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="buy.html">Buy</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#about">About Us</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#faq">FAQ</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="#contact">Contact Us</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="signuppage.php">Sign Up</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" aria-current="page" href="signinpage.php">Sign In</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Add Product</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Edit Product</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Delete Product</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Process Orders</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
+              <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
             </ul>
           </div>
         </div>
@@ -55,21 +54,46 @@
      
       <!-- <i class="bi bi-person-circle "></i> -->
             
-       <?php echo "<script> alert('Welcome back to Garden To Table " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] . ".') </script>";  ?>
+       <!-- <?php echo "<script> alert('Welcome back to Garden To Table " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] . ".') </script>";  ?> -->
     </main>
 
     <!-- Footer -->
     <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="sell.html" class="nav-link px-2 text-body-secondary">Sell</a></li>
-        <li class="nav-item"><a href="buy.html" class="nav-link px-2 text-body-secondary">Buy</a></li>
-        <li class="nav-item"><a href="homepage.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
-        <li class="nav-item"><a href="homepage.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
-        <li class="nav-item"><a href="homepage.php#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
-        <li class="nav-item"><a href="signuppage.php" class="nav-link px-2 text-body-secondary">Sign Up</a></li>
-        <li class="nav-item"><a href="signinpage.php" class="nav-link px-2 text-body-secondary">Sign In</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Add Product</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
+        <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
       </ul>
       <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
     </footer>
+
+<!-- Seller Sign Out Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Seller Sign In</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Sign In Form -->
+            <form id="sellerSignOutForm" action="signout.php" method="POST">
+              <div class="container" style="width: 450px">
+                <!-- Message -->
+                <p class="text-center">Are you sure you want to sign out?</p>
+                <p class="text-center">All you progress will be lost.</p>
+              </div>
+
+              <!-- Sign In Button -->
+              <div class="container" style="display: flex; justify-content: center">
+                <button type="submit" name="signOut" value="signOut" class="btn btn-primary">Sign Out</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
   </body>
 </html>

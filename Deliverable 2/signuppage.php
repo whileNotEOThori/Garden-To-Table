@@ -37,7 +37,12 @@
           <!-- Navbar links -->
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sell.html">Sell</a></li>
+              <!-- Redirect the seller to the sellerhomepage if they already have an active session -->
+              <?php if (!empty($_SESSION['firstName']) && $_SESSION['userType'] === 'seller'): ?>
+                <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sellerhomepage.php">Sell</a></li>
+              <?php else: ?>  <!-- Open the seller sign in modal if there no active session -->
+                <li class="nav-item"><a class="nav-link" id="header-nav-link" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sell</a></li>
+              <?php endif; ?>
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="buy.html">Buy</a></li>
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.php#about">About Us</a></li>
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.php#faq">FAQ</a></li>
@@ -127,7 +132,12 @@
     <!-- Footer -->
     <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="sell.html" class="nav-link px-2 text-body-secondary">Sell</a></li>
+        <!-- Redirect the seller to the sellerhomepage if they already have an active session -->
+        <?php if (!empty($_SESSION['firstName']) && $_SESSION['userType'] === 'seller'): ?>
+          <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="sellerhomepage.php">Sell</a></li>
+        <?php else: ?>  <!-- Open the seller sign in modal if there no active session -->
+          <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sell</a></li>
+        <?php endif; ?>
         <li class="nav-item"><a href="buy.html" class="nav-link px-2 text-body-secondary">Buy</a></li>
         <li class="nav-item"><a href="homepage.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
         <li class="nav-item"><a href="homepage.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
@@ -137,5 +147,42 @@
       </ul>
       <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
     </footer>
+
+    <!-- Seller Sign In Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Seller Sign In</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Sign In Form -->
+            <form id="sellerSignInForm" action="signin.php" method="POST">
+              <div class="container" style="width: 450px">
+                <!-- Email Address Input Div -->
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="name@example.com" required />
+                  <label for="emailAddress">Email address</label>
+                </div>
+
+                <!-- Password Input Div -->
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                  <label for="password">Password</label>
+                </div>
+              </div>
+
+              <?php $_SESSION['userType'] = "seller";?>
+
+              <!-- Sign In Button -->
+              <div class="container" style="display: flex; justify-content: center">
+                <button type="submit" name="sellerSignIn" value="sellerSignIn" class="btn btn-primary">Sign In</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
