@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,7 +29,7 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <!-- Navbar Logo and Title-->
-          <a class="navbar-brand" href="homepage.html"><img src="images/GTT Logo.jpg" alt="Logo" height="100px" class="d-inline-block align-text-top" />Garden To Table</a>
+          <a class="navbar-brand" href="homepage.php"><img src="images/GTT Logo.jpg" alt="Logo" height="100px" class="d-inline-block align-text-top" />Garden To Table</a>
           <!--  -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,11 +39,11 @@
             <ul class="navbar-nav ms-auto">
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sell.html">Sell</a></li>
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="buy.html">Buy</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.html#about">About Us</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.html#faq">FAQ</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.html#contact">Contact Us</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="signup.html">Sign Up</a></li>
-              <li class="nav-item"><a class="nav-link" id="header-nav-link" aria-current="page" href="signin.html">Sign In</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.php#about">About Us</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.php#faq">FAQ</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="homepage.php#contact">Contact Us</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" href="signuppage.php">Sign Up</a></li>
+              <li class="nav-item"><a class="nav-link" id="header-nav-link" aria-current="page" href="signinpage.php">Sign In</a></li>
             </ul>
           </div>
         </div>
@@ -114,7 +118,7 @@
 
           <!-- Redirect To Sign Up Page -->
           <div class="container" style="display: flex; justify-content: center">
-            <p>Already have an account? <a href="signin.html">Sign In</a></p>
+            <p>Already have an account? <a href="signinpage.php">Sign In</a></p>
           </div>
         </div>
       </form>
@@ -125,11 +129,11 @@
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item"><a href="sell.html" class="nav-link px-2 text-body-secondary">Sell</a></li>
         <li class="nav-item"><a href="buy.html" class="nav-link px-2 text-body-secondary">Buy</a></li>
-        <li class="nav-item"><a href="homepage.html#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
-        <li class="nav-item"><a href="homepage.html#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
-        <li class="nav-item"><a href="homepage.html#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
-        <li class="nav-item"><a href="signup.html" class="nav-link px-2 text-body-secondary">Sign Up</a></li>
-        <li class="nav-item"><a href="signin.html" class="nav-link px-2 text-body-secondary">Sign In</a></li>
+        <li class="nav-item"><a href="homepage.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
+        <li class="nav-item"><a href="homepage.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
+        <li class="nav-item"><a href="homepage.php#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+        <li class="nav-item"><a href="signuppage.php" class="nav-link px-2 text-body-secondary">Sign Up</a></li>
+        <li class="nav-item"><a href="signinpage.php" class="nav-link px-2 text-body-secondary">Sign In</a></li>
       </ul>
       <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
     </footer>

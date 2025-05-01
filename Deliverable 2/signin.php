@@ -1,13 +1,19 @@
 <?php
+session_start();
 include('connect.php');
 
-if (isset($_POST['signIn']))
+if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) )
 {
     //retrieve/extract the information entered in the form
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
-    $userType = $_POST['userType'];
 
+    if (isset($_POST['sellerSignIn']))
+        $userType = $_SESSION['userType'];
+    else
+        $userType = $_POST['userType'];
+
+    
     if ($userType != "buyer" && $userType != "seller" && $userType != "admin")
     {
         // send a bootstrap alert that the user type is invalid
@@ -71,13 +77,15 @@ if (isset($_POST['signIn']))
 
     if (password_verify($password, $encryptedPassword)) 
         { 
-            $firstName = $userRow['firstName'];
-            $lastName = $userRow['lastName'];
-            echo "<script> alert('Welcome back to Garden To Table $firstName $lastName.') </script>";
+            $_SESSION['userID'] = $userID;
+            $_SESSION['firstName'] = $userRow['firstName'];
+            $_SESSION['lastName'] = $userRow['lastName'];
+
+            // echo "<script> alert('Welcome back to Garden To Table " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] . ".') </script>";
             // header("location: welcome.php"); 
 
             if ($userType == "seller")
-                header("location: sellerhomepage.html");
+                header("location: sellerhomepage.php");
 
             /*if ($userType == "buyer")
                 header("location: sellerhomepage.html");
