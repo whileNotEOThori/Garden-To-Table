@@ -40,12 +40,12 @@ session_start();
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Edit Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Delete Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Process Orders</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Add Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Edit Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Delete Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
           </ul>
         </div>
       </div>
@@ -53,15 +53,67 @@ session_start();
   </header>
 
   <main>
+    <h2>Add Product</h2>
 
-    <!-- <i class="bi bi-person-circle "></i> -->
+    <!-- Add Product Form -->
+    <form id="addProductForm" action="addproduct.php" method="POST">
+      <div class="container" style="width: 550px">
+        <!-- Product Name Input Div -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="productName" name="productName" placeholder="Name" required />
+          <label for="productName">Name</label>
+        </div>
+
+        <!-- Product Description Input Div -->
+        <div class="form-floating mb-3">
+          <textarea class="form-control h-100" id="productDescription" name="productDescription" placeholder="Description" required></textarea>
+          <label for="productDescription">Description</label>
+        </div>
+
+        <!-- Category Selection -->
+        <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select" required>
+          <option selected>Category</option>
+          <option value="buyer">Fruits</option>
+          <option value="seller">Vegetables</option>
+        </select>
+
+        <!-- Mass Input Div -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="productMass" name="productMass" placeholder="Mass [g]" min="1" required />
+          <label for="productMass">Mass [g]</label>
+        </div>
+
+        <!-- Price Input Div -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="productPrice" name="productPrice" placeholder="Price" required />
+          <label for="productPrice">Price</label>
+        </div>
+
+        <!-- Quantity Input Div -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="productQuantity" name="productQuantity" placeholder="Quantity" min="1" required />
+          <label for="productQuantity">Quantity</label>
+        </div>
+
+        <!-- Image Input Div -->
+        <div class="form-floating mb-3">
+          <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required />
+          <label for="productImage">Image</label>
+        </div>
+
+        <!-- Sign Up Button -->
+        <div class="container mb-3" style="display: flex; justify-content: center">
+          <button type="submit" name="addProduct" value="addProduct" class="btn btn-primary">Add Product</button>
+        </div>
+      </div>
+    </form>
 
   </main>
 
   <!-- Footer -->
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="addproductpage.php" class="nav-link px-2 text-body-secondary">Add Product</a></li>
+      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Add Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
