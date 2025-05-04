@@ -45,7 +45,7 @@ session_start();
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Delete Product</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +56,7 @@ session_start();
     <h2>Add Product</h2>
 
     <!-- Add Product Form -->
-    <form id="addProductForm" action="addproduct.php" method="POST">
+    <form id="addProductForm" action="addproduct.php" enctype="multipart/form-data" method="POST">
       <div class="container" style="width: 550px">
         <!-- Product Name Input Div -->
         <div class="form-floating mb-3">
@@ -66,15 +66,15 @@ session_start();
 
         <!-- Product Description Input Div -->
         <div class="form-floating mb-3">
-          <textarea class="form-control h-100" id="productDescription" name="productDescription" placeholder="Description" required></textarea>
+          <textarea class="form-control h-100" rows="5" id="productDescription" name="productDescription" placeholder="Description" required></textarea>
           <label for="productDescription">Description</label>
         </div>
 
         <!-- Category Selection -->
         <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select" required>
           <option selected>Category</option>
-          <option value="buyer">Fruits</option>
-          <option value="seller">Vegetables</option>
+          <option value="1">Fruits</option>
+          <option value="2">Vegetables</option>
         </select>
 
         <!-- Mass Input Div -->
@@ -99,6 +99,7 @@ session_start();
         <div class="form-floating mb-3">
           <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required />
           <label for="productImage">Image</label>
+          <img src="" alt="">
         </div>
 
         <!-- Sign Up Button -->

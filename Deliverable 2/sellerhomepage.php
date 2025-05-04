@@ -45,7 +45,7 @@ session_start();
             <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Delete Product</a></li>
             <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Process Orders</a></li>
             <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-4" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
           </ul>
         </div>
       </div>
