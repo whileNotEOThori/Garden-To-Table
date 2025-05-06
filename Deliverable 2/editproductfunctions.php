@@ -58,12 +58,39 @@ function getProductRow()
         exit;
     }
 
-    echo $result->fetch_assoc();
+    return $result->fetch_assoc();
 
-    // $productRowQuery->close();
+    $productRowQuery->close();
 }
 
-function getProductName()
+
+function getCategories()
 {
-    return getProductRow()['name'];
+    global $conn;
+    $tableName = "categories";
+
+    $getCategoryQuery = $conn->prepare("SELECT * FROM $tableName");
+
+    if (!$getCategoryQuery)
+        die("Get category query prepare failed: " . $conn->error);
+
+    if (!$getCategoryQuery->execute())
+        die("Get category query execution failed" . $getCategoryQuery->error);
+
+    $result = $getCategoryQuery->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "<script> alert('There are no categories') </script>";
+        // header('location: editproductpage.php');
+        exit;
+    }
+
+    while ($row  = $result->fetch_assoc()) {
+        $categoryID = $row['cID'];
+        $categoryName = $row['name'];
+
+        echo "<option value=" . $categoryID . ">" . $categoryName . "</option> ";
+    }
+
+    $getCategoryQuery->close();
 }

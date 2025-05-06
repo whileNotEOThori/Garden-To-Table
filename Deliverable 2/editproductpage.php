@@ -1,13 +1,15 @@
 <?php
+
 session_start();
 include('editproductfunctions.php');
 
 //redirect the user back to the homepage to sign in again if there is no active session
 if (empty($_SESSION['sellerID'])) {
-    // echo "<script> alert('You have been signed out. Sign In again.') </script>";
     header("location: homepage.php");
     exit;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -62,69 +64,56 @@ if (empty($_SESSION['sellerID'])) {
 
     <main>
         <h2>Edit Product</h2>
-        <form id="productSearchForm" action="editproduct.php" method="POST">
-            <div class="container" style="width: 550px">
-
-                <!-- Product ID and Name Selection -->
-                <select class="form-select mb-3" id="productID+Name" name="productID+Name" onchange="enableForm()" aria-label="Product select" required>
-                    <option value="Product ID and Name" selected>Product ID and Name</option>
-                    <?php getProductIDandName() ?>
-                </select>
-
-                <div class="container mb-3" style="display: flex; justify-content: center">
-                    <button type="submit" name="searchProductID" value="searchProductID" class="btn btn-primary">Search Product</button>
-                </div>
-        </form>
-
         <!-- Edit Product Form -->
         <form id="editProductForm" action="editproduct.php" enctype="multipart/form-data" method="POST">
             <div class="container" style="width: 550px">
-                <!-- Product Name Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productName">Name:</label>
+                <!-- Product ID and Name Selection -->
+                <select class="form-select mb-3" id="productID+Name" name="productID+Name" aria-label="Product select" required>
+                    <option value="" selected>Product ID and Name</option>
+                    <?php getProductIDandName() ?>
+                </select>
 
-                    <?php if (empty($_SESSION['sellerID']) || (!isset($_POST['searchProductID']))): ?>
-                        <input type="text" class="form-control" id="productName" name="productName" placeholder="Name" required />
-                    <?php else: ?>
-                        <input type="text" class="form-control" id="productName" name="productName" placeholder="<?php getProductRow()['name'] ?>" required />
-                    <?php endif; ?>
+                <!-- Product Name Input Div -->
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="productName" name="productName" placeholder="Name" />
+                    <label for="productName">Name</label>
                 </div>
 
                 <!-- Product Description Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productDescription">Description</label>
-                    <textarea class="form-control h-100" rows="3" id="productDescription" name="productDescription" placeholder="Description" required></textarea>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control h-100" rows="3" id="productDescription" name="productDescription" placeholder="Description"></textarea>
+                    <label for="productDescription">Description</label>
                 </div>
 
                 <!-- Category Selection -->
-                <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select" required>
+                <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select">
                     <option selected>Category</option>
-                    <option value="1">Fruits</option>
-                    <option value="2">Vegetables</option>
+                    <?php getCategories() ?>
                 </select>
 
                 <!-- Mass Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productMass">Mass [g]</label>
-                    <input type="number" class="form-control" id="productMass" name="productMass" placeholder="Mass [g]" min="1" required />
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="productMass" name="productMass" placeholder="Mass [g]" min="1" />
+                    <label for="productMass">Mass [g]</label>
                 </div>
 
                 <!-- Price Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productPrice">Price</label>
-                    <input type="number" class="form-control" id="productPrice" name="productPrice" placeholder="Price" required />
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" placeholder="Price" />
+                    <label for="productPrice">Price</label>
                 </div>
 
                 <!-- Quantity Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productQuantity">Quantity</label>
-                    <input type="number" class="form-control" id="productQuantity" name="productQuantity" placeholder="Quantity" min="1" required />
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="productQuantity" name="productQuantity" placeholder="Quantity" min="1" />
+                    <label for="productQuantity">Quantity</label>
                 </div>
 
                 <!-- Image Input Div -->
-                <div class="mb-3">
-                    <label class="form-label" for="productImage">Image</label>
-                    <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required />
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" />
+                    <label for="productImage">Image</label>
+                    <img src="" alt="">
                 </div>
 
                 <!-- Edit Button -->
@@ -176,13 +165,3 @@ if (empty($_SESSION['sellerID'])) {
 </body>
 
 </html>
-
-<script>
-    function enableForm() {
-
-        if (document.getElementById("productID+Name").value !== "Product ID and Name")
-            alert("You have deselected a product");
-        else
-            alert("You have deselected a product");
-    }
-</script>
