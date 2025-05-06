@@ -2,8 +2,7 @@
 session_start();
 include('connect.php');
 
-if (isset($_POST['signUp']))
-{
+if (isset($_POST['signUp'])) {
     //retrieve/extract the information entered in the form
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
@@ -14,15 +13,15 @@ if (isset($_POST['signUp']))
     $streetAddress = $_POST['streetAddress'];
     $postcode = $_POST['postcode'];
 
-    if ($userType != "buyer" && $userType != "seller")
-    {
+    // if ($userType != "buyer" && $userType != "seller")
+    if ($userType == "") {
         // send a bootstrap alert that the user type is invalid
         echo "<script> alert('Select a valid user type.') </script>";
         exit();
     }
 
     //encrypt password
-    $password = password_hash($password,PASSWORD_BCRYPT);
+    $password = password_hash($password, PASSWORD_BCRYPT);
 
     //set table name
     $tableName = "users";
@@ -33,7 +32,7 @@ if (isset($_POST['signUp']))
     if (!$emailCheckQuery)
         die("Email check query prepare failed: " . $conn->error);
 
-    $emailCheckQuery->bind_param("s",$emailAddress);
+    $emailCheckQuery->bind_param("s", $emailAddress);
 
     if (!$emailCheckQuery->execute())
         die("Email check query execution failed: " . $emailCheckQuery->error);
@@ -41,49 +40,44 @@ if (isset($_POST['signUp']))
     $emailCheckQueryResult = $emailCheckQuery->get_result();
 
     //check if the email address is already linked to an account
-    if ($emailCheckQueryResult->num_rows > 0)
-    {
+    if ($emailCheckQueryResult->num_rows > 0) {
         $userID = $emailCheckQueryResult->fetch_assoc()['uID'];
 
-        if ($userType == "buyer")
-        {
+        if ($userType == "buyer") {
             $tableName = "buyers";
 
             $buyerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
             if (!$buyerCheckQuery)
-                die("Buyer check query prepare failed: ".$conn->error);
+                die("Buyer check query prepare failed: " . $conn->error);
 
             $buyerCheckQuery->bind_param("s", $userID);
 
-            if(!$buyerCheckQuery->execute())
+            if (!$buyerCheckQuery->execute())
                 die("Buyer check query execution failed: " . $buyerCheckQuery->error);
 
-            if ($buyerCheckQuery->get_result()->num_rows > 0)
-            {
+            if ($buyerCheckQuery->get_result()->num_rows > 0) {
                 // send a bootstrap alert that the email address already exists
                 echo "<script> alert('The entered email is already registered to an account') </script>";
                 exit();
             }
 
             $buyerCheckQuery->close();
-        }
-        else //if ($userType == "seller")
+        } else //if ($userType == "seller")
         {
             $tableName = "sellers";
 
             $sellerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
             if (!$sellerCheckQuery)
-                die("Seller check query prepare failed: ".$conn->error);
+                die("Seller check query prepare failed: " . $conn->error);
 
             $sellerCheckQuery->bind_param("s", $userID);
 
-            if(!$sellerCheckQuery->execute())
+            if (!$sellerCheckQuery->execute())
                 die("Seller check query execution failed: " . $sellerCheckQuery->error);
 
-            if ($sellerCheckQuery->get_result()->num_rows > 0)
-            {
+            if ($sellerCheckQuery->get_result()->num_rows > 0) {
                 // send a bootstrap alert that the email address already exists
                 echo "<script> alert('The entered email is already registered to an account') </script>";
                 exit();
@@ -91,12 +85,10 @@ if (isset($_POST['signUp']))
 
             $sellerCheckQuery->close();
         }
-    }
-    else
-    {
+    } else {
         //insert the details into the 
         $signUpQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
-        
+
         // Check for SQL errors
         if (!$signUpQuery)
             die("Signup query prepare failed: " . $conn->error);
@@ -118,8 +110,8 @@ if (isset($_POST['signUp']))
     if (!$userIDQuery)
         die("userID query prepare failed: " . $conn->error);
 
-    $userIDQuery->bind_param("s",$emailAddress);
-    
+    $userIDQuery->bind_param("s", $emailAddress);
+
 
     if (!$userIDQuery->execute())
         die("userID query execution failed: " . $userIDQuery->error);
@@ -128,8 +120,7 @@ if (isset($_POST['signUp']))
 
     $userIDQuery->close();
 
-    if ($userType == "buyer")
-    {
+    if ($userType == "buyer") {
         $tableName = "buyers";
 
         $buyerSignUpQuery = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
@@ -144,9 +135,36 @@ if (isset($_POST['signUp']))
             die("Buyer sign up query execution failed: " . $buyerSignUpQuery->error);
 
         $buyerSignUpQuery->close();
-    }
-    else
-    {
+
+        $tableName = "buyers";
+
+        //get the seller ID of th User
+        $bIDQuery = $conn->prepare("SELECT bID as buyerID FROM $tableName WHERE uID = ?");
+
+        if (!$bIDQuery)
+            die("Buyer ID query prepare failed: " . $conn->error);
+
+        $bIDQuery->bind_param("s", $userID);
+
+        if (!$bIDQuery->execute())
+            die("Buyer ID query execution failed: " . $bIDQuery->error);
+
+        $buyerID = $bIDQuery->get_result()->fetch_assoc()['buyerID'];
+
+        $bIDQuery->close();
+
+        // Instantiate a buyer
+        $_SESSION['buyer'] = new buyer();
+        $_SESSION['buyer']->uID = $userID;
+        $_SESSION['buyer']->bID = $buyerID;
+        $_SESSION['buyer']->firstName = $firstName;
+        $_SESSION['buyer']->lastName = $lastName;
+        $_SESSION['buyer']->phoneNumber = $phoneNumber;
+        $_SESSION['buyer']->emailAddress = $emailAddress;
+        $_SESSION['buyer']->password = $password;
+        $_SESSION['buyer']->streetAddress = $streetAddress;
+        $_SESSION['buyer']->postcode = $postcode;
+    } else {
         $tableName = "sellers";
 
         $sellerSignUpQuery = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
@@ -156,16 +174,48 @@ if (isset($_POST['signUp']))
             die("Seller signup query prepare failed: " . $conn->error);
 
         $sellerSignUpQuery->bind_param("sss", $userID, $streetAddress, $postcode);
-        
+
         if (!$sellerSignUpQuery->execute())
             die("Seller sign up query execution failed: " . $sellerSignUpQuery->error);
 
         $sellerSignUpQuery->close();
+
+
+        $tableName = "sellers";
+
+        //get the seller ID of th User
+        $sIDQuery = $conn->prepare("SELECT sID as sellerID FROM $tableName WHERE uID = ?");
+
+        if (!$sIDQuery)
+            die("Seller ID query prepare failed: " . $conn->error);
+
+        $sIDQuery->bind_param("s", $userID);
+
+
+        if (!$sIDQuery->execute())
+            die("Seller ID query execution failed: " . $sIDQuery->error);
+
+        $sellerID = $userIDQuery->get_result()->fetch_assoc()['sellerID'];
+
+        $userIDQuery->close();
+
+        // Instantiate a seller
+        $_SESSION['seller'] = new seller();
+        $_SESSION['seller']->uID = $userID;
+        $_SESSION['seller']->sID = $sellerID;
+        $_SESSION['seller']->firstName = $firstName;
+        $_SESSION['seller']->lastName = $lastName;
+        $_SESSION['seller']->phoneNumber = $phoneNumber;
+        $_SESSION['seller']->emailAddress = $emailAddress;
+        $_SESSION['seller']->password = $password;
+        $_SESSION['seller']->streetAddress = $streetAddress;
+        $_SESSION['seller']->postcode = $postcode;
+        $_SESSION['seller']->totalSales = 0.00;
     }
 
     //send a bootstrap alert that the email address already exists
     echo "<script> alert('Account created successfully') </script>";
-    
+
     if ($userType == "seller")
         header("location: sellerhomepage.html");
 
@@ -174,4 +224,3 @@ if (isset($_POST['signUp']))
 
     $conn->close();
 }
-?>

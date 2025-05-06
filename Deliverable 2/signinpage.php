@@ -77,7 +77,7 @@
 
           <!-- User Type Selection -->
           <select class="form-select mb-3" id="userType" name="userType" aria-label="User type select" required>
-            <option selected>User type</option>
+            <option value="" selected>User type</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
             <option value="admin">Admin</option>

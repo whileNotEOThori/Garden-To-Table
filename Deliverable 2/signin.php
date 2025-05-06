@@ -13,7 +13,8 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
         $userType = $_POST['userType'];
 
 
-    if ($userType != "buyer" && $userType != "seller" && $userType != "admin") {
+    // if ($userType != "buyer" && $userType != "seller" && $userType != "admin") 
+    if ($userType == "") {
         // send a bootstrap alert that the user type is invalid
         echo "<script> alert('Select a valid user type.') </script>";
         exit();
