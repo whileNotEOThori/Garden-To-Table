@@ -1,3 +1,5 @@
+use garden_to_table;
+
 CREATE TABLE products (
     pID INT AUTO_INCREMENT PRIMARY KEY,
     sID INT NOT NULL,

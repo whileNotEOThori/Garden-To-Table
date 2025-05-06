@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+//redirect the user back to the homepage to sign in again if there is no active session
+if (empty($_SESSION['sellerID'])) {
+  // echo "<script> alert('You have been signed out. Sign In again.') </script>";
+  header("location: homepage.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,12 +47,12 @@ session_start();
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Edit Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Delete Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" href="">Process Orders</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-4" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="editproductpage.php">Edit Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Delete Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
           </ul>
         </div>
       </div>
@@ -62,7 +69,7 @@ session_start();
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="addproductpage.php" class="nav-link px-2 text-body-secondary">Add Product</a></li>
-      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
+      <li class="nav-item"><a href="editproductpage.php" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
     </ul>

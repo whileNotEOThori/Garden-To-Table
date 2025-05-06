@@ -40,12 +40,12 @@ session_start();
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Add Product</a></li>
-            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Edit Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="#">Add Product</a></li>
+            <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="editproductpage.php">Edit Product</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Delete Product</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo " <i class='bi bi-person-circle'></i> " .$_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
           </ul>
         </div>
       </div>
@@ -99,10 +99,9 @@ session_start();
         <div class="form-floating mb-3">
           <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required />
           <label for="productImage">Image</label>
-          <img src="" alt="">
         </div>
 
-        <!-- Sign Up Button -->
+        <!-- Add Product Button -->
         <div class="container mb-3" style="display: flex; justify-content: center">
           <button type="submit" name="addProduct" value="addProduct" class="btn btn-primary">Add Product</button>
         </div>
@@ -114,8 +113,8 @@ session_start();
   <!-- Footer -->
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Add Product</a></li>
-      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Add Product</a></li>
+      <li class="nav-item"><a href="editproductpage.php" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
       <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
     </ul>

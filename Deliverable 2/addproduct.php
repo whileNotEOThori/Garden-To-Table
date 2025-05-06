@@ -2,6 +2,13 @@
 session_start();
 include('connect.php');
 
+//redirect the user back to the homepage to sign in again if there is no active session
+if (empty($_SESSION['sellerID'])) {
+    // echo "<script> alert('You have been signed out. Sign In again.') </script>";
+    header("location: homepage.php");
+    exit;
+}
+
 if (isset($_POST['addProduct'])) {
     //retrieve/extract the information entered in the form
     $productName = $_POST['productName'];

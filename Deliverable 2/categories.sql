@@ -5,4 +5,7 @@ cID INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(50) NOT NULL UNIQUE
 );
 
-Insert into gard
+select * from garden_to_table.categories;
+
+Insert into garden_to_table.categories (name) values ('Fruit');
+Insert into garden_to_table.categories (name) values ('Vegetables');
