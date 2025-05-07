@@ -1,5 +1,12 @@
 <?php
+include("seller.php");
 session_start();
+
+//redirect the user back to the homepage to sign in again if there is no active session
+if (empty($_SESSION['seller'])) {
+  header("location: homepage.php");
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +52,7 @@ session_start();
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Delete Product</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
             <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Out</a></li>
-            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo " <i class='bi bi-person-circle'></i> " .$_SESSION['firstName'] . " " . $_SESSION['lastName'] ?></a></li>
+            <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href=""><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['seller']->firstName . " " . $_SESSION['seller']->lastName ?></a></li>
           </ul>
         </div>
       </div>

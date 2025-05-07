@@ -41,7 +41,7 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <!-- Redirect the seller to the sellerhomepage if they already have an active session -->
-            <?php if (!empty($_SESSION['firstName']) && $_SESSION['userType'] === 'seller'): ?>
+            <?php if (!empty($_SESSION['seller'])): ?>
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="sellerhomepage.php">Sell</a></li>
             <?php else: ?> <!-- Open the seller sign in modal if there no active session -->
               <li class="nav-item"><a class="nav-link" id="header-nav-link" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sell</a></li>
@@ -216,7 +216,7 @@ session_start();
   <footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <!-- Redirect the seller to the sellerhomepage if they already have an active session -->
-      <?php if (!empty($_SESSION['firstName']) && $_SESSION['userType'] === 'seller'): ?>
+      <?php if (!empty($_SESSION['seller'])): ?>
         <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="sellerhomepage.php">Sell</a></li>
       <?php else: ?> <!-- Open the seller sign in modal if there no active session -->
         <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sell</a></li>

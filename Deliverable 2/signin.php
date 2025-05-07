@@ -1,89 +1,56 @@
 <?php
 session_start();
 include('connect.php');
+include("functions.php");
+include("seller.php");
 
 if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
     //retrieve/extract the information entered in the form
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
 
-    if (isset($_POST['sellerSignIn']))
+    //determine if the user is signing in through the modal or signin page
+    if (isset($_POST['sellerSignIn'])) //modal
         $userType = $_SESSION['userType'];
-    else
+    else //signin page
         $userType = $_POST['userType'];
 
-
-    // if ($userType != "buyer" && $userType != "seller" && $userType != "admin") 
+    //double check if a usertype has been selected
     if ($userType == "") {
-        // send a bootstrap alert that the user type is invalid
         echo "<script> alert('Select a valid user type.') </script>";
         exit();
     }
 
-    //set table name
-    $tableName = "users";
+    $userRow = getUserData($emailAddress);
 
-    // get all the columns with the entered email address
-    $emailCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE emailAddress = ?");
-
-    if (!$emailCheckQuery)
-        die("Email check query prepare failed: " . $conn->error);
-
-    $emailCheckQuery->bind_param("s", $emailAddress);
-
-    if (!$emailCheckQuery->execute())
-        die("Email check query execution failed: " . $emailCheckQuery->error);
-
-    $emailCheckQueryResult = $emailCheckQuery->get_result();
-
-    //check if the email address is already linked to an account
-    if ($emailCheckQueryResult->num_rows == 0) {
-        // send a bootstrap alert that the email address already exists
-        echo "<script> alert('The entered email is not registered to an account') </script>";
-        exit();
+    if ($userRow == null || $userRow == false) {
+        echo "<script> alert('The user details do not have an account.') </script>";
+        exit;
     }
 
-    $userRow = $emailCheckQueryResult->fetch_assoc();
     $userID = $userRow['uID'];
 
     if ($userType == "buyer")
         $tableName = "buyers";
-    else if ($userType == "seller")
-        $tableName = "sellers";
-    else if ($userType == "admin")
-        $tableName = "admins";
 
-    $userTypeQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+    if ($userType == "seller") {
+        $sellerRow = getSellerData($userID);
 
-    if (!$userTypeQuery)
-        die("User type Query prepare failed: " . $conn->error);
-
-    $userTypeQuery->bind_param("s", $userID);
-
-    if (!$userTypeQuery->execute())
-        die("User type query execution failed: " . $userTypeQuery->error);
-
-    $userTypeQueryResult = $userTypeQuery->get_result();
-
-    if ($userTypeQueryResult->num_rows == 0) {
-        // send a bootstrap alert that the email address already exists
-        echo "<script> alert('The entered email does not have a $userType account') </script>";
-        exit();
+        if ($sellerRow == null || $sellerRow == false) {
+            echo "<script> alert('The user does not have a seller account.') </script>";
+            exit;
+        }
     }
 
-    $userTypeRow = $userTypeQueryResult->fetch_assoc();
+    if ($userType == "admin")
+        $tableName = "admins";
+
     $encryptedPassword = $userRow['password'];
 
     if (password_verify($password, $encryptedPassword)) {
-        $_SESSION['userID'] = $userID;
-        $_SESSION['firstName'] = $userRow['firstName'];
-        $_SESSION['lastName'] = $userRow['lastName'];
-
-        // echo "<script> alert('Welcome back to Garden To Table " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] . ".') </script>";
-        // header("location: welcome.php"); 
 
         if ($userType == "seller") {
-            $_SESSION['sellerID'] = $userTypeRow['sID'];
+            $_SESSION['seller'] = new seller($userRow, $sellerRow);
             header("location: sellerhomepage.php");
         }
 
@@ -97,7 +64,5 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
         echo "<script> alert('Incorrect password entered.') </script>";
     }
 
-    $emailCheckQuery->close();
-    $userTypeQuery->close();
     $conn->close();
 }
