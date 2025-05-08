@@ -63,7 +63,6 @@ function getProductRow()
     $productRowQuery->close();
 }
 
-
 function getCategories()
 {
     global $conn;

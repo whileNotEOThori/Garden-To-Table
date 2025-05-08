@@ -1,7 +1,7 @@
 <?php
 include("seller.php");
 session_start();
-include('editproductfunctions.php');
+include("sellerfunctions.php");
 
 //redirect the user back to the homepage to sign in again if there is no active session
 if (empty($_SESSION['seller'])) {
@@ -87,7 +87,7 @@ if (empty($_SESSION['seller'])) {
 
                 <!-- Category Selection -->
                 <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select">
-                    <option selected>Category</option>
+                    <option value="" selected>Category</option>
                     <?php getCategories() ?>
                 </select>
 

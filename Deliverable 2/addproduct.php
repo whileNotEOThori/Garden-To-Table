@@ -1,9 +1,10 @@
 <?php
-session_start();
 include('connect.php');
+include('seller.php');
+session_start();
 
 //redirect the user back to the homepage to sign in again if there is no active session
-if (empty($_SESSION['sellerID'])) {
+if (empty($_SESSION['seller'])) {
     // echo "<script> alert('You have been signed out. Sign In again.') </script>";
     header("location: homepage.php");
     exit;
@@ -63,12 +64,14 @@ if (isset($_POST['addProduct'])) {
     if (!$addProductQuery)
         die("Add product query prepare failed: " . $conn->error);
 
-    $addProductQuery->bind_param("ssssssss", $_SESSION['sellerID'], $productCategory, $productName, $productDescription, $productMass, $productPrice, $productQuantity, $productImage);
+    $addProductQuery->bind_param("ssssssss", $_SESSION['seller']->sID, $productCategory, $productName, $productDescription, $productMass, $productPrice, $productQuantity, $productImage);
 
     if (!$addProductQuery->execute())
         die("Add product query execution failed: " . $addProductQuery->error);
 
     $addProductQuery->close();
+
+    header("location: addproductpage.php");
 
     //Retrieve image from database and display it on html webpage
     //use global keyword to declare conn and tablename inside a function

@@ -1,5 +1,6 @@
 <?php
 include("seller.php");
+include("sellerfunctions.php");
 session_start();
 
 //redirect the user back to the homepage to sign in again if there is no active session
@@ -79,9 +80,8 @@ if (empty($_SESSION['seller'])) {
 
         <!-- Category Selection -->
         <select class="form-select mb-3" id="productCategory" name="productCategory" aria-label="Category select" required>
-          <option selected>Category</option>
-          <option value="1">Fruits</option>
-          <option value="2">Vegetables</option>
+          <option value="" selected>Category</option>
+          <?php getCategories() ?>
         </select>
 
         <!-- Mass Input Div -->
