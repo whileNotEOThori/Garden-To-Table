@@ -99,32 +99,7 @@ if (empty($_SESSION['seller'])) {
   <?php include('sellerfooter.php') ?>
 
   <!-- Seller Sign Out Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Seller Sign In</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Sign In Form -->
-          <form id="sellerSignOutForm" action="signout.php" method="POST">
-            <div class="container" style="width: 450px">
-              <!-- Message -->
-              <p class="text-center">Are you sure you want to sign out?</p>
-              <p class="text-center">All you progress will be lost.</p>
-            </div>
-
-            <!-- Sign In Button -->
-            <div class="container" style="display: flex; justify-content: center">
-              <button type="submit" name="signOut" value="signOut" class="btn btn-primary">Sign Out</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+  <?php include('signoutmodal.php') ?>
 </body>
 
 </html>
