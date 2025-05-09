@@ -56,7 +56,6 @@ if (isset($_POST['addProduct'])) {
     }
 
     $tableName = "products";
-    // $productImage = base64_encode(file_get_contents(addslashes($fileTempName)));
     $productImage = file_get_contents(addslashes($fileTempName));
 
     $addProductQuery = $conn->prepare("INSERT INTO $tableName (sID, cID, name, description, mass, price, quantity, image) VALUES (?,?,?,?,?,?,?,?)");
@@ -72,33 +71,4 @@ if (isset($_POST['addProduct'])) {
     $addProductQuery->close();
 
     header("location: addproductpage.php");
-
-    //Retrieve image from database and display it on html webpage
-    //use global keyword to declare conn and tablename inside a function
-    //wont be called yet
-    function displayImages()
-    {
-        global $conn, $tableName;
-        $displayImagesQuery = $conn->prepare("SELECT * FROM $tableName");
-
-        if (!$displayImagesQuery)
-            die("Display images query prepare failed: " . $conn->error);
-
-        if (!$displayImagesQuery->execute())
-            die("Display images query execution failed: " . $displayImagesQuery->error);
-
-        $result = $displayImagesQuery->get_result();
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                // $image = $row['image']; // The image is already Base64-encoded in the database
-                // echo "<img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64,$image\" />";
-                $image = base64_encode($row['image']); // Encode the BLOB data as base64
-                echo "<img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64,$image\" />";
-            }
-        }
-
-        $displayImagesQuery->close();
-    }
-    //set the upload target folder
 }
