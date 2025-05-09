@@ -67,15 +67,7 @@ if (empty($_SESSION['seller'])) {
   </main>
 
   <!-- Footer -->
-  <footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="addproductpage.php" class="nav-link px-2 text-body-secondary">Add Product</a></li>
-      <li class="nav-item"><a href="editproductpage.php" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
-      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
-      <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
-    </ul>
-    <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
-  </footer>
+  <?php include('sellerfooter.php') ?>
 
   <!-- Seller Sign Out Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
