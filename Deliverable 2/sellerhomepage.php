@@ -22,9 +22,11 @@ isSellerSignedIn();
   <?php include('sellerheader.php') ?>
 
   <main>
-
-    <!-- <i class="bi bi-person-circle "></i> -->
-
+    <!-- Show all the products the seller has listed -->
+    <section id="productTable">
+      <h2>Products</h2>
+      <?php viewProducts($_SESSION['seller']->sID) ?>
+    </section>
   </main>
 
   <!-- Footer -->
