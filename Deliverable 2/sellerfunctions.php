@@ -192,8 +192,8 @@ function viewProducts($sellerID)
           <th scope='col'>Category</th>
           <th scope='col'>Name</th>
           <th scope='col'>Description</th>
-          <th scope='col'>Mass</th>
-          <th scope='col'>Price</th>
+          <th scope='col'>Mass [g]</th>
+          <th scope='col'>Price [R]</th>
           <th scope='col'>Quantity</th>
           <th scope='col'>Image</th>
           </tr>

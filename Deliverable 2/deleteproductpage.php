@@ -1,6 +1,5 @@
 <?php
 include("seller.php");
-include("product.php");
 include("sellerfunctions.php");
 session_start();
 
@@ -8,7 +7,7 @@ session_start();
 isSellerSignedIn();
 
 //remove the product from the session whenever the page is refreshed/reloaded
-unset($_SESSION['deleteProduct']);
+unset($_SESSION['deleteProductRow']);
 
 if (isset($_POST['deleteProduct'])) {
     // Retrieve/extract the delete product information entered in the form
@@ -20,6 +19,7 @@ if (isset($_POST['deleteProduct'])) {
         echo "<script> alert('You have not selected a product to edit')</script>";
         exit;
     }
+
     $productRow = getProductRow($productID);
 
     if ($productRow == null || $productRow == false) {
@@ -27,7 +27,7 @@ if (isset($_POST['deleteProduct'])) {
         exit;
     }
 
-    $_SESSION['deleteProduct'] = new product($productRow);
+    $_SESSION['deleteProductRow'] = $productRow;
 }
 ?>
 
@@ -82,16 +82,16 @@ if (isset($_POST['deleteProduct'])) {
                     <div class="row">
                         <?php echo "<p><strong>Are you sure you would like to delete the product below? </strong> </p>" ?>
                         <div class="col">
-                            <?php $image = $_SESSION['deleteProduct']->image; // Encode the BLOB data as base64
+                            <?php $image = base64_encode($_SESSION['deleteProductRow']['image']); // Encode the BLOB data as base64
                             echo "<img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64,$image\" />" ?>
                         </div>
 
                         <div class="col">
-                            <?php echo "<p><b>Product ID:</b> " . $_SESSION['deleteProduct']->pID . "</p>" ?>
-                            <?php echo "<p><b>Name:</b> " . $_SESSION['deleteProduct']->name . "</p>" ?>
-                            <?php echo "<p><b>Description:</b> " . $_SESSION['deleteProduct']->description . "</p>" ?>
-                            <?php echo "<p><b>Mass:</b> " . $_SESSION['deleteProduct']->mass . " g</p>" ?>
-                            <?php echo "<p><b>Price:</b> R" . $_SESSION['deleteProduct']->quantity . "</p>" ?>
+                            <?php echo "<p><b>Product ID:</b> " . $_SESSION['deleteProductRow']['pID'] . "</p>" ?>
+                            <?php echo "<p><b>Name:</b> " . $_SESSION['deleteProductRow']['name'] . "</p>" ?>
+                            <?php echo "<p><b>Description:</b> " . $_SESSION['deleteProductRow']['description'] . "</p>" ?>
+                            <?php echo "<p><b>Mass:</b> " . $_SESSION['deleteProductRow']['mass'] . " g</p>" ?>
+                            <?php echo "<p><b>Price:</b> R" . $_SESSION['deleteProductRow']['quantity'] . "</p>" ?>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@ if (isset($_POST['deleteProduct'])) {
         </div>
     </div>
 
-    <?php if (isset($_SESSION['deleteProduct'])): ?>
+    <?php if (isset($_SESSION['deleteProductRow'])): ?>
         <script>
             // Trigger the modal programmatically
             const deleteProductModal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
