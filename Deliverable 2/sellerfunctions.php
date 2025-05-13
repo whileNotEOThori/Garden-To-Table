@@ -16,17 +16,17 @@ function getProductIDandName()
     global $conn;
     $tableName = "products";
 
-    $productIDandNameQuery = $conn->prepare("SELECT * FROM $tableName WHERE sID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE sID = ?");
 
-    if (!$productIDandNameQuery)
+    if (!$query)
         die("Product ID and Name query prepare failed: " . $conn->error);
 
-    $productIDandNameQuery->bind_param("s", $_SESSION['seller']->sID);
+    $query->bind_param("s", $_SESSION['seller']->sID);
 
-    if (!$productIDandNameQuery->execute())
-        die("Product ID and Name query execution failed" . $productIDandNameQuery->error);
+    if (!$query->execute())
+        die("Product ID and Name query execution failed" . $query->error);
 
-    $result = $productIDandNameQuery->get_result();
+    $result = $query->get_result();
 
     if ($result->num_rows == 0) {
         echo "<script> alert('There are no products to edit') </script>";
@@ -41,7 +41,7 @@ function getProductIDandName()
         echo "<option value=" . $productID . ">" . $productID . " - " . $productName . "</option> ";
     }
 
-    $productIDandNameQuery->close();
+    $query->close();
 }
 
 function getProductRow($productID)
@@ -51,15 +51,15 @@ function getProductRow($productID)
 
     if (empty($productID)) die("Error: Product ID is empty or invalid." . $productID);
 
-    $productRowQuery = $conn->prepare("SELECT * FROM $tableName WHERE pID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE pID = ?");
 
-    if (!$productRowQuery) die("Product Row query prepare failed: " . $conn->error);
+    if (!$query) die("Product Row query prepare failed: " . $conn->error);
 
-    $productRowQuery->bind_param("i", $productID);
+    $query->bind_param("i", $productID);
 
-    if (!$productRowQuery->execute()) die("Product Row query execution failed" . $productRowQuery->error);
+    if (!$query->execute()) die("Product Row query execution failed" . $query->error);
 
-    $result = $productRowQuery->get_result();
+    $result = $query->get_result();
 
     //not necessary because the users selects from existing products
     if ($result->num_rows == 0) {
@@ -67,7 +67,7 @@ function getProductRow($productID)
         exit;
     }
 
-    $productRowQuery->close();
+    $query->close();
 
     return $result->fetch_assoc();
 }
@@ -77,15 +77,15 @@ function getCategories()
     global $conn;
     $tableName = "categories";
 
-    $getCategoryQuery = $conn->prepare("SELECT * FROM $tableName");
+    $query = $conn->prepare("SELECT * FROM $tableName");
 
-    if (!$getCategoryQuery)
+    if (!$query)
         die("Get category query prepare failed: " . $conn->error);
 
-    if (!$getCategoryQuery->execute())
-        die("Get category query execution failed" . $getCategoryQuery->error);
+    if (!$query->execute())
+        die("Get category query execution failed" . $query->error);
 
-    $result = $getCategoryQuery->get_result();
+    $result = $query->get_result();
 
     if ($result->num_rows == 0) {
         echo "<script> alert('There are no categories') </script>";
@@ -100,7 +100,7 @@ function getCategories()
         echo "<option value=" . $categoryID . ">" . $categoryName . "</option> ";
     }
 
-    $getCategoryQuery->close();
+    $query->close();
 }
 
 //Retrieve image from database and display it on html webpage
@@ -109,15 +109,15 @@ function getCategories()
 function displayImages()
 {
     global $conn, $tableName;
-    $displayImagesQuery = $conn->prepare("SELECT * FROM $tableName");
+    $query = $conn->prepare("SELECT * FROM $tableName");
 
-    if (!$displayImagesQuery)
+    if (!$query)
         die("Display images query prepare failed: " . $conn->error);
 
-    if (!$displayImagesQuery->execute())
-        die("Display images query execution failed: " . $displayImagesQuery->error);
+    if (!$query->execute())
+        die("Display images query execution failed: " . $query->error);
 
-    $result = $displayImagesQuery->get_result();
+    $result = $query->get_result();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -128,7 +128,7 @@ function displayImages()
         }
     }
 
-    $displayImagesQuery->close();
+    $query->close();
 }
 
 function editProductData($product)

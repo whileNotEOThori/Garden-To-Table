@@ -4,21 +4,20 @@ include("connect.php");
 function getUserData($emailAddress)
 {
     global $conn;
-    //set table name
     $tableName = "users";
 
     // get all the columns with the entered email address
-    $getUserDataQuery = $conn->prepare("SELECT * FROM $tableName WHERE emailAddress = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE emailAddress = ?");
 
-    if (!$getUserDataQuery)
+    if (!$query)
         die("Get user data query prepare failed: " . $conn->error);
 
-    $getUserDataQuery->bind_param("s", $emailAddress);
+    $query->bind_param("s", $emailAddress);
 
-    if (!$getUserDataQuery->execute())
-        die("Get user data query execution failed: " . $getUserDataQuery->error);
+    if (!$query->execute())
+        die("Get user data query execution failed: " . $query->error);
 
-    $result = $getUserDataQuery->get_result();
+    $result = $query->get_result();
 
     //check if the email address is already linked to an account
     if ($result->num_rows == 0) {
@@ -26,7 +25,7 @@ function getUserData($emailAddress)
         exit();
     }
 
-    $getUserDataQuery->close();
+    $query->close();
 
     return $result->fetch_assoc();
 }
@@ -36,24 +35,24 @@ function getSellerData($userID)
     global $conn;
     $tableName = "sellers";
 
-    $getSellerDataQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
-    if (!$getSellerDataQuery)
+    if (!$query)
         die("Get seller data query prepare failed: " . $conn->error);
 
-    $getSellerDataQuery->bind_param("s", $userID);
+    $query->bind_param("s", $userID);
 
-    if (!$getSellerDataQuery->execute())
-        die("Get seller data query execution failed: " . $getSellerDataQuery->error);
+    if (!$query->execute())
+        die("Get seller data query execution failed: " . $query->error);
 
-    $result = $getSellerDataQuery->get_result();
+    $result = $query->get_result();
 
     if ($result->num_rows == 0) {
         echo "<script> alert('The entered email does not have a seller account') </script>";
         exit();
     }
 
-    $getSellerDataQuery->close();
+    $query->close();
 
     return $result->fetch_assoc();
 }
@@ -64,24 +63,24 @@ function getBuyerData($userID)
     $tableName = "buyers";
 
     //get the seller ID of th User
-    $getBuyerDataQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
-    if (!$getBuyerDataQuery)
+    if (!$query)
         die("Get buyer data query prepare failed: " . $conn->error);
 
-    $getBuyerDataQuery->bind_param("s", $userID);
+    $query->bind_param("s", $userID);
 
-    if (!$getBuyerDataQuery->execute())
-        die("Get buyer data query execution failed: " . $getBuyerDataQuery->error);
+    if (!$query->execute())
+        die("Get buyer data query execution failed: " . $query->error);
 
-    $result = $getBuyerDataQuery->get_result();
+    $result = $query->get_result();
 
     if ($result->num_rows == 0) {
         echo "<script> alert('The entered email does not have a buyer account') </script>";
         exit();
     }
 
-    $getBuyerDataQuery->close();
+    $query->close();
 
     return $result->fetch_assoc();
 }
@@ -92,19 +91,19 @@ function emailCheck($emailAddress)
     $tableName = "users";
 
     // get all the columns with the entered email address
-    $emailCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE emailAddress = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE emailAddress = ?");
 
-    if (!$emailCheckQuery)
+    if (!$query)
         die("Email check query prepare failed: " . $conn->error);
 
-    $emailCheckQuery->bind_param("s", $emailAddress);
+    $query->bind_param("s", $emailAddress);
 
-    if (!$emailCheckQuery->execute())
-        die("Email check query execution failed: " . $emailCheckQuery->error);
+    if (!$query->execute())
+        die("Email check query execution failed: " . $query->error);
 
-    $emailCheckQuery->close();
+    $query->close();
 
-    return $emailCheckQuery->get_result();
+    return $query->get_result();
 }
 
 function isAlreadySeller($userID)
@@ -112,19 +111,19 @@ function isAlreadySeller($userID)
     global $conn;
     $tableName = "sellers";
 
-    $sellerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
-    if (!$sellerCheckQuery)
+    if (!$query)
         die("Seller check query prepare failed: " . $conn->error);
 
-    $sellerCheckQuery->bind_param("s", $userID);
+    $query->bind_param("s", $userID);
 
-    if (!$sellerCheckQuery->execute())
-        die("Seller check query execution failed: " . $sellerCheckQuery->error);
+    if (!$query->execute())
+        die("Seller check query execution failed: " . $query->error);
 
-    $sellerCheckQueryResult = $sellerCheckQuery->get_result();
+    $sellerCheckQueryResult = $query->get_result();
 
-    $sellerCheckQuery->close();
+    $query->close();
 
     if ($sellerCheckQueryResult->num_rows > 0)
         return true;
@@ -137,19 +136,19 @@ function isAlreadyBuyer($userID)
     global $conn;
     $tableName = "buyers";
 
-    $buyerCheckQuery = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
 
-    if (!$buyerCheckQuery)
+    if (!$query)
         die("Buyer check query prepare failed: " . $conn->error);
 
-    $buyerCheckQuery->bind_param("s", $userID);
+    $query->bind_param("s", $userID);
 
-    if (!$buyerCheckQuery->execute())
-        die("Buyer check query execution failed: " . $buyerCheckQuery->error);
+    if (!$query->execute())
+        die("Buyer check query execution failed: " . $query->error);
 
-    $buyerCheckQueryResult = $buyerCheckQuery->get_result();
+    $buyerCheckQueryResult = $query->get_result();
 
-    $buyerCheckQuery->close();
+    $query->close();
 
     if ($buyerCheckQueryResult->num_rows > 0)
         return true;
@@ -163,18 +162,18 @@ function addUserToTable($firstName, $lastName, $phoneNumber, $emailAddress, $pas
     $tableName = "users";
 
     //insert the details into the 
-    $signUpQuery = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
+    $query = $conn->prepare("INSERT INTO $tableName (firstName, lastName, phoneNumber, emailAddress, password) VALUES (?,?,?,?,?)");
 
     // Check for SQL errors
-    if (!$signUpQuery)
+    if (!$query)
         die("Signup query prepare failed: " . $conn->error);
 
-    $signUpQuery->bind_param("sssss", $firstName, $lastName, $phoneNumber, $emailAddress, $password);
+    $query->bind_param("sssss", $firstName, $lastName, $phoneNumber, $emailAddress, $password);
 
-    if (!$signUpQuery->execute())
-        die("Signup query execution failed: " . $signUpQuery->error);
+    if (!$query->execute())
+        die("Signup query execution failed: " . $query->error);
 
-    $signUpQuery->close();
+    $query->close();
 
     return true;
 }
@@ -184,18 +183,18 @@ function addBuyerToTable($userID, $streetAddress, $postcode)
     global $conn;
     $tableName = "buyers";
 
-    $buyerSignUpQuery = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
+    $query = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
 
     // Check for SQL errors
-    if (!$buyerSignUpQuery)
+    if (!$query)
         die("Buyer signup query prepare failed: " . $conn->error);
 
-    $buyerSignUpQuery->bind_param("sss", $userID, $streetAddress, $postcode);
+    $query->bind_param("sss", $userID, $streetAddress, $postcode);
 
-    if (!$buyerSignUpQuery->execute())
-        die("Buyer sign up query execution failed: " . $buyerSignUpQuery->error);
+    if (!$query->execute())
+        die("Buyer sign up query execution failed: " . $query->error);
 
-    $buyerSignUpQuery->close();
+    $query->close();
 
     return true;
 }
@@ -205,18 +204,18 @@ function addSellerToTable($userID, $streetAddress, $postcode)
     global $conn;
     $tableName = "sellers";
 
-    $sellerSignUpQuery = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
+    $query = $conn->prepare("INSERT INTO $tableName (uID, streetAddress, postcode) VALUES (?,?,?)");
 
     // Check for SQL errors
-    if (!$sellerSignUpQuery)
+    if (!$query)
         die("Seller signup query prepare failed: " . $conn->error);
 
-    $sellerSignUpQuery->bind_param("sss", $userID, $streetAddress, $postcode);
+    $query->bind_param("sss", $userID, $streetAddress, $postcode);
 
-    if (!$sellerSignUpQuery->execute())
-        die("Seller sign up query execution failed: " . $sellerSignUpQuery->error);
+    if (!$query->execute())
+        die("Seller sign up query execution failed: " . $query->error);
 
-    $sellerSignUpQuery->close();
+    $query->close();
 
     return true;
 }

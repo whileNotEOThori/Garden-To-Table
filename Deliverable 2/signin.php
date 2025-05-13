@@ -3,17 +3,19 @@ session_start();
 include('connect.php');
 include("functions.php");
 include("seller.php");
+include("buyer.php");
 
-if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
+if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['buyerSignIn'])) {
     //retrieve/extract the information entered in the form
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
 
     //determine if the user is signing in through the modal or signin page
-    if (isset($_POST['sellerSignIn'])) //modal
-        $userType = $_SESSION['userType'];
-    else //signin page
+    if (isset($_POST['signIn'])) //signin page
         $userType = $_POST['userType'];
+    else //modal
+        $userType = $_SESSION['userType'];
+
 
     //double check if a usertype has been selected
     if ($userType == "") {
@@ -31,7 +33,14 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
     $userID = $userRow['uID'];
 
     if ($userType == "buyer")
-        $tableName = "buyers";
+    {
+        $buyerRow = getBuyerData($userID);
+
+        if ($buyerRow == null || $buyerRow == false) {
+            echo "<script> alert('The user does not have a buyer account.') </script>";
+            exit;
+        }
+    }
 
     if ($userType == "seller") {
         $sellerRow = getSellerData($userID);
@@ -54,10 +63,12 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn'])) {
             header("location: sellerhomepage.php");
         }
 
-        /*if ($userType == "buyer")
-                header("location: sellerhomepage.html");
+        if ($userType == "buyer"){
+            $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
+            header("location: buyerhomepage.php");
+        }
 
-            if ($userType == "admin")
+            /*if ($userType == "admin")
                 header("location: sellerhomepage.html");*/
         exit;
     } else {

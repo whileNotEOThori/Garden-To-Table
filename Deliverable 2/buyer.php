@@ -8,7 +8,7 @@ class buyer extends user
     public $streetAddress;
     public $postcode;
 
-    public function __construct($userRow, $sellerRow)
+    public function __construct($userRow, $buyerRow)
     {
         $this->uID = $userRow['uID'];
         $this->firstName = $userRow['firstName'];
@@ -16,8 +16,8 @@ class buyer extends user
         $this->phoneNumber = $userRow['phoneNumber'];
         $this->emailAddress = $userRow['emailAddress'];
         $this->password = $userRow['password'];
-        $this->bID = $sellerRow['bID'];
-        $this->streetAddress = $sellerRow['streetAddress'];
-        $this->postcode = $sellerRow['postcode'];
+        $this->bID = $buyerRow['bID'];
+        $this->streetAddress = $buyerRow['streetAddress'];
+        $this->postcode = $buyerRow['postcode'];
     }
 }

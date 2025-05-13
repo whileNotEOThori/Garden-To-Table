@@ -92,11 +92,9 @@ if (isset($_POST['signUp'])) {
 
     echo "<script> alert('Account created successfully') </script>";
 
-    if ($userType == "seller")
-        header("location: sellerhomepage.html");
+    if ($userType == "seller") header("location: sellerhomepage.html");
 
-    /*if ($userType == "buyer")
-        header("location: sellerhomepage.html");*/
+    if ($userType == "buyer") header("location: buyerhomepage.php");
 
     $conn->close();
 }

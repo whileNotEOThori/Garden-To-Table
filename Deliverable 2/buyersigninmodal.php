@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Sign In Form -->
-                    <form id="sellerSignInForm" action="signin.php" method="POST">
+                    <form id="buyerSignInForm" action="signin.php" method="POST">
                         <div class="container" style="width: 450px">
                             <!-- Email Address Input Div -->
                             <div class="form-floating mb-3">
