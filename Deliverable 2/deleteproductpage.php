@@ -71,11 +71,11 @@ if (isset($_POST['deleteProduct'])) {
     <?php include('signoutmodal.php') ?>
 
     <!-- Modal -->
-    <div class="modal fade" id="deleteProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Product</h1>
+                    <h1 class="modal-title fs-5" id="deleteProductModalLabel">Delete Product</h1>
                     <button type="submit" id="deleteProductClose" name="deleteProductClose" value="deleteProductClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

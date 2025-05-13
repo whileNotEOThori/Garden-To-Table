@@ -95,6 +95,9 @@ session_start();
 
   <!-- Seller Sign In Modal -->
   <?php include("selllersigninmodal.php") ?>
+
+  <!-- Buyer Sign In Modal -->
+  <?php include("buyersigninmodal.php") ?>
 </body>
 
 </html>

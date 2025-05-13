@@ -15,9 +15,16 @@
             <?php if (!empty($_SESSION['seller'])): ?>
                 <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="sellerhomepage.php">Sell</a></li>
             <?php else: ?> <!-- Open the seller sign in modal if there no active session -->
-                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sell</a></li>
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#sellerSignInModal">Sell</a></li>
             <?php endif; ?>
-            <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Buy</a></li>
+
+            <!-- Redirect the buyer to the buyerhomepage if they already have an active session -->
+            <?php if (!empty($_SESSION['buyer'])): ?>
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="buyerhomepage.php">Buy</a></li>
+            <?php else: ?> <!-- Open the seller sign in modal if there no active session -->
+                <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#buyerSignInModal">Buy</a></li>
+            <?php endif; ?>
+
             <li class="nav-item"><a href="homepage.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
             <li class="nav-item"><a href="homepage.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
             <li class="nav-item"><a href="homepage.php#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
