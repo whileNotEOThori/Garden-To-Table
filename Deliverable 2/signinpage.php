@@ -9,12 +9,12 @@ session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Garden To Table</title>
-  <?php include("stylingdependecies.php") ?>
+  <?php require_once("stylingdependecies.php") ?>
 </head>
 
 <body>
   <!-- Header -->
-  <?php include("header.php") ?>
+  <?php require_once("header.php") ?>
 
   <main>
     <!-- Sign In Heading -->
@@ -66,13 +66,13 @@ session_start();
   </main>
 
   <!-- Footer -->
-  <?php include("footer.php") ?>
+  <?php require_once("footer.php") ?>
 
   <!-- Seller Sign In Modal -->
-  <?php include("selllersigninmodal.php") ?>
+  <?php require_once("selllersigninmodal.php") ?>
 
   <!-- Buyer Sign In Modal -->
-  <?php include("buyersigninmodal.php") ?>
+  <?php require_once("buyersigninmodal.php") ?>
 </body>
 
 </html>

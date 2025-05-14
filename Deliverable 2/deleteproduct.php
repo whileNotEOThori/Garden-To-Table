@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('connect.php');
-include('sellerfunctions.php');
+require_once('connect.php');
+require_once('sellerfunctions.php');
 
 if (isset($_POST['deleteProductNo']) || isset($_POST['deleteProductClose'])) unset($_SESSION['deleteProduct']);
 

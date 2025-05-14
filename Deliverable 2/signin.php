@@ -1,9 +1,7 @@
 <?php
 session_start();
-include('connect.php');
-include("functions.php");
-include("seller.php");
-include("buyer.php");
+require_once('connect.php');
+require_once("functions.php");
 
 if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['buyerSignIn'])) {
     //retrieve/extract the information entered in the form
@@ -11,11 +9,12 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
     $password = $_POST['password'];
 
     //determine if the user is signing in through the modal or signin page
-    if (isset($_POST['signIn'])) //signin page
+    if (isset($_POST['sellerSignIn']))
+        $userType = "seller";
+    else if (isset($_POST['buyerSignIn']))
+        $userType = "buyer";
+    else //signin page
         $userType = $_POST['userType'];
-    else //modal
-        $userType = $_SESSION['userType'];
-
 
     //double check if a usertype has been selected
     if ($userType == "") {
@@ -32,8 +31,7 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
 
     $userID = $userRow['uID'];
 
-    if ($userType == "buyer")
-    {
+    if ($userType == "buyer") {
         $buyerRow = getBuyerData($userID);
 
         if ($buyerRow == null || $buyerRow == false) {
@@ -63,12 +61,12 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
             header("location: sellerhomepage.php");
         }
 
-        if ($userType == "buyer"){
+        if ($userType == "buyer") {
             $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
             header("location: buyerhomepage.php");
         }
 
-            /*if ($userType == "admin")
+        /*if ($userType == "admin")
                 header("location: sellerhomepage.html");*/
         exit;
     } else {

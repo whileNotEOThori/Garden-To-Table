@@ -1,6 +1,6 @@
 <?php
-include('connect.php');
-include('seller.php');
+require_once('connect.php');
+require_once('seller.php');
 session_start();
 
 //redirect the user back to the homepage to sign in again if there is no active session

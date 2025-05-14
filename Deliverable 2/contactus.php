@@ -1,8 +1,7 @@
 <?php
-include('connect.php');
+require_once('connect.php');
 
-if (isset($_POST['contactUs']))
-{
+if (isset($_POST['contactUs'])) {
     //retrieve/extract the information entered in the form
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
@@ -18,7 +17,7 @@ if (isset($_POST['contactUs']))
     if (!$messageInsertQuery)
         die("Prepare failed: " . $conn->error);
 
-    $messageInsertQuery->bind_param("ssss", $firstName, $lastName, $emailAddress,$message);
+    $messageInsertQuery->bind_param("ssss", $firstName, $lastName, $emailAddress, $message);
 
     if (!$messageInsertQuery->execute())
         die("Execution failed: " . $messageInsertQuery->error);
@@ -30,4 +29,3 @@ if (isset($_POST['contactUs']))
     $messageInsertQuery->close();
     $conn->close();
 }
-?>

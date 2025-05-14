@@ -1,8 +1,8 @@
 <?php
 session_start();
-include('connect.php');
-include('sellerfunctions.php');
-include('product.php');
+require_once('connect.php');
+require_once('sellerfunctions.php');
+require_once('product.php');
 
 if (isset($_POST['editProduct'])) {
     //retrieve/extract the edited product information entered in the form

@@ -32,8 +32,6 @@
                             </div>
                         </div>
 
-                        <?php $_SESSION['userType'] = "buyer"; ?>
-
                         <!-- Sign In Button -->
                         <div class="container" style="display: flex; justify-content: center">
                             <button type="submit" name="buyerSignIn" value="buyerSignIn" class="btn btn-primary">Sign In</button>

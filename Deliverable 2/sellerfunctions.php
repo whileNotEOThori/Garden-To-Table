@@ -1,6 +1,6 @@
 <?php
-include('connect.php');
-include('product.php');
+require_once('connect.php');
+require_once('product.php');
 
 function isSellerSignedIn()
 {
