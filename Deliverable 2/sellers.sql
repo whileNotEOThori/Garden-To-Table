@@ -18,4 +18,14 @@ ALTER TABLE garden_to_table.sellers ADD postcode VARCHAR(5) NOT NULL;
 
 ALTER TABLE `garden_to_table`.`sellers` 
 ADD UNIQUE INDEX `uID_UNIQUE` (`uID` ASC) VISIBLE;
-;
+
+ALTER TABLE garden_to_table.sellers ADD bankName VARCHAR(100) NOT NULL;
+ALTER TABLE garden_to_table.sellers ADD branchCode VARCHAR(10) NOT NULL;
+ALTER TABLE garden_to_table.sellers ADD accountNumber VARCHAR(25) NOT NULL;
+
+ALTER TABLE `garden_to_table`.`sellers` 
+CHANGE COLUMN `bankName` `bankName` VARCHAR(100) NULL ,
+CHANGE COLUMN `branchCode` `branchCode` VARCHAR(10) NULL ,
+CHANGE COLUMN `accountNumber` `accountNumber` VARCHAR(25) NULL ;
+
+

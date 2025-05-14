@@ -240,3 +240,36 @@ function getCategoryName($cID)
 
     return $result->fetch_assoc()['name'];
 }
+
+function editSellerData($seller)
+{
+    global $conn;
+
+    ///////////////////////////////////////////////////////user table////////////////////////////////////////////
+    $tableName = "users";
+
+    $query = $conn->prepare("UPDATE $tableName SET firstName = ? , lastName = ? , phoneNumber = ? , emailAddress = ? , password = ? WHERE uID = ?");
+
+    if (!$query) die("Edit User data query prepare failed: " . $conn->error);
+
+    $query->bind_param("ssssss", $seller->firstName, $seller->lastName, $seller->phoneNumber, $seller->emailAddress, $seller->password, $seller->uID);
+
+    if (!$query->execute()) die("Edit user data query execution failed: " . $query->error);
+
+    $query->close();
+
+    ///////////////////////////////////////////////////////seller table////////////////////////////////////////////
+    $tableName = "sellers";
+
+    $query = $conn->prepare("UPDATE $tableName SET streetAddress = ? , postcode = ? , bankName = ? , branchCode = ? , accountNumber = ? WHERE sID = ?");
+
+    if (!$query) die("Edit seller data query prepare failed: " . $conn->error);
+
+    $query->bind_param("ssssss", $seller->streetAddress, $seller->postcode, $seller->bankName, $seller->branchCode, $seller->accountNumber, $seller->sID);
+
+    if (!$query->execute()) die("Edit seller data query execution failed: " . $query->error);
+
+    $query->close();
+
+    return true;
+}

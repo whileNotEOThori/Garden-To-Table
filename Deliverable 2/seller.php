@@ -8,6 +8,9 @@ class seller extends user
     public $streetAddress;
     public $postcode;
     public $totalSales;
+    public $bankName;
+    public $branchCode;
+    public $accountNumber;
 
     public function __construct($userRow, $sellerRow)
     {
@@ -21,5 +24,8 @@ class seller extends user
         $this->streetAddress = $sellerRow['streetAddress'];
         $this->postcode = $sellerRow['postcode'];
         $this->totalSales = $sellerRow['totalSales'];
+        $this->bankName = $sellerRow['bankName'];
+        $this->branchCode = $sellerRow['branchCode'];
+        $this->accountNumber = $sellerRow['accountNumber'];
     }
 }

@@ -21,12 +21,13 @@
                 <!-- Navbar links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
-                        <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="editproductpage.php">Edit Product</a></li>
-                        <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="deleteproductpage.php">Delete Product</a></li>
-                        <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" href="">Process Orders</a></li>
-                        <li class="nav-item"><a class="nav-link fs-5" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal" href="">Sign Out</a></li>
-                        <li class="nav-item"><a class="nav-link fs-5" style="color: darkolivegreen;" id="header-nav-link" href="sellerhomepage.php"><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['seller']->firstName . " " . $_SESSION['seller']->lastName ?></a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="viewpage.php">View Products</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="editproductpage.php">Edit Product</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="deleteproductpage.php">Delete Product</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="">Process Orders</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal" href="">Sign Out</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" style="color: darkolivegreen;" id="header-nav-link" href="sellerhomepage.php"><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['seller']->firstName . " " . $_SESSION['seller']->lastName ?></a></li>
                     </ul>
                 </div>
             </div>
