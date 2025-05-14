@@ -63,6 +63,7 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
 
         if ($userType == "buyer") {
             $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
+            $_SESSION['cart'] = array();
             header("location: buyerhomepage.php");
         }
 
