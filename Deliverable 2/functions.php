@@ -237,15 +237,28 @@ function displayProductCards()
     $query->close();
 
     if ($result->num_rows > 0) {
+        $counter = 1;
         while ($productRow = $result->fetch_assoc()) {
-            displayproductCard($productRow);
+            if ($counter == 1)
+                echo "<div class='row'>";
+
+            if ($counter <= 4) {
+                echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
+                displayproductCard($productRow);
+                echo "</div>";
+            }
+
+            if ($counter == 4)
+                echo "</div>";
+
+            $counter++;
         }
     }
 }
 
 function displayproductCard($productRow)
 {
-    echo "<div class='card m-3' style='width: 18rem;'>
+    echo "<div class='card'>
   <img src=\"data:image/jpeg;base64," . base64_encode($productRow['image']) . "\"  class='card-img-top' alt=" . $productRow['name'] . " Image>
   <div class='card-body'>
     <h5 class='card-title'>" . $productRow['name'] . "</h5>
