@@ -1,5 +1,6 @@
 <?php
 require_once("buyer.php");
+require_once("functions.php");
 session_start();
 
 ?>
@@ -17,6 +18,12 @@ session_start();
 <body>
     <!-- Header -->
     <?php require_once('buyerheader.php') ?>
+
+    <main>
+        <section>
+            <?php displayProductCards(); ?>
+        </section>
+    </main>
 
 
     <!-- Footer -->
