@@ -21,7 +21,7 @@
                 <!-- Navbar links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="">Buy</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="buypage.php">Buy</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="">View Orders</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="">Process Orders</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal" href="">Sign Out</a></li>

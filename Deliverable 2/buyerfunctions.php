@@ -26,24 +26,20 @@ function displayProductCards()
     $query->close();
 
     if ($result->num_rows > 0) {
-        $counter = 1;
+        $counter = 0;
+
         while ($productRow = $result->fetch_assoc()) {
-            if ($counter == 1)
-                echo "<div class='row'>";
+            if ($counter % 4 == 0) echo "<div class='row'>";
 
-            if ($counter <= 4) {
-                echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
-                displayproductCard($productRow);
-                echo "</div>";
-            }
-
-            if ($counter > 4) {
-                echo "</div>";
-                $counter = 1;
-            }
+            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
+            displayproductCard($productRow);
+            echo "</div>";
 
             $counter++;
+
+            if ($counter % 4 == 0) echo "</div>";
         }
+        if ($counter % 4 != 0) echo "</div>";
     }
 }
 

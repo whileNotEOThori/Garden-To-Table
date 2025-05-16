@@ -20,6 +20,12 @@ isBuyerSignedIn();
     <!-- Header -->
     <?php require_once('buyerheader.php') ?>
 
+    <main>
+        <section>
+            <?php displayProductCards(); ?>
+        </section>
+    </main>
+
     <!-- Footer -->
     <?php require_once('buyerfooter.php') ?>
 
