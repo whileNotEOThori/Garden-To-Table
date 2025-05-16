@@ -1,8 +1,9 @@
 <?php
 require_once("buyer.php");
-require_once("functions.php");
+require_once("buyerfunctions.php");
 session_start();
 
+isBuyerSignedIn();
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,6 @@ session_start();
             <?php displayProductCards(); ?>
         </section>
     </main>
-
 
     <!-- Footer -->
     <?php require_once('buyerfooter.php') ?>
