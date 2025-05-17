@@ -56,6 +56,9 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
 
     if (password_verify($password, $encryptedPassword)) {
 
+        // remove all session variables on sign in
+        session_unset();
+
         if ($userType == "seller") {
             $_SESSION['seller'] = new seller($userRow, $sellerRow);
             header("location: sellerhomepage.php");

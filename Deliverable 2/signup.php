@@ -72,6 +72,9 @@ if (isset($_POST['signUp'])) {
             exit;
         }
 
+        // remove all session variables on sign up
+        session_unset();
+
         // Instantiate a buyer
         $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
     } else {
@@ -85,6 +88,9 @@ if (isset($_POST['signUp'])) {
             echo "<script> alert('The seller data could not be retrieved.') </script>";
             exit;
         }
+
+        // remove all session variables on sign up
+        session_unset();
 
         // Instantiate a seller
         $_SESSION['seller'] = new seller($userRow, $sellerRow);
