@@ -1,7 +1,4 @@
 <?php
-require_once('connect.php');
-require_once("buyer.php");
-require_once('functions.php');
 require_once("buyerfunctions.php");
 session_start();
 
@@ -23,12 +20,18 @@ isBuyerSignedIn();
     <?php require_once('buyerheader.php') ?>
 
     <main>
+        <!--//////////////////////////////////////////////////////////////////////////  Testing //////////////////////////////////////////////////////////////////////////  -->
+        <?php foreach ($_SESSION['cart'] as $productID => $quantity) {
+            echo "ID: " . $productID . " = " . $quantity . "\n";
+        } ?>
+        <!--//////////////////////////////////////////////////////////////////////////  Testing //////////////////////////////////////////////////////////////////////////  -->
+
         <section id="filterSort">
             <form action="filterSort.php" method="POST">
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col col-4">
                         <!-- Filter Selection -->
-                        <select class="form-select mb-4" id="filter" name="filter" aria-label="Filter Select " required>
+                        <select class="form-select mb-3" id="filter" name="filter" aria-label="Filter Select " required>
                             <option selected>Filter</option>
                             <?php getCategories() ?>
                         </select>
@@ -36,7 +39,7 @@ isBuyerSignedIn();
 
                     <div class="col col-4">
                         <!-- Sort Selection -->
-                        <select class="form-select mb-4" id="sort" name="sort" aria-label="Sort Select" required>
+                        <select class="form-select mb-3" id="sort" name="sort" aria-label="Sort Select" required>
                             <option selected>Sort</option>
                             <option value="price09">Price: Low To High</option>
                             <option value="price90">Price: High to Low</option>

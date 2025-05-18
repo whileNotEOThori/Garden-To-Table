@@ -1,5 +1,5 @@
 <?php
-require_once('connect.php');
+require_once('buyerfunctions.php');
 session_start();
 
 if (isset($_POST['apply'])) {

@@ -1,7 +1,7 @@
 <?php
-session_start();
-require_once('connect.php');
 require_once('functions.php');
+session_start();
+
 
 if (isset($_POST['signUp'])) {
     //retrieve/extract the information entered in the form
@@ -77,6 +77,7 @@ if (isset($_POST['signUp'])) {
 
         // Instantiate a buyer
         $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
+        $_SESSION['cart'] = array();
     } else {
         if (!addBuyerToTable($userID, $streetAddress, $postcode)) {
             echo "<script> alert('The buyer details could not be added into the user table') </script>";

@@ -2,6 +2,7 @@
 require_once("connect.php");
 require_once("seller.php");
 require_once("buyer.php");
+require_once('product.php');
 
 function getCategories()
 {
@@ -251,4 +252,32 @@ function addSellerToTable($userID, $streetAddress, $postcode)
     $query->close();
 
     return true;
+}
+
+function getProductRow($productID)
+{
+    global $conn;
+    $tableName = "products";
+
+    if (empty($productID)) die("Error: Product ID is empty or invalid." . $productID);
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE pID = ?");
+
+    if (!$query) die("Product Row query prepare failed: " . $conn->error);
+
+    $query->bind_param("i", $productID);
+
+    if (!$query->execute()) die("Product Row query execution failed" . $query->error);
+
+    $result = $query->get_result();
+
+    //not necessary because the users selects from existing products
+    if ($result->num_rows == 0) {
+        echo "<script> alert('The product is not stored in the database') </script>";
+        exit;
+    }
+
+    $query->close();
+
+    return $result->fetch_assoc();
 }

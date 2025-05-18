@@ -1,6 +1,5 @@
 <?php
-require_once("connect.php");
-require_once("buyer.php");
+require_once('functions.php');
 
 function isBuyerSignedIn()
 {
@@ -18,10 +17,37 @@ function displayProductCard($productRow)
                 <div class='card-body'>
                     <h5 class='card-title'>" . $productRow['name'] . "</h5>
                     <p class='card-text'><strong>Price:</strong> R" . $productRow['price'] . "<br> <strong>Mass:</strong> " . $productRow['mass'] . " grams</p>
-                    <button type='submit' name='addToCart' value='addToCart' class='btn btn-success'>Add To Cart</button>
-                    <button type='submit' name='viewProduct' value='viewProduct' class='btn btn-secondary'>View</button>
+                    <form action='addtocart.php' method='POST'>
+                        <button type='submit' name='quickAddToCart' value=" . $productRow['pID'] . " class='btn btn-success'>Add To Cart</button>
+                        <button type='submit' name='viewProduct' value=" . $productRow['pID'] . " class='btn btn-secondary'>View</button>
+                    </form>
                 </div>
             </div>";
+}
+
+function displayProductCardsFromResult($result)
+{
+    if (!$result) {
+        echo "<h3>There are currently no products listed.</h3>";
+        return;
+    }
+
+    if ($result->num_rows > 0) {
+        $counter = 0;
+        echo "<div class='container-fluid'>";
+        while ($productRow = $result->fetch_assoc()) {
+            if ($counter % 4 == 0) echo "<div class='row'>";
+            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
+            displayProductCard($productRow);
+            echo "</div>";
+            $counter++;
+            if ($counter % 4 == 0) echo "</div>";
+        }
+        if ($counter % 4 != 0) echo "</div>"; // Close last row if not complete
+        echo "</div>"; // Close container
+    } else {
+        echo "<h3>There are currently no products listed.</h3>";
+    }
 }
 
 function getAllProducts()
@@ -44,36 +70,13 @@ function getAllProducts()
 function displayProductCards()
 {
     $result = getAllProducts();
-
-    if (!$result) die("False was returned when getting/retrieving the products");
-
-    if ($result->num_rows > 0) {
-        $counter = 0;
-
-        while ($productRow = $result->fetch_assoc()) {
-            if ($counter % 4 == 0) echo "<div class='row'>";
-
-            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
-            displayProductCard($productRow);
-            echo "</div>";
-
-            $counter++;
-
-            if ($counter % 4 == 0) echo "</div>";
-        }
-        if ($counter % 4 != 0) echo "</div>";
-    } else {
-        echo "<h3>There are currently no products listed.</h3>";
-    }
+    displayProductCardsFromResult($result);
 }
 
 function getProductsFiltered()
 {
     global $conn;
     $tableName = "products";
-
-    // if ($_SESSION['filterState'] == "none")
-    // return getAllProducts();
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ?");
 
@@ -92,27 +95,7 @@ function getProductsFiltered()
 function displayProductCardsFiltered()
 {
     $result = getProductsFiltered();
-
-    if (!$result) die("False was returned when getting/retrieving the filtered products");
-
-    if ($result->num_rows > 0) {
-        $counter = 0;
-
-        while ($productRow = $result->fetch_assoc()) {
-            if ($counter % 4 == 0) echo "<div class='row'>";
-
-            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
-            displayProductCard($productRow);
-            echo "</div>";
-
-            $counter++;
-
-            if ($counter % 4 == 0) echo "</div>";
-        }
-        if ($counter % 4 != 0) echo "</div>";
-    } else {
-        echo "<h3>There are currently no products listed.</h3>";
-    }
+    displayProductCardsFromResult($result);
 }
 
 function getProductsSorted()
@@ -120,9 +103,6 @@ function getProductsSorted()
     global $conn;
     $tableName = "products";
     $order = $_SESSION['sortState'];
-
-    // if ($order == "none")
-    // return getAllProducts();
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 $order");
 
@@ -139,27 +119,7 @@ function getProductsSorted()
 function displayProductCardsSorted()
 {
     $result = getProductsSorted();
-
-    if (!$result) die("False was returned when getting/retrieving the products sorted ");
-
-    if ($result->num_rows > 0) {
-        $counter = 0;
-
-        while ($productRow = $result->fetch_assoc()) {
-            if ($counter % 4 == 0) echo "<div class='row'>";
-
-            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
-            displayProductCard($productRow);
-            echo "</div>";
-
-            $counter++;
-
-            if ($counter % 4 == 0) echo "</div>";
-        }
-        if ($counter % 4 != 0) echo "</div>";
-    } else {
-        echo "<h3>There are currently no products listed.</h3>";
-    }
+    displayProductCardsFromResult($result);
 }
 
 function getProductsFilteredAndSorted()
@@ -167,7 +127,6 @@ function getProductsFilteredAndSorted()
     global $conn;
     $tableName = "products";
     $order = $_SESSION['sortState'];
-
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? $order");
 
@@ -186,25 +145,5 @@ function getProductsFilteredAndSorted()
 function displayProductCardsFilteredAndSorted()
 {
     $result = getProductsFilteredAndSorted();
-
-    if (!$result) die("False was returned when getting/retrieving the products filtered and sorted ");
-
-    if ($result->num_rows > 0) {
-        $counter = 0;
-
-        while ($productRow = $result->fetch_assoc()) {
-            if ($counter % 4 == 0) echo "<div class='row'>";
-
-            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
-            displayProductCard($productRow);
-            echo "</div>";
-
-            $counter++;
-
-            if ($counter % 4 == 0) echo "</div>";
-        }
-        if ($counter % 4 != 0) echo "</div>";
-    } else {
-        echo "<h3>There are currently no products listed.</h3>";
-    }
+    displayProductCardsFromResult($result);
 }

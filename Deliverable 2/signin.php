@@ -1,7 +1,6 @@
 <?php
-session_start();
-require_once('connect.php');
 require_once("functions.php");
+session_start();
 
 if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['buyerSignIn'])) {
     //retrieve/extract the information entered in the form
