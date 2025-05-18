@@ -16,3 +16,5 @@ CREATE TABLE products (
 );
 
 select * from garden_to_table.products;
+
+select * from garden_to_table.products order by price desc;

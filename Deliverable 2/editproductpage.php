@@ -1,5 +1,6 @@
 <?php
 require_once("seller.php");
+require_once("functions.php");
 require_once("sellerfunctions.php");
 session_start();
 

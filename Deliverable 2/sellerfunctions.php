@@ -72,37 +72,6 @@ function getProductRow($productID)
     return $result->fetch_assoc();
 }
 
-function getCategories()
-{
-    global $conn;
-    $tableName = "categories";
-
-    $query = $conn->prepare("SELECT * FROM $tableName");
-
-    if (!$query)
-        die("Get category query prepare failed: " . $conn->error);
-
-    if (!$query->execute())
-        die("Get category query execution failed" . $query->error);
-
-    $result = $query->get_result();
-
-    if ($result->num_rows == 0) {
-        echo "<script> alert('There are no categories') </script>";
-        // header('location: editproductpage.php');
-        exit;
-    }
-
-    while ($row  = $result->fetch_assoc()) {
-        $categoryID = $row['cID'];
-        $categoryName = $row['name'];
-
-        echo "<option value=" . $categoryID . ">" . $categoryName . "</option> ";
-    }
-
-    $query->close();
-}
-
 //Retrieve image from database and display it on html webpage
 //use global keyword to declare conn and tablename inside a function
 //wont be called yet
