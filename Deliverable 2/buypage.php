@@ -57,9 +57,11 @@ isBuyerSignedIn();
 
         <section>
             <?php
-            if (!isset($_SESSION['filterState']) && !isset($_SESSION['SortState'])) displayProductCards();
-
-            if (isset($_SESSION['filterState']) && !empty($_SESSION['filterState']) /*|| $_SESSION['filterState'] != ""*/) displayProductCardsFiltered();
+            if (!isset($_SESSION['filterState']) && !isset($_SESSION['sortState'])) displayProductCards();
+            else if ($_SESSION['filterState'] == "none" && $_SESSION['sortState'] == "none") displayProductCards();
+            else if ($_SESSION['filterState'] != "none" && $_SESSION['sortState'] == "none") displayProductCardsFiltered();
+            else if ($_SESSION['filterState'] == "none" && $_SESSION['sortState'] != "none") displayProductCardsSorted();
+            else if ($_SESSION['filterState'] != "none" && $_SESSION['sortState'] != "none") displayProductCardsFilteredAndSorted();
             ?>
         </section>
     </main>

@@ -31,32 +31,9 @@ function getAllProducts()
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0");
 
-    if (!$query) die("Display product cards query prepare failed: " . $conn->error);
+    if (!$query) die("Get all products query prepare failed: " . $conn->error);
 
-    if (!$query->execute()) die("Display product cards query execution failed: " . $query->error);
-
-    $result = $query->get_result();
-    $query->close();
-
-    return $result;
-}
-
-function getFilteredProducts()
-{
-    global $conn;
-    $tableName = "products";
-
-    // if (empty($_SESSION['filterState']))
-    if ($_SESSION['filterState'] == "none")
-        return getAllProducts();
-
-    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ?");
-
-    if (!$query) die("Display filtered product cards query prepare failed: " . $conn->error);
-
-    $query->bind_param('i', $_SESSION['filterState']);
-
-    if (!$query->execute()) die("Display filtered product cards query execution failed: " . $query->error);
+    if (!$query->execute()) die("Get all products query execution failed: " . $query->error);
 
     $result = $query->get_result();
     $query->close();
@@ -90,11 +67,127 @@ function displayProductCards()
     }
 }
 
+function getProductsFiltered()
+{
+    global $conn;
+    $tableName = "products";
+
+    // if ($_SESSION['filterState'] == "none")
+    // return getAllProducts();
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ?");
+
+    if (!$query) die("Display filtered product cards query prepare failed: " . $conn->error);
+
+    $query->bind_param('i', $_SESSION['filterState']);
+
+    if (!$query->execute()) die("Display filtered product cards query execution failed: " . $query->error);
+
+    $result = $query->get_result();
+    $query->close();
+
+    return $result;
+}
+
 function displayProductCardsFiltered()
 {
-    $result = getFilteredProducts();
+    $result = getProductsFiltered();
 
     if (!$result) die("False was returned when getting/retrieving the filtered products");
+
+    if ($result->num_rows > 0) {
+        $counter = 0;
+
+        while ($productRow = $result->fetch_assoc()) {
+            if ($counter % 4 == 0) echo "<div class='row'>";
+
+            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
+            displayProductCard($productRow);
+            echo "</div>";
+
+            $counter++;
+
+            if ($counter % 4 == 0) echo "</div>";
+        }
+        if ($counter % 4 != 0) echo "</div>";
+    } else {
+        echo "<h3>There are currently no products listed.</h3>";
+    }
+}
+
+function getProductsSorted()
+{
+    global $conn;
+    $tableName = "products";
+    $order = $_SESSION['sortState'];
+
+    // if ($order == "none")
+    // return getAllProducts();
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 $order");
+
+    if (!$query) die("Get products sorted query prepare failed: " . $conn->error);
+
+    if (!$query->execute()) die("Get products sorted query execution failed: " . $query->error);
+
+    $result = $query->get_result();
+    $query->close();
+
+    return $result;
+}
+
+function displayProductCardsSorted()
+{
+    $result = getProductsSorted();
+
+    if (!$result) die("False was returned when getting/retrieving the products sorted ");
+
+    if ($result->num_rows > 0) {
+        $counter = 0;
+
+        while ($productRow = $result->fetch_assoc()) {
+            if ($counter % 4 == 0) echo "<div class='row'>";
+
+            echo "<div class='col-6 col-md-3 mb-3 mt-3'>";
+            displayProductCard($productRow);
+            echo "</div>";
+
+            $counter++;
+
+            if ($counter % 4 == 0) echo "</div>";
+        }
+        if ($counter % 4 != 0) echo "</div>";
+    } else {
+        echo "<h3>There are currently no products listed.</h3>";
+    }
+}
+
+function getProductsFilteredAndSorted()
+{
+    global $conn;
+    $tableName = "products";
+    $order = $_SESSION['sortState'];
+
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? $order");
+
+    if (!$query) die("Get products filtered and sorted query prepare failed: " . $conn->error);
+
+    $query->bind_param('i', $_SESSION['filterState']);
+
+    if (!$query->execute()) die("Get products filtered and sorted query execution failed: " . $query->error);
+
+    $result = $query->get_result();
+    $query->close();
+
+    return $result;
+}
+
+function displayProductCardsFilteredAndSorted()
+{
+    $result = getProductsFilteredAndSorted();
+
+    if (!$result) die("False was returned when getting/retrieving the products filtered and sorted ");
 
     if ($result->num_rows > 0) {
         $counter = 0;

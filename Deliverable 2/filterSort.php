@@ -7,24 +7,23 @@ if (isset($_POST['apply'])) {
     $sort = $_POST['sort'];
 
     switch ($sort) {
-        case 'price09':
+        case "price09":
             $orderBy = "ORDER BY price ASC";
             break;
-        case 'price90':
+        case "price90":
             $orderBy = "ORDER BY price DESC";
             break;
-        case 'nameAZ':
+        case "nameAZ":
             $orderBy = "ORDER BY name ASC";
             break;
-        case 'nameZA':
+        case "nameZA":
             $orderBy = "ORDER BY name DESC";
             break;
         default:
-            $orderBy = "";
+            $orderBy = "none";
             break;
     }
 
-    // $_SESSION['filterState'] =  ($filter != "Filter") ? $filter : [];
     $_SESSION['filterState'] =  ($filter != "Filter") ? $filter : "none";
     $_SESSION['sortState'] =  $orderBy;
 
@@ -33,7 +32,6 @@ if (isset($_POST['apply'])) {
 
 if (isset($_POST['reset'])) {
     $_SESSION['filterState'] = "none";
-    // $_SESSION['filterState'] = [];
-    // $_SESSION['sortState'] = "none";
+    $_SESSION['sortState'] = "none";
     header("location: buypage.php");
 }
