@@ -2,7 +2,7 @@
 require_once("connect.php");
 require_once("seller.php");
 require_once("buyer.php");
-require_once('product.php');
+require_once("product.php");
 
 function getCategories()
 {

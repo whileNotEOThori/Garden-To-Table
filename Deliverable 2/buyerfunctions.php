@@ -19,6 +19,8 @@ function displayProductCard($productRow)
                     <p class='card-text'><strong>Price:</strong> R" . $productRow['price'] . "<br> <strong>Mass:</strong> " . $productRow['mass'] . " grams</p>
                     <form action='addtocart.php' method='POST'>
                         <button type='submit' name='quickAddToCart' value=" . $productRow['pID'] . " class='btn btn-success'>Add To Cart</button>
+                    </form>
+                    <form action='viewproduct.php' method='POST'>
                         <button type='submit' name='viewProduct' value=" . $productRow['pID'] . " class='btn btn-secondary'>View</button>
                     </form>
                 </div>
