@@ -17,3 +17,15 @@ if (isset($_POST['quickAddToCart'])) {
 
     header("location: buypage.php");
 }
+
+if (isset($_POST['addToCart'])) {
+    $productID = $_POST['addToCart'];
+    $quantity = $_POST['productQuantity'];
+
+    if (isset($_SESSION['cart'][$productID]))
+        $_SESSION['cart'][$productID] += $quantity;
+    else
+        $_SESSION['cart'][$productID] = $quantity;
+
+    header("location: viewproductpage.php");
+}

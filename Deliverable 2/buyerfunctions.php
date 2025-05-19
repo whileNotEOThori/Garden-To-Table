@@ -13,16 +13,21 @@ function isBuyerSignedIn()
 function displayProductCard($productRow)
 {
     echo    "<div class='card'>
-                <img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64," . base64_encode($productRow['image']) . "\"  class='card-img-top' alt=" . $productRow['name'] . " Image>
-                <div class='card-body'>
-                    <h5 class='card-title'>" . $productRow['name'] . "</h5>
-                    <p class='card-text'><strong>Price:</strong> R" . $productRow['price'] . "<br> <strong>Mass:</strong> " . $productRow['mass'] . " grams</p>
-                    <form action='addtocart.php' method='POST'>
-                        <button type='submit' name='quickAddToCart' value=" . $productRow['pID'] . " class='btn btn-success'>Add To Cart</button>
-                    </form>
-                    <form action='viewproduct.php' method='POST'>
-                        <button type='submit' name='viewProduct' value=" . $productRow['pID'] . " class='btn btn-secondary'>View</button>
-                    </form>
+            <img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64," . base64_encode($productRow['image']) . "\"  class='card-img-top' alt=\"" . $productRow['name'] . " Image\">
+            <div class='card-body'>
+                <h5 class='card-title'>" . $productRow['name'] . "</h5>
+                <p class='card-text'><strong>Price:</strong> R" . $productRow['price'] . "<br> <strong>Mass:</strong> " . $productRow['mass'] . " grams</p>
+                <form action='addtocart.php' method='POST'>";
+
+    if (isset($_SESSION['cart'][$productRow['pID']]) && $_SESSION['cart'][$productRow['pID']] == $productRow['quantity'])
+        echo "<button type='submit' name='quickAddToCart' value='" . $productRow['pID'] . "' class='btn btn-success' disabled>Add To Cart</button>";
+    else
+        echo "<button type='submit' name='quickAddToCart' value='" . $productRow['pID'] . "' class='btn btn-success'>Add To Cart</button>";
+
+    echo        "</form>
+                <form action='viewproduct.php' method='POST'>
+                    <button type='submit' name='viewProduct' value='" . $productRow['pID'] . "' class='btn btn-secondary'>View</button>
+                </form>
                 </div>
             </div>";
 }

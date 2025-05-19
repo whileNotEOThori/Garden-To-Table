@@ -27,33 +27,36 @@ isBuyerSignedIn();
         else
             $max =  $_SESSION['viewProduct']->quantity;
 
-        echo "<div class='row p-5'>
-                <h2> View Product</h2>
-                <div class='col'>
-                    <img height='250px' width='250px' src='data:image/jpeg;base64," . $_SESSION['viewProduct']->image . "'  alt=" . $_SESSION['viewProduct']->name . " Image>
-                </div>
-
-                <div class='col'>
-                    <p><strong>Product ID:</strong> " . $_SESSION['viewProduct']->pID . "</p>
-                    <p><strong>Name:</strong> " . $_SESSION['viewProduct']->name . "</p>
-                    <p><strong>Description:</strong> " . $_SESSION['viewProduct']->description . "</p>
-                    <p><strong>Mass:</strong> " . $_SESSION['viewProduct']->mass . " g</p>
-                    <p><strong>Price:</strong> R" . $_SESSION['viewProduct']->price . "</p>
-                    <p><strong>Quantity in stock:</strong> " . $_SESSION['viewProduct']->quantity . "</p>
-                </div>
-
-                <div class='col col-12 col-md-4'>
-                    <form id='viewProductAddToCart' action='addtocart.php' method='POST'>
-                        <div class='form-floating mb-3'>
-                            <input type='number' class='form-control' id='productQuantity' name='productQuantity' placeholder='Quantity' min='1' max='" . $max . "' required />
-                            <label for='productQuantity'>Quantity</label>
-                        </div>
-
-                        <button type='submit' name='addToCart' value=" . $_SESSION['viewProduct']->pID . " class='btn btn-success'>Add To Cart</button>
-                    </form>
-                </div>
-            </div>"
         ?>
+        <div class='row p-5'>
+            <h2> View Product</h2>
+            <div class='col'>
+                <img height='250px' width='250px' src='data:image/jpeg;base64,<?php echo $_SESSION['viewProduct']->image; ?>' alt="<?php echo $_SESSION['viewProduct']->name; ?> Image">
+            </div>
+
+            <div class='col'>
+                <p><strong>Product ID:</strong> <?php echo $_SESSION['viewProduct']->pID; ?></p>
+                <p><strong>Name:</strong> <?php echo $_SESSION['viewProduct']->name; ?></p>
+                <p><strong>Description:</strong> <?php echo $_SESSION['viewProduct']->description; ?></p>
+                <p><strong>Mass:</strong> <?php echo $_SESSION['viewProduct']->mass; ?> g</p>
+                <p><strong>Price:</strong> R<?php echo $_SESSION['viewProduct']->price; ?></p>
+                <p><strong>Quantity in stock:</strong> <?php echo $_SESSION['viewProduct']->quantity; ?></p>
+            </div>
+
+            <div class='col col-12 col-md-4'>
+                <form id='viewProductAddToCart' action='addtocart.php' method='POST'>
+                    <div class='form-floating mb-3'>
+                        <input type='number' class='form-control' id='productQuantity' name='productQuantity' placeholder='Quantity' min='1' max='<?php echo $max; ?>' required />
+                        <label for='productQuantity'>Quantity</label>
+                    </div>
+                    <?php if (isset($_SESSION['cart'][$_SESSION['viewProduct']->pID]) && $_SESSION['cart'][$_SESSION['viewProduct']->pID] == $_SESSION['viewProduct']->quantity): ?>
+                        <button type='submit' name='addToCart' value='<?php echo $_SESSION['viewProduct']->pID; ?>' class='btn btn-success' disabled>Add To Cart</button>
+                    <?php else: ?>
+                        <button type='submit' name='addToCart' value='<?php echo $_SESSION['viewProduct']->pID; ?>' class='btn btn-success'>Add To Cart</button>
+                    <?php endif; ?>
+                </form>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
