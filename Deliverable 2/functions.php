@@ -135,9 +135,11 @@ function emailCheck($emailAddress)
     if (!$query->execute())
         die("Email check query execution failed: " . $query->error);
 
+    $result = $query->get_result();
+
     $query->close();
 
-    return $query->get_result();
+    return $result;
 }
 
 function isAlreadySeller($userID)

@@ -35,19 +35,19 @@ if (isset($_POST['signUp'])) {
 
         if ($userType == "buyer") {
             if (isAlreadyBuyer(($userID))) {
-                echo "<script> alert('The entered email is already registered to an account') </script>";
+                echo "<script> alert('The entered email is already registered to a buyer account') </script>";
                 exit();
             }
         } else {
             if (isAlreadySeller($userID)) {
-                echo "<script> alert('The entered email is already registered to an account') </script>";
+                echo "<script> alert('The entered email is already registered to a seller account') </script>";
                 exit();
             }
         }
     } else {
         //insert the details into the 
-        if (!addUserToTable($firstName, $lastName, $phoneNumber, $emailAddress, $password)); {
-            echo "<script> alert('The user  details could not be added into the user table') </script>";
+        if (!addUserToTable($firstName, $lastName, $phoneNumber, $emailAddress, $password)) {
+            echo "<script> alert('The user details could not be added into the user table') </script>";
             exit();
         }
     }
@@ -79,8 +79,8 @@ if (isset($_POST['signUp'])) {
         $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
         $_SESSION['cart'] = array();
     } else {
-        if (!addBuyerToTable($userID, $streetAddress, $postcode)) {
-            echo "<script> alert('The buyer details could not be added into the user table') </script>";
+        if (!addSellerToTable($userID, $streetAddress, $postcode)) {
+            echo "<script> alert('The seller details could not be added into the user table') </script>";
             exit();
         }
 
@@ -99,7 +99,7 @@ if (isset($_POST['signUp'])) {
 
     echo "<script> alert('Account created successfully') </script>";
 
-    if ($userType == "seller") header("location: sellerhomepage.html");
+    if ($userType == "seller") header("location: sellerhomepage.php");
 
     if ($userType == "buyer") header("location: buyerhomepage.php");
 
