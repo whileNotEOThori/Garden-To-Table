@@ -19,6 +19,9 @@ isBuyerSignedIn();
     <!-- Header -->
     <?php require_once('buyerheader.php') ?>
 
+    <!-- Cart modal -->
+    <?php require_once('cartmodal.php') ?>
+
     <!-- Footer -->
     <?php require_once('buyerfooter.php') ?>
 

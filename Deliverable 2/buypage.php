@@ -19,14 +19,11 @@ isBuyerSignedIn();
     <!-- Header -->
     <?php require_once('buyerheader.php') ?>
 
-    <main>
-        <!--//////////////////////////////////////////////////////////////////////////  Testing //////////////////////////////////////////////////////////////////////////  -->
-        <?php foreach ($_SESSION['cart'] as $productID => $quantity) {
-            echo "ID: " . $productID . " = " . $quantity . "\n";
-        } ?>
-        <!--//////////////////////////////////////////////////////////////////////////  Testing //////////////////////////////////////////////////////////////////////////  -->
+    <!-- Cart modal -->
+    <?php require_once('cartmodal.php') ?>
 
-        <section id="filterSort">
+    <main>
+       <section id="filterSort">
             <form action="filterSort.php" method="POST">
                 <div class="row mt-3">
                     <div class="col col-4">

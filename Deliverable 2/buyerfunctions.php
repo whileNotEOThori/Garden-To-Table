@@ -154,3 +154,41 @@ function displayProductCardsFilteredAndSorted()
     $result = getProductsFilteredAndSorted();
     displayProductCardsFromResult($result);
 }
+
+function displayCartProductsModal()
+{
+    $total = 0.00;
+    echo "<table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>Image</th>
+          <th scope='col'>Name</th>
+          <th scope='col'>Unit Mass [g]</th>
+          <th scope='col'>Unit Price [R]</th>
+          <th scope='col'>Quantity</th>
+          <th scope='col'>Total Mass [g]</th>
+          <th scope='col'>Total Price [R]</th>
+          </tr>
+        </thead>
+        <tbody>";
+    foreach ($_SESSION['cart'] as $productID => $quantity) {
+        $productRow = getProductRow($productID);
+        $image = base64_encode($productRow['image']); // Encode the BLOB data as base64
+        $total += $productRow['price'] * $quantity;
+
+        echo "<tr>
+            <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
+            <td>" . $productRow['name'] . "</td>
+            <td>" . $productRow['mass'] . "</td>
+            <td>" .  $productRow['price'] . "</td>
+            <td>" . $quantity  . "</td>
+            <td>" .  $productRow['mass'] * $quantity . "</td>
+            <td>" .  $productRow['price'] * $quantity . "</td>
+          </tr>";
+    }
+    echo "</tbody>
+      </table>
+      <p><strong>Service Fee:</strong> R" . $total * 0.05 . " </p>
+      <p><strong>Total:</strong> R" . $total . " </p>
+      <p><strong>Grand Total:</strong> R" . $total * 1.05 . " </p>";
+}
