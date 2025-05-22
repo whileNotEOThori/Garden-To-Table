@@ -155,7 +155,7 @@ function displayProductCardsFilteredAndSorted()
     displayProductCardsFromResult($result);
 }
 
-function displayCartProductsModal()
+function displayCartProductTable()
 {
     $total = 0.00;
     echo "<table class='table table-striped'>
