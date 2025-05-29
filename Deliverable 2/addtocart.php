@@ -22,8 +22,8 @@ if (isset($_POST['addToCart'])) {
     $productID = $_POST['addToCart'];
     $quantity = $_POST['productQuantity'];
 
-    if (isset($_SESSION['cart'][$productID]))
-        $_SESSION['cart'][$productID] += $quantity;
+    if ($quantity == 0)
+        unset($_SESSION['cart'][$productID]);
     else
         $_SESSION['cart'][$productID] = $quantity;
 

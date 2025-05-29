@@ -1,4 +1,5 @@
 <?php
+require_once('functions.php');
 session_start();
 ?>
 
@@ -75,7 +76,7 @@ session_start();
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">Garden To Table will charge a 5% services fee on all orders.</div>
+            <div class="accordion-body">Garden To Table will charge a <?php echo $_ENV['SERVICE_FEE'] * 100 ?>% services fee on all orders.</div>
           </div>
         </div>
         <!-- Payment -->

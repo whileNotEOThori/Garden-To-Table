@@ -175,22 +175,31 @@ function displayCartProductTable()
         $productRow = getProductRow($productID);
         $image = base64_encode($productRow['image']); // Encode the BLOB data as base64
         $total += $productRow['price'] * $quantity;
+        $max = $productRow['quantity'];
 
         echo "<tr>
             <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
             <td>" . $productRow['name'] . "</td>
             <td>" . $productRow['mass'] . "</td>
             <td>" .  $productRow['price'] . "</td>
-            <td>" . $quantity  . "</td>
+            <td> 
+                <div class='d-flex justify-content-center align-items-center gap-2'>
+                    <div class='form-floating mb-0'>
+                        <input type='number' class='form-control' id='p" . $productID . "Quantity' name='p" . $productID . "Quantity' placeholder='Quantity' value='" . $quantity . "' min='0' max=" . $max . " required />
+                        <label for='productQuantity'>Quantity</label>
+                    </div>
+                    <button type='button' class='btn btn-secondary'><i class='bi bi-trash3'></i></button>
+                </div>
+            </td>
             <td>" .  $productRow['mass'] * $quantity . "</td>
             <td>" .  $productRow['price'] * $quantity . "</td>
           </tr>";
     }
     echo "</tbody>
       </table>
-      <p><strong>Service Fee:</strong> R" . $total * 0.05 . " </p>
+      <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
       <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * 1.05 . " </p>";
+      <p><strong>Grand Total:</strong> R" . $total * 1 + $_ENV['SERVICE_FEE'] . " </p>";
 }
 
 function displayCheckOutProductTable()
@@ -214,19 +223,13 @@ function displayCheckOutProductTable()
         $productRow = getProductRow($productID);
         $image = base64_encode($productRow['image']); // Encode the BLOB data as base64
         $total += $productRow['price'] * $quantity;
-        $max = $productRow['quantity'] - $quantity;
 
         echo "<tr>
             <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
             <td>" . $productRow['name'] . "</td>
             <td>" . $productRow['mass'] . "</td>
             <td>" .  $productRow['price'] . "</td>
-            <td> 
-                    <div class='form-floating mb-3'>
-                        <input type='number' class='form-control' id='p" . $productID . "Quantity' name='p" . $productID . "Quantity' placeholder='Quantity' value='" . $quantity . "' min='0' max=" . $max . " required />
-                        <label for='productQuantity'>Quantity</label>
-                    </div>
-            </td>
+            <td>" . $quantity . "</td>
             <td>" . $quantity * $productRow['mass'] . "</td>
             <td>" .  $productRow['price'] * $quantity . "</td>
           </tr>";
@@ -234,9 +237,9 @@ function displayCheckOutProductTable()
     echo "</tbody>
       </table>
         </form>
-      <p><strong>Service Fee:</strong> R" . $total * 0.05 . " </p>
+      <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
       <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * 1.05 . " </p>";
+      <p><strong>Grand Total:</strong> R" . $total * 1 + $_ENV['SERVICE_FEE'] . " </p>";
 }
 
 

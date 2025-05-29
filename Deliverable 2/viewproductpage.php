@@ -25,10 +25,12 @@ isBuyerSignedIn();
 
     <main>
         <?php
+        $max =  $_SESSION['viewProduct']->quantity;
+
         if (isset($_SESSION['cart'][$_SESSION['viewProduct']->pID]))
-            $max = $_SESSION['viewProduct']->quantity - $_SESSION['cart'][$_SESSION['viewProduct']->pID];
+            $value = $_SESSION['cart'][$_SESSION['viewProduct']->pID];
         else
-            $max =  $_SESSION['viewProduct']->quantity;
+            $value =  0;
 
         ?>
         <div class='row p-5'>
@@ -49,14 +51,10 @@ isBuyerSignedIn();
             <div class='col col-12 col-md-4'>
                 <form id='viewProductAddToCart' action='addtocart.php' method='POST'>
                     <div class='form-floating mb-3'>
-                        <input type='number' class='form-control' id='productQuantity' name='productQuantity' placeholder='Quantity' min='1' max='<?php echo $max; ?>' required />
+                        <input type='number' class='form-control' id='productQuantity' name='productQuantity' placeholder='Quantity' value='<?php echo $value; ?>' min='0' max='<?php echo $max; ?>' required />
                         <label for='productQuantity'>Quantity</label>
                     </div>
-                    <?php if (isset($_SESSION['cart'][$_SESSION['viewProduct']->pID]) && $_SESSION['cart'][$_SESSION['viewProduct']->pID] == $_SESSION['viewProduct']->quantity): ?>
-                        <button type='submit' name='addToCart' value='<?php echo $_SESSION['viewProduct']->pID; ?>' class='btn btn-success' disabled>Add To Cart</button>
-                    <?php else: ?>
-                        <button type='submit' name='addToCart' value='<?php echo $_SESSION['viewProduct']->pID; ?>' class='btn btn-success'>Add To Cart</button>
-                    <?php endif; ?>
+                    <button type='submit' name='addToCart' value='<?php echo $_SESSION['viewProduct']->pID; ?>' class='btn btn-success'>Add To Cart</button>
                 </form>
             </div>
         </div>
