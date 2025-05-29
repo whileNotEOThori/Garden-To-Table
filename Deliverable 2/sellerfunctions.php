@@ -149,7 +149,7 @@ function viewProducts($sellerID)
             <td>" .  $product->mass . "</td>
             <td>" .  $product->price . "</td>
             <td>" . $product->quantity . "</td>
-            <td><img height=\"50px\" width=\"50px\" src=\"data:image/jpeg;base64,$product->image\" /></td>;
+            <td><img height='50px' width='50px' src='data:image/jpeg;base64,$product->image' /></td>
           </tr>";
         }
         echo "</tbody>

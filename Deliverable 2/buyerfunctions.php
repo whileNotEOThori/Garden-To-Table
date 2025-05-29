@@ -109,7 +109,7 @@ function getProductsSorted()
 {
     global $conn;
     $tableName = "products";
-    $order = $_SESSION['sortState'];
+    $order = $_SESSION['orderState'];
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 $order");
 
@@ -133,7 +133,7 @@ function getProductsFilteredAndSorted()
 {
     global $conn;
     $tableName = "products";
-    $order = $_SESSION['sortState'];
+    $order = $_SESSION['orderState'];
 
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? $order");
 
@@ -191,4 +191,85 @@ function displayCartProductTable()
       <p><strong>Service Fee:</strong> R" . $total * 0.05 . " </p>
       <p><strong>Total:</strong> R" . $total . " </p>
       <p><strong>Grand Total:</strong> R" . $total * 1.05 . " </p>";
+}
+
+function displayCheckOutProductTable()
+{
+    $total = 0.00;
+    echo "<form id='checkout' action='checkout.php' method='POST'>
+    <table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>Image</th>
+          <th scope='col'>Name</th>
+          <th scope='col'>Unit Mass [g]</th>
+          <th scope='col'>Unit Price [R]</th>
+          <th scope='col'>Quantity</th>
+          <th scope='col'>Total Mass [g]</th>
+          <th scope='col'>Total Price [R]</th>
+          </tr>
+        </thead>
+        <tbody>";
+    foreach ($_SESSION['cart'] as $productID => $quantity) {
+        $productRow = getProductRow($productID);
+        $image = base64_encode($productRow['image']); // Encode the BLOB data as base64
+        $total += $productRow['price'] * $quantity;
+        $max = $productRow['quantity'] - $quantity;
+
+        echo "<tr>
+            <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
+            <td>" . $productRow['name'] . "</td>
+            <td>" . $productRow['mass'] . "</td>
+            <td>" .  $productRow['price'] . "</td>
+            <td> 
+                    <div class='form-floating mb-3'>
+                        <input type='number' class='form-control' id='p" . $productID . "Quantity' name='p" . $productID . "Quantity' placeholder='Quantity' value='" . $quantity . "' min='0' max=" . $max . " required />
+                        <label for='productQuantity'>Quantity</label>
+                    </div>
+            </td>
+            <td>" . $quantity * $productRow['mass'] . "</td>
+            <td>" .  $productRow['price'] * $quantity . "</td>
+          </tr>";
+    }
+    echo "</tbody>
+      </table>
+        </form>
+      <p><strong>Service Fee:</strong> R" . $total * 0.05 . " </p>
+      <p><strong>Total:</strong> R" . $total . " </p>
+      <p><strong>Grand Total:</strong> R" . $total * 1.05 . " </p>";
+}
+
+
+function getFilterCategories()
+{
+    global $conn;
+    $tableName = "categories";
+
+    $query = $conn->prepare("SELECT * FROM $tableName");
+
+    if (!$query)
+        die("Get category query prepare failed: " . $conn->error);
+
+    if (!$query->execute())
+        die("Get category query execution failed" . $query->error);
+
+    $result = $query->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "<script> alert('There are no categories') </script>";
+        // header('location: editproductpage.php');
+        exit;
+    }
+
+    while ($row  = $result->fetch_assoc()) {
+        $categoryID = $row['cID'];
+        $categoryName = $row['name'];
+
+        if ($_SESSION['filterState'] == $categoryID)
+            echo "<option value=" . $categoryID . " selected>" . $categoryName . "</option> ";
+        else
+            echo "<option value=" . $categoryID . ">" . $categoryName . "</option> ";
+    }
+
+    $query->close();
 }

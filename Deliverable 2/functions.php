@@ -35,6 +35,23 @@ function getCategories()
     $query->close();
 }
 
+function getSortCriteria()
+{
+    if (isset($_SESSION['sortState'])) {
+        echo "<option>Sort</option>";
+        echo ($_SESSION['sortState'] == 'price09') ? "<option value='price09' selected>Price: Low To High</option>" : "<option value='price09'>Price: Low To High</option>";
+        echo ($_SESSION['sortState'] == 'price90') ? "<option value='price90' selected>Price: High to Low</option>" : "<option value='price90'>Price: High to Low</option>";
+        echo ($_SESSION['sortState'] == 'nameAZ') ? "<option value='nameAZ' selected>Name: A-Z</option>" : "<option value='nameAZ'>Name: A-Z</option>";
+        echo ($_SESSION['sortState'] == 'nameZA') ? "<option value='nameZA' selected>Name: Z-A</option>" : "<option value='nameZA'>Name: Z-A</option>";
+    } else {
+        echo "<option selected>Sort</option>
+        <option value='price09'>Price: Low To High</option>
+        <option value='price90'>Price: High to Low</option>
+        <option value='nameAZ'>Name: A-Z</option>
+        <option value='nameZA'>Name: Z-A</option>";
+    }
+}
+
 function getUserData($emailAddress)
 {
     global $conn;

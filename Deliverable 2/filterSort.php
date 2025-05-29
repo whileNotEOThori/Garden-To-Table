@@ -4,9 +4,9 @@ session_start();
 
 if (isset($_POST['apply'])) {
     $filter = $_POST['filter'];
-    $sort = $_POST['sort'];
+    $_SESSION['sortState']  = $_POST['sort'];
 
-    switch ($sort) {
+    switch ($_SESSION['sortState']) {
         case "price09":
             $orderBy = "ORDER BY price ASC";
             break;
@@ -20,12 +20,14 @@ if (isset($_POST['apply'])) {
             $orderBy = "ORDER BY name DESC";
             break;
         default:
+            $_SESSION['sortState'] = "none";
             $orderBy = "none";
             break;
     }
 
     $_SESSION['filterState'] =  ($filter != "Filter") ? $filter : "none";
-    $_SESSION['sortState'] =  $orderBy;
+    // $_SESSION['sortState'] =  $orderBy;
+    $_SESSION['orderState'] =  $orderBy;
 
     header("location: buypage.php");
 }

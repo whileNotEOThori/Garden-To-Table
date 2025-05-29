@@ -20,6 +20,9 @@ isBuyerSignedIn();
     <!-- Header -->
     <?php require_once('buyerheader.php') ?>
 
+    <!-- Cart modal -->
+    <?php require_once('cartmodal.php') ?>
+
     <main>
         <?php
         if (isset($_SESSION['cart'][$_SESSION['viewProduct']->pID]))

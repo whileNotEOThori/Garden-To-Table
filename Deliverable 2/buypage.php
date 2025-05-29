@@ -23,25 +23,26 @@ isBuyerSignedIn();
     <?php require_once('cartmodal.php') ?>
 
     <main>
-       <section id="filterSort">
+        <section id="filterSort">
             <form action="filterSort.php" method="POST">
                 <div class="row mt-3">
                     <div class="col col-4">
                         <!-- Filter Selection -->
                         <select class="form-select mb-3" id="filter" name="filter" aria-label="Filter Select " required>
-                            <option selected>Filter</option>
-                            <?php getCategories() ?>
+                            <option>Filter</option>
+                            <?php
+                            if (isset($_SESSION['filterState']))
+                                getFilterCategories();
+                            else
+                                getCategories();
+                            ?>
                         </select>
                     </div>
 
                     <div class="col col-4">
                         <!-- Sort Selection -->
                         <select class="form-select mb-3" id="sort" name="sort" aria-label="Sort Select" required>
-                            <option selected>Sort</option>
-                            <option value="price09">Price: Low To High</option>
-                            <option value="price90">Price: High to Low</option>
-                            <option value="nameAZ">Name: A-Z</option>
-                            <option value="nameZA">Name: Z-A</option>
+                            <?php getSortCriteria() ?>
                         </select>
                     </div>
 

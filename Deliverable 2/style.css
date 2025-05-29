@@ -18,6 +18,9 @@ h2 {
 h3 {
   font-size: 35px;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  color: white;
 }
 
 header {

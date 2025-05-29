@@ -3,7 +3,7 @@ require_once('buyerfunctions.php');
 
 if (isset($_POST['checkout']))
     if (count($_SESSION['cart']) > 0) {
-        header('location: checkout.php');
+        header('location: checkoutpage.php');
     } else {
         echo "<script> alert('There are no products in the cart to check out')</script>";
     }
@@ -20,7 +20,7 @@ if (isset($_POST['checkout']))
 
 <body>
     <div class="modal fade" id="cartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="cartModalLabel">View Cart</h1>
