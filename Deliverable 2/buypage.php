@@ -49,8 +49,8 @@ isBuyerSignedIn();
                     <div class="col col-4">
                         <!-- filterSort Button -->
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="submit" name="apply" value="apply" class="btn btn-primary">Apply</button>
-                            <button type="submit" name="reset" value="reset" class="btn btn-primary">Reset</button>
+                            <button type="submit" name="apply" value="apply" class="btn btn-success">Apply</button>
+                            <button type="submit" name="reset" value="reset" class="btn btn-success">Reset</button>
                         </div>
                     </div>
             </form>

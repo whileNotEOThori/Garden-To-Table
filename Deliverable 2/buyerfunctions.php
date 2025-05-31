@@ -12,24 +12,28 @@ function isBuyerSignedIn()
 
 function displayProductCard($productRow)
 {
-    echo    "<div class='card'>
+    echo
+    "<div class='card'>
             <img height=\"250px\" width=\"250px\" src=\"data:image/jpeg;base64," . base64_encode($productRow['image']) . "\"  class='card-img-top' alt=\"" . $productRow['name'] . " Image\">
             <div class='card-body'>
                 <h5 class='card-title'>" . $productRow['name'] . "</h5>
                 <p class='card-text'><strong>Price:</strong> R" . $productRow['price'] . "<br> <strong>Mass:</strong> " . $productRow['mass'] . " grams</p>
-                <form action='addtocart.php' method='POST'>";
+                
+                <div class='d-flex align-items-center gap-2'>                
+                    <form action='addtocart.php' method='POST'>";
 
     if (isset($_SESSION['cart'][$productRow['pID']]) && $_SESSION['cart'][$productRow['pID']] == $productRow['quantity'])
         echo "<button type='submit' name='quickAddToCart' value='" . $productRow['pID'] . "' class='btn btn-success' disabled>Add To Cart</button>";
     else
         echo "<button type='submit' name='quickAddToCart' value='" . $productRow['pID'] . "' class='btn btn-success'>Add To Cart</button>";
+    echo "</form>
 
-    echo        "</form>
-                <form action='viewproduct.php' method='POST'>
-                    <button type='submit' name='viewProduct' value='" . $productRow['pID'] . "' class='btn btn-secondary'>View</button>
-                </form>
+                    <form action='viewproduct.php' method='POST'>
+                            <button type='submit' name='viewProduct' value='" . $productRow['pID'] . "' class='btn btn-secondary'>View</button>
+                    </form>
                 </div>
-            </div>";
+            </div>
+        </div>";
 }
 
 function displayProductCardsFromResult($result)
@@ -188,7 +192,9 @@ function displayCartProductTable()
                         <input type='number' class='form-control' id='p" . $productID . "Quantity' name='p" . $productID . "Quantity' placeholder='Quantity' value='" . $quantity . "' min='0' max=" . $max . " required />
                         <label for='productQuantity'>Quantity</label>
                     </div>
-                    <button type='button' class='btn btn-secondary'><i class='bi bi-trash3'></i></button>
+                    <form action='addtocart.php' method='POST'>
+                        <button type='submit' name='removeProduct' value='" . $productID . "' class='btn btn-secondary'><i class='bi bi-trash3'></i></button>
+                    </form>
                 </div>
             </td>
             <td>" .  $productRow['mass'] * $quantity . "</td>
@@ -199,7 +205,7 @@ function displayCartProductTable()
       </table>
       <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
       <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * 1 + $_ENV['SERVICE_FEE'] . " </p>";
+      <p><strong>Grand Total:</strong> R" . $total * (1 + $_ENV['SERVICE_FEE']) . " </p>";
 }
 
 function displayCheckOutProductTable()
@@ -239,9 +245,8 @@ function displayCheckOutProductTable()
         </form>
       <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
       <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * 1 + $_ENV['SERVICE_FEE'] . " </p>";
+      <p><strong>Grand Total:</strong> R" . $total * (1 + $_ENV['SERVICE_FEE']) . " </p>";
 }
-
 
 function getFilterCategories()
 {
