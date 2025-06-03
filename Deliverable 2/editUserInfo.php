@@ -15,3 +15,10 @@ if (isset($_POST['editLastName'])) {
     header('Location: ' . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+if (isset($_POST['editPhoneNumber'])) {
+    if (isset($_SESSION['buyer'])) $_SESSION['buyer']->editPhoneNumber($_POST['phoneNumberEdit']);
+
+    header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    exit;
+}

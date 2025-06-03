@@ -79,4 +79,23 @@ class buyer extends user
         $this->lastName = $updatedLastName;
         return true;
     }
+
+    public function editPhoneNumber($updatedPhoneNumber)
+    {
+        global $conn;
+        $tableName = "users";
+
+        $query = $conn->prepare("UPDATE $tableName SET phoneNumber = ? WHERE uID = ?");
+
+        if (!$query) die("Edit phone number prepare failed: " . $conn->error);
+
+        $query->bind_param('si', $updatedPhoneNumber, $this->uID);
+
+        if (!$query->execute()) die("Edit phone number query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->phoneNumber = $updatedPhoneNumber;
+        return true;
+    }
 }
