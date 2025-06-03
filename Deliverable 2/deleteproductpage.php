@@ -48,7 +48,7 @@ if (isset($_POST['deleteProduct'])) {
         <h2>Delete Product</h2>
         <!-- Delete Product Form -->
         <form id="deleteProductForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-            <div class="container" style="width: 550px">
+            <div class="container" style="width: 400px">
                 <!-- Product ID and Name Selection -->
                 <select class="form-select mb-3" id="productID+Name" name="productID+Name" aria-label="Product select" required>
                     <option value="" selected>Product ID and Name</option>

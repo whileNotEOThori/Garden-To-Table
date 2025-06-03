@@ -26,7 +26,7 @@ isBuyerSignedIn();
         <section id="filterSort">
             <form action="filterSort.php" method="POST">
                 <div class="row mt-3">
-                    <div class="col col-4">
+                    <div class="col">
                         <!-- Filter Selection -->
                         <select class="form-select mb-3" id="filter" name="filter" aria-label="Filter Select " required>
                             <option>Filter</option>
@@ -39,14 +39,14 @@ isBuyerSignedIn();
                         </select>
                     </div>
 
-                    <div class="col col-4">
+                    <div class="col">
                         <!-- Sort Selection -->
                         <select class="form-select mb-3" id="sort" name="sort" aria-label="Sort Select" required>
                             <?php getSortCriteria() ?>
                         </select>
                     </div>
 
-                    <div class="col col-4">
+                    <div class="col">
                         <!-- filterSort Button -->
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="submit" name="apply" value="apply" class="btn btn-success">Apply</button>

@@ -24,7 +24,7 @@ isSellerSignedIn();
         <h2>Edit Product</h2>
         <!-- Edit Product Form -->
         <form id="editProductForm" action="editproduct.php" enctype="multipart/form-data" method="POST">
-            <div class="container" style="width: 550px">
+            <div class="container" style="width: 400px">
                 <!-- Product ID and Name Selection -->
                 <select class="form-select mb-3" id="productID+Name" name="productID+Name" aria-label="Product select" required>
                     <option value="" selected>Product ID and Name</option>

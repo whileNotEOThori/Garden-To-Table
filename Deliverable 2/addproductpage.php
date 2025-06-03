@@ -25,7 +25,7 @@ isSellerSignedIn();
 
     <!-- Add Product Form -->
     <form id="addProductForm" action="addproduct.php" enctype="multipart/form-data" method="POST">
-      <div class="container" style="width: 550px">
+      <div class="container" style="width: 400px">
         <!-- Product Name Input Div -->
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="productName" name="productName" placeholder="Name" required />

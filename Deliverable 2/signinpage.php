@@ -22,7 +22,7 @@ session_start();
 
     <!-- Sign In Form -->
     <form id="signInForm" action="signin.php" method="POST">
-      <div class="container" style="width: 450px">
+      <div class="container" style="width: 400px">
         <!-- Email Address Input Div -->
         <div class="form-floating mb-3">
           <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="name@example.com" required />
@@ -45,15 +45,9 @@ session_start();
 
         <!-- Alternatives -->
         <div class="container" style="display: flex; justify-content: center">
-          <div class="row">
-            <!-- Redirect To Password Retrieval -->
-            <div class="col">
-              <a href="">Forgot Password?</a>
-            </div>
-            <!-- Redirect To Sign Up Page -->
-            <div class="col-auto">
-              <p>Don't have an account? <a href="signuppage.php">Sign Up</a></p>
-            </div>
+          <!-- Redirect To Sign Up Page -->
+          <div class="col-auto">
+            <p>Don't have an account? <a href="signuppage.php">Sign Up</a></p>
           </div>
         </div>
 

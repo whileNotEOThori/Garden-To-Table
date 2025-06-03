@@ -138,7 +138,7 @@ session_start();
               <!-- Telephone icon -->
               <i class="bi bi-telephone h3"></i>
               <!-- Telephone number link -->
-              <a href="tel:0123456789">
+              <a href="tel:0123456789" style="text-decoration: none; color: black;">
                 <p>&emsp;012 345 6789</p>
               </a>
             </div>
@@ -147,7 +147,7 @@ session_start();
               <!-- Email Address Icon -->
               <i class="bi bi-envelope h3"></i>
               <!-- Email Address Link-->
-              <a href="mailto:gardentotable@gtt.co.za">
+              <a href="mailto:gardentotable@gtt.co.za" style="text-decoration: none; color: black;" target="_blank">
                 <p>&emsp;gardentotable@gtt.co.za</p>
               </a>
             </div>
@@ -156,7 +156,7 @@ session_start();
               <!-- Physical Address Icon-->
               <i class="bi bi-geo-alt h3"></i>
               <!-- Physical Address Link -->
-              <a href="https://maps.app.goo.gl/oYTR9QdnYckdQdi28">
+              <a href="https://maps.app.goo.gl/oYTR9QdnYckdQdi28" style="text-decoration: none; color: black;" target="_blank">
                 <p>&emsp;Alsatian Rd, Glen Austin AH, Midrand, 1685</p>
               </a>
             </div>

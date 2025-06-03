@@ -22,7 +22,7 @@ session_start();
 
     <!-- Sign Up Form -->
     <form id="signUpForm" action="signup.php" method="POST">
-      <div class="container" style="width: 550px">
+      <div class="container" style="width: 400px">
         <!-- First Name Input Div -->
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required />

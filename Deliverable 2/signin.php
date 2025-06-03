@@ -7,10 +7,10 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
 
-    //determine if the user is signing in through the modal or signin page
-    if (isset($_POST['sellerSignIn']))
+    //Set the usertype based off how the user is signing in
+    if (isset($_POST['sellerSignIn'])) //seller modal signin
         $userType = "seller";
-    else if (isset($_POST['buyerSignIn']))
+    else if (isset($_POST['buyerSignIn'])) //buyer modal signin
         $userType = "buyer";
     else //signin page
         $userType = $_POST['userType'];
@@ -21,6 +21,7 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         exit();
     }
 
+    //get the user's data from the table
     $userRow = getUserData($emailAddress);
 
     if ($userRow == null || $userRow == false) {
@@ -28,8 +29,10 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         exit;
     }
 
+    //Extract userID from the result from the user query
     $userID = $userRow['uID'];
 
+    //determine if the user has buyer account if they opted to sign in as one
     if ($userType == "buyer") {
         $buyerRow = getBuyerData($userID);
 
@@ -39,6 +42,7 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         }
     }
 
+    //determine if the user has seller account if they opted to sign in as one
     if ($userType == "seller") {
         $sellerRow = getSellerData($userID);
 
@@ -48,27 +52,33 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         }
     }
 
+    //determine if the user has admin account if they opted to sign in as one
     if ($userType == "admin")
         $tableName = "admins";
 
+    //Extract user's encrypted password from the result from the user query
     $encryptedPassword = $userRow['password'];
 
+    //Determine if the entered password matched the stored password
     if (password_verify($password, $encryptedPassword)) {
 
-        // remove all session variables on sign in
+        // remove all existing session variables on sign in
         session_unset();
 
+        //Instantiate a seller object with the user's data from the database as a session variable then direct the user to the seller section of the website
         if ($userType == "seller") {
             $_SESSION['seller'] = new seller($userRow, $sellerRow);
             header("location: sellerhomepage.php");
         }
 
+        //Instantiate a buyer object with the user's data from the database and creates an empty array for the cart as a session variable then direct the user to the buyer section of the website
         if ($userType == "buyer") {
             $_SESSION['buyer'] = new buyer($userRow, $buyerRow);
             $_SESSION['cart'] = array();
             header("location: buyerhomepage.php");
         }
 
+        //Instantiate a admin object with the user's data from the database as a session variable then direct the user to the admin section of the website
         /*if ($userType == "admin")
                 header("location: sellerhomepage.html");*/
         exit;

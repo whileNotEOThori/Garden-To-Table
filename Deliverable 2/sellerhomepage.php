@@ -21,12 +21,13 @@ isSellerSignedIn();
 	<?php require_once('sellerheader.php') ?>
 
 	<main>
+
 		<!-- Sign Up heading -->
 		<h2 style="display: flex; justify-content: center">Edit Information</h2>
-
-		<!-- Sign Up Form -->
-		<form id="editSellerInfoForm" action="editsellerinfo.php" method="POST">
-			<div class="container" style="width: 550px">
+		
+		<div class="container" style="width: 400px">
+			<!-- Sign Up Form -->
+			<form id="editSellerInfoForm" action="editsellerinfo.php" method="POST">
 				<!-- First Name Edit Input Div -->
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" />
@@ -105,8 +106,8 @@ isSellerSignedIn();
 					<button type="submit" name="editsellerinfo" value="editsellerinfo" class="btn btn-primary">Edit Information</button>
 				</div>
 
-			</div>
-		</form>
+			</form>
+		</div>
 	</main>
 
 	<!-- Footer -->

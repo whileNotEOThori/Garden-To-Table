@@ -125,7 +125,9 @@ function viewProducts($sellerID)
     $result = $query->get_result();
 
     if ($result->num_rows > 0) {
-        echo "<table class='table table-striped'>
+        echo "
+        <div class='table-responsive'>
+        <table class='table table-striped'>
         <thead>
           <tr>
           <th scope='col'>Product ID</th>
@@ -153,7 +155,8 @@ function viewProducts($sellerID)
           </tr>";
         }
         echo "</tbody>
-      </table>";
+      </table>
+      </div>";
     } else {
         echo "<h3>No products being sold</h3>";
     }
