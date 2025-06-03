@@ -98,4 +98,23 @@ class buyer extends user
         $this->phoneNumber = $updatedPhoneNumber;
         return true;
     }
+
+    public function editPostcode($updatedPostcode)
+    {
+        global $conn;
+        $tableName = "buyers";
+
+        $query = $conn->prepare("UPDATE $tableName SET postcode = ? WHERE uID = ?");
+
+        if (!$query) die("Edit postcode prepare failed: " . $conn->error);
+
+        $query->bind_param('si', $updatedPostcode, $this->uID);
+
+        if (!$query->execute()) die("Edit postcode query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->postcode = $updatedPostcode;
+        return true;
+    }
 }

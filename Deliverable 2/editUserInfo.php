@@ -22,3 +22,10 @@ if (isset($_POST['editPhoneNumber'])) {
     header('Location: ' . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+if (isset($_POST['editPostcode'])) {
+    if (isset($_SESSION['buyer'])) $_SESSION['buyer']->editPostcode($_POST['postcodeEdit']);
+
+    header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    exit;
+}

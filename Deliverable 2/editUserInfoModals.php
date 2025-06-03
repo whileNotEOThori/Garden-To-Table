@@ -94,6 +94,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Postcode Modal -->
+    <div class="modal fade" id="editPostcodeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editPostcodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="editPostcodeModalLabel">Edit Postcode</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Sign In Form -->
+                    <form id="editPostcodeForm" action="editUserInfo.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <!-- First Name Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="tel" class="form-control" id="postcodeEdit" name="postcodeEdit" placeholder="Postcode" required />
+                                <label for="postcodeEdit">Postcode</label>
+                            </div>
+                        </div>
+
+                        <!-- Sign In Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="editPostcode" value="editPostcode" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
