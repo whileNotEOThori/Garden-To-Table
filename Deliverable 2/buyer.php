@@ -1,6 +1,5 @@
 <?php
 require_once("user.php");
-require_once("connect.php");
 
 class buyer extends user
 {

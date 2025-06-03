@@ -23,91 +23,100 @@ isSellerSignedIn();
 	<main>
 
 		<!-- Sign Up heading -->
-		<h2 style="display: flex; justify-content: center">Edit Information</h2>
-		
-		<div class="container" style="width: 400px">
-			<!-- Sign Up Form -->
-			<form id="editSellerInfoForm" action="editsellerinfo.php" method="POST">
-				<!-- First Name Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" />
-					<label for="firstName">First Name</label>
-				</div>
+		<h2 class="mb-3">Seller Homepage</h2>
 
-				<!-- Last Name Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" />
-					<label for="lastName">Last Name</label>
-				</div>
+		<div class="row">
+			<div class="col col-12 col-md-6 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Information</h5>
+							<p class="card-text"><strong>First Name: </strong> <?php echo $_SESSION['seller']->firstName ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editFirstNameModal" href="">Edit</a></p>
+							<p class="card-text"><strong>Last Name: </strong> <?php echo $_SESSION['seller']->lastName ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editLastNameModal" href="">Edit</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
 
-				<!-- Phone Number Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="tel" class="form-control" id="phoneNum" name="phoneNum" placeholder="Phone Number" />
-					<label for="phoneNum">Phone Number</label>
-				</div>
-
-				<!-- Email Address Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="name@example.com" />
-					<label for="emailAddress">Email address</label>
-				</div>
-
-				<!-- Password Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
-					<label for="password">Password</label>
-				</div>
-
-				<!-- Street Address Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="Street Address" />
-					<label for="streetAddress">Street Address</label>
-				</div>
-
-				<!-- Postcode Edit Input Div -->
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="postcode" name="postcode" placeholder="Postcode" />
-					<label for="postcode">Postcode</label>
-				</div>
-
-				<!-- Bank Name Edit Input Div -->
-				<div class="form-floating mb-3">
-					<?php if (empty($_SESSION['seller']->bankName)): ?>
-						<input type="text" class="form-control" id="bankName" name="bankName" placeholder="Bank Name" required />
-					<?php else : ?>
-						<input type="text" class="form-control" id="bankName" name="bankName" placeholder="Bank Name" />
-					<?php endif; ?>
-					<label for="bankName">Bank Name</label>
-				</div>
-
-				<!-- Branch Code Edit Input Div -->
-				<div class="form-floating mb-3">
-					<?php if (empty($_SESSION['seller']->branchCode)): ?>
-						<input type="text" class="form-control" id="branchCode" name="branchCode" placeholder="Branch Code" required />
-					<?php else : ?>
-						<input type="text" class="form-control" id="branchCode" name="branchCode" placeholder="Branch Code" />
-					<?php endif; ?>
-					<label for="branchCode">Branch Code</label>
-				</div>
-
-				<!-- Account Number Edit Input Div -->
-				<div class="form-floating mb-3">
-					<?php if (empty($_SESSION['seller']->accountNumber)): ?>
-						<input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Account Number" required />
-					<?php else : ?>
-						<input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Account Number" />
-					<?php endif; ?>
-					<label for="accountNumber">Account Number</label>
-				</div>
-
-
-				<!-- Sign Up Button -->
-				<div class="container mb-3" style="display: flex; justify-content: center">
-					<button type="submit" name="editsellerinfo" value="editsellerinfo" class="btn btn-primary">Edit Information</button>
-				</div>
-
-			</form>
+			<div class="col col-12 col-md-6 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Contact Details</h5>
+							<p class="card-text"><strong>Email Address: </strong> <?php echo $_SESSION['seller']->emailAddress ?></p>
+							<p class="card-text"><strong>Phone Number: </strong> <?php echo $_SESSION['seller']->phoneNumber ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPhoneNumberModal" href="">Edit</a> </p>
+						</div>
+					</div>
+				</section>
+			</div>
 		</div>
+
+		<div class="row">
+			<div class="col col-12 col-md-6 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Address</h5>
+							<p class="card-text"><strong>Postcode: </strong> <?php echo $_SESSION['seller']->postcode ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPostcodeModal" href="">Edit</a> </p>
+							<p class="card-text"><strong>Street Address: </strong> <?php echo $_SESSION['seller']->streetAddress ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editStreetAddressModal" href="">Edit</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col col-12 col-md-6 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Banking Details</h5>
+							<p class="card-text"><strong>Bank Name: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
+							<p class="card-text"><strong>Branch Code: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
+							<p class="card-text"><strong>Account Number: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col col-12 col-md-4 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Products</h5>
+							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->postcode ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPostcodeModal" href="">Edit</a> </p>
+							<p class="card-text"><strong>Number of products purchase: </strong> <?php echo $_SESSION['seller']->streetAddress ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editStreetAddressModal" href="">Edit</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<div class="col col-12 col-md-4 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Orders</h5>
+							<p class="card-text"><strong>Numbers of orders: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
+							<p class="card-text"><strong>Orders Processed: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
+							<p class="card-text"><strong>Orders Pending: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<div class="col col-12 col-md-4 mb-3">
+				<section>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Revenue</h5>
+							<p class="card-text"><strong>Total Sales: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
+							<p class="card-text"><strong>Paid out: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
+							<p class="card-text"><strong>Pending: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
 	</main>
 
 	<!-- Footer -->
@@ -115,6 +124,9 @@ isSellerSignedIn();
 
 	<!-- Seller Sign Out Modal -->
 	<?php require_once('signoutmodal.php') ?>
+
+	<!-- Edit user info modals -->
+	<?php require_once('editUserInfoModals.php') ?>
 </body>
 
 </html>
