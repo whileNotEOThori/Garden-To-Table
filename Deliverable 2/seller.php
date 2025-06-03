@@ -123,4 +123,24 @@ class seller extends user
         $this->streetAddress = $updatedStreetAddress;
         return true;
     }
+
+    public function getNumListedProducts()
+    {
+        global $conn;
+        $tableName = "products";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numProducts FROM $tableName WHERE sID = ?");
+
+        if (!$query) die("Get number of listed products query prepare failed: " . $conn->error);
+
+        $query->bind_param('i', $this->sID);
+
+        if (!$query->execute()) die("Get number of listed products query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numProducts'];
+    }
 }

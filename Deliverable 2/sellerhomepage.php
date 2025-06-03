@@ -83,8 +83,8 @@ isSellerSignedIn();
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Products</h5>
-							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->postcode ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPostcodeModal" href="">Edit</a> </p>
-							<p class="card-text"><strong>Number of products purchase: </strong> <?php echo $_SESSION['seller']->streetAddress ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editStreetAddressModal" href="">Edit</a></p>
+							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->getNumListedProducts() ?></p>
+							<p class="card-text"><strong>Number of products purchase: </strong> <?php echo $_SESSION['seller']->streetAddress ?></p>
 						</div>
 					</div>
 				</section>
