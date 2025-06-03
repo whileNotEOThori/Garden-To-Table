@@ -89,23 +89,7 @@ function editProductData($product)
     return true;
 }
 
-function deleteProduct($productID)
-{
-    global $conn;
-    $tableName = "products";
 
-    $query = $conn->prepare("DELETE FROM $tableName WHERE pID = ?");
-
-    if (!$query) die("Product delete query prepare failed: " . $conn->error);
-
-    $query->bind_param("i", $productID);
-
-    if (!$query->execute()) die("Product delete query execution failed: " . $query->error);
-
-    $query->close();
-
-    return true;
-}
 
 function getCategoryName($cID)
 {
