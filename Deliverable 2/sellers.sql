@@ -28,4 +28,6 @@ CHANGE COLUMN `bankName` `bankName` VARCHAR(100) NULL ,
 CHANGE COLUMN `branchCode` `branchCode` VARCHAR(10) NULL ,
 CHANGE COLUMN `accountNumber` `accountNumber` VARCHAR(25) NULL ;
 
+ALTER TABLE garden_to_table.sellers ADD deliveryRate DECIMAL(3,2) DEFAULT 1.00;
+
 

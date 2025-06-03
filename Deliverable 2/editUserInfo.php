@@ -49,3 +49,10 @@ if (isset($_POST['editBankingDetails'])) {
     header('Location: ' . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+if (isset($_POST['editDeliveryRate'])) {
+    if (isset($_SESSION['seller'])) $_SESSION['seller']->editDeliveryRate($_POST['deliveryRateEdit']);
+
+    header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    exit;
+}

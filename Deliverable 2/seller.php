@@ -11,6 +11,7 @@ class seller extends user
     public $bankName;
     public $branchCode;
     public $accountNumber;
+    public $deliveryRate;
 
     public function __construct($userRow, $sellerRow)
     {
@@ -27,6 +28,7 @@ class seller extends user
         $this->bankName = $sellerRow['bankName'];
         $this->branchCode = $sellerRow['branchCode'];
         $this->accountNumber = $sellerRow['accountNumber'];
+        $this->deliveryRate = $sellerRow['deliveryRate'];
     }
 
     public function editFirstName($updatedFirstName)
@@ -91,11 +93,11 @@ class seller extends user
         global $conn;
         $tableName = "sellers";
 
-        $query = $conn->prepare("UPDATE $tableName SET postcode = ? WHERE uID = ?");
+        $query = $conn->prepare("UPDATE $tableName SET postcode = ? WHERE sID = ?");
 
         if (!$query) die("Edit postcode prepare failed: " . $conn->error);
 
-        $query->bind_param('si', $updatedPostcode, $this->uID);
+        $query->bind_param('si', $updatedPostcode, $this->sID);
 
         if (!$query->execute()) die("Edit postcode query execution failed: " . $query->error);
 
@@ -110,17 +112,36 @@ class seller extends user
         global $conn;
         $tableName = "sellers";
 
-        $query = $conn->prepare("UPDATE $tableName SET streetAddress = ? WHERE uID = ?");
+        $query = $conn->prepare("UPDATE $tableName SET streetAddress = ? WHERE sID = ?");
 
         if (!$query) die("Edit street address prepare failed: " . $conn->error);
 
-        $query->bind_param('si', $updatedStreetAddress, $this->uID);
+        $query->bind_param('si', $updatedStreetAddress, $this->sID);
 
         if (!$query->execute()) die("Edit street address query execution failed: " . $query->error);
 
         $query->close();
 
         $this->streetAddress = $updatedStreetAddress;
+        return true;
+    }
+
+    public function editDeliveryRate($updatedDeliveryRate)
+    {
+        global $conn;
+        $tableName = "sellers";
+
+        $query = $conn->prepare("UPDATE $tableName SET deliveryRate = ? WHERE sID = ?");
+
+        if (!$query) die("Edit delivery rate prepare failed: " . $conn->error);
+
+        $query->bind_param('si', $updatedDeliveryRate, $this->sID);
+
+        if (!$query->execute()) die("Edit delivery rate query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->deliveryRate = $updatedDeliveryRate;
         return true;
     }
 

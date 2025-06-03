@@ -59,6 +59,7 @@ isSellerSignedIn();
 							<h5 class="card-title">Address</h5>
 							<p class="card-text"><strong>Postcode: </strong> <?php echo $_SESSION['seller']->postcode ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPostcodeModal" href="">Edit</a> </p>
 							<p class="card-text"><strong>Street Address: </strong> <?php echo $_SESSION['seller']->streetAddress ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editStreetAddressModal" href="">Edit</a></p>
+							<p class="card-text"><strong>Delivery Rate: </strong> R<?php echo $_SESSION['seller']->deliveryRate ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editDeliveryRateModal" href="">Edit</a></p>
 						</div>
 					</div>
 				</section>
