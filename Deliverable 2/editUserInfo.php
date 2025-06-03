@@ -42,3 +42,10 @@ if (isset($_POST['editStreetAddress'])) {
     header('Location: ' . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+if (isset($_POST['editBankingDetails'])) {
+    if (isset($_SESSION['seller'])) $_SESSION['seller']->editBankingDetails($_POST['bankNameEdit'], $_POST['branchCodeEdit'], $_POST['accountNumberEdit']);
+
+    header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    exit;
+}

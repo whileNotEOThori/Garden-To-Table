@@ -67,7 +67,7 @@ isSellerSignedIn();
 				<section>
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Banking Details</h5>
+							<h5 class="card-title">Banking Details &emsp; <a data-bs-toggle="modal" data-bs-target="#editBankDetailsModal" href="">Edit</a></h5>
 							<p class="card-text"><strong>Bank Name: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
 							<p class="card-text"><strong>Branch Code: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
 							<p class="card-text"><strong>Account Number: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>

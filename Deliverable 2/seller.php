@@ -124,6 +124,27 @@ class seller extends user
         return true;
     }
 
+    public function editBankingDetails($updatedBankName, $updatedBranchCode, $updatedAccountNumber)
+    {
+        global $conn;
+        $tableName = "sellers";
+
+        $query = $conn->prepare("UPDATE $tableName SET bankName = ?, branchCode = ?, accountNumber = ? WHERE sID = ?");
+
+        if (!$query) die("Edit banking details prepare failed: " . $conn->error);
+
+        $query->bind_param('sssi', $updatedBankName, $updatedBranchCode, $updatedAccountNumber, $this->sID);
+
+        if (!$query->execute()) die("Edit banking details query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->bankName = $updatedBankName;
+        $this->branchCode = $updatedBranchCode;
+        $this->accountNumber = $updatedAccountNumber;
+        return true;
+    }
+
     public function getNumListedProducts()
     {
         global $conn;

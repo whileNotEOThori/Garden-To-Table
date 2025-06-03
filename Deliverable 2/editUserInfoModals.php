@@ -152,6 +152,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Bank Details Modal -->
+    <div class="modal fade" id="editBankDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editBankDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="editBankDetailsModalLabel">Edit banking Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Sign In Form -->
+                    <form id="editBankingDetailsForm" action="editUserInfo.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <!-- Bank Name Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="bankNameEdit" name="bankNameEdit" placeholder="Bank Name" required />
+                                <label for="bankNameEdit">Bank Name</label>
+                            </div>
+
+                            <!-- Branch Code Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="branchCodeEdit" name="branchCodeEdit" placeholder="Branch Code" required />
+                                <label for="branchCodeEdit">Branch Code</label>
+                            </div>
+
+                            <!-- Account Number Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="accountNumberEdit" name="accountNumberEdit" placeholder="Account Number" required />
+                                <label for="accountNumberEdit">Account Number</label>
+                            </div>
+                        </div>
+
+                        <!-- Sign In Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="editBankingDetails" value="editBankingDetails" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
