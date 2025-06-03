@@ -60,4 +60,23 @@ class buyer extends user
         $this->firstName = $updatedFirstName;
         return true;
     }
+
+    public function editLastName($updatedLastName)
+    {
+        global $conn;
+        $tableName = "users";
+
+        $query = $conn->prepare("UPDATE $tableName SET lastName = ? WHERE uID = ?");
+
+        if (!$query) die("Edit last query prepare failed: " . $conn->error);
+
+        $query->bind_param('si', $updatedLastName, $this->uID);
+
+        if (!$query->execute()) die("Edit last name query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->lastName = $updatedLastName;
+        return true;
+    }
 }
