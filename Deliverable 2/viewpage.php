@@ -24,7 +24,7 @@ isSellerSignedIn();
         <!-- Show all the products the seller has listed -->
         <section id="productTable">
             <h2>Products</h2>
-            <?php viewProducts($_SESSION['seller']->sID) ?>
+            <?php $_SESSION['seller']->viewListedProducts() ?>
         </section>
 
         <!-- Show all the orders wit products the seller has listed -->
