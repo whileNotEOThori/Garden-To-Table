@@ -123,6 +123,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Street Address Modal -->
+    <div class="modal fade" id="editStreetAddressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editStreetAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="editStreetAddressModalLabel">Edit Street Address</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Sign In Form -->
+                    <form id="editStreetAddressForm" action="editUserInfo.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <!-- First Name Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="tel" class="form-control" id="streetAddressEdit" name="streetAddressEdit" placeholder="Street Address" required />
+                                <label for="streetAddressEdit">Street Address</label>
+                            </div>
+                        </div>
+
+                        <!-- Sign In Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="editStreetAddress" value="editStreetAddress" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

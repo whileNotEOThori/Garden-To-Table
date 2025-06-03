@@ -29,3 +29,10 @@ if (isset($_POST['editPostcode'])) {
     header('Location: ' . $_SERVER["HTTP_REFERER"]);
     exit;
 }
+
+if (isset($_POST['editStreetAddress'])) {
+    if (isset($_SESSION['buyer'])) $_SESSION['buyer']->editStreetAddress($_POST['streetAddressEdit']);
+
+    header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    exit;
+}

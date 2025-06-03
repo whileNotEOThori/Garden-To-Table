@@ -117,4 +117,23 @@ class buyer extends user
         $this->postcode = $updatedPostcode;
         return true;
     }
+
+    public function editStreetAddress($updatedStreetAddress)
+    {
+        global $conn;
+        $tableName = "buyers";
+
+        $query = $conn->prepare("UPDATE $tableName SET streetAddress = ? WHERE uID = ?");
+
+        if (!$query) die("Edit street address prepare failed: " . $conn->error);
+
+        $query->bind_param('si', $updatedStreetAddress, $this->uID);
+
+        if (!$query->execute()) die("Edit street address query execution failed: " . $query->error);
+
+        $query->close();
+
+        $this->streetAddress = $updatedStreetAddress;
+        return true;
+    }
 }
