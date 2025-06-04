@@ -167,4 +167,47 @@ class buyer extends user
         // If the cart is now empty, reset it to an empty array
         if (empty($_SESSION['cart'])) $_SESSION['cart'] = array();
     }
+
+    public function checkOut()
+    {
+        if (count($_SESSION['cart']) == 0) {
+            echo "<script> alert('There are no products in the cart to check out')</script>";
+            header('Location: ' . $_SERVER["HTTP_REFERER"]);
+            exit;
+        }
+
+        foreach ($_SESSION['cart'] as $productID => $quantity) {
+            $_SESSION['cart'][$productID] = $_POST["p" . $productID . "Quantity"];
+        }
+    }
+
+    public function getCartTotal()
+    {
+        $total = 0.00;
+        foreach ($_SESSION['cart'] as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+            $total += $productRow['price'] * $quantity;
+        }
+
+        return $total;
+    }
+
+    public function calcDeliveryFee()
+    {
+        $total = 0.00;
+        $trackedSellers = array();
+        foreach ($_SESSION['cart'] as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+
+            $sellerID = $productRow['sID'];
+
+            if (isset($trackedSellers[$sellerID])) continue;
+
+            $deliveryInfo = getSellerDeliveryInfo($sellerID);
+
+            $total += (abs($deliveryInfo['postcode'] - $this->postcode) + 1) * $deliveryInfo['deliveryRate'];
+        }
+
+        return $total;
+    }
 }

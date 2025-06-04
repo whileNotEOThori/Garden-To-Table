@@ -162,7 +162,9 @@ function displayProductCardsFilteredAndSorted()
 function displayCartProductTable()
 {
     $total = 0.00;
-    echo "<table class='table table-striped'>
+    echo "
+    <div class='table-responsive'>
+    <table class='table table-striped'>
         <thead>
           <tr>
           <th scope='col'>Image</th>
@@ -203,6 +205,7 @@ function displayCartProductTable()
     }
     echo "</tbody>
       </table>
+      </div>
       <p><strong>Total:</strong> R" . $total . " </p>";
 }
 
@@ -210,16 +213,17 @@ function displayCheckOutProductTable()
 {
     $total = 0.00;
     echo "<form id='checkout' action='checkout.php' method='POST'>
+    <div class='table-responsive'>
     <table class='table table-striped'>
         <thead>
           <tr>
           <th scope='col'>Image</th>
           <th scope='col'>Name</th>
-          <th scope='col'>Unit Mass [g]</th>
-          <th scope='col'>Unit Price [R]</th>
+          <th scope='col'>Unit Mass</th>
+          <th scope='col'>Unit Price</th>
           <th scope='col'>Quantity</th>
-          <th scope='col'>Total Mass [g]</th>
-          <th scope='col'>Total Price [R]</th>
+          <th scope='col'>Total Mass</th>
+          <th scope='col'>Total Price</th>
           </tr>
         </thead>
         <tbody>";
@@ -231,19 +235,17 @@ function displayCheckOutProductTable()
         echo "<tr>
             <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
             <td>" . $productRow['name'] . "</td>
-            <td>" . $productRow['mass'] . "</td>
-            <td>" .  $productRow['price'] . "</td>
+            <td>" . $productRow['mass'] . "g</td>
+            <td>R" .  $productRow['price'] . "</td>
             <td>" . $quantity . "</td>
-            <td>" . $quantity * $productRow['mass'] . "</td>
-            <td>" .  $productRow['price'] * $quantity . "</td>
+            <td>" . $quantity * $productRow['mass'] . "g</td>
+            <td>R" .  $productRow['price'] * $quantity . "</td>
           </tr>";
     }
     echo "</tbody>
       </table>
-        </form>
-      <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
-      <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * (1 + $_ENV['SERVICE_FEE']) . " </p>";
+      </div>
+        </form>";
 }
 
 function getFilterCategories()

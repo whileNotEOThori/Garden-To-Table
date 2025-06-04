@@ -300,3 +300,21 @@ function getProductRow($productID)
 
     return $result->fetch_assoc();
 }
+
+function getSellerDeliveryInfo($sellerID)
+{
+    global $conn;
+    $tableName = "sellers";
+
+    $query = $conn->prepare("SELECT postcode, deliveryRate FROM $tableName WHERE sID = ?");
+
+    if (!$query) die("Get seller delivery info query prepare failed: ".$conn->error);
+
+    $query->bind_param('i',$sellerID);
+
+    if (!$query->execute()) die("Get seller delivery info query failed: ". $query->error);
+
+    $result = $query->get_result();
+
+    return $result->fetch_assoc();
+}
