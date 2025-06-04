@@ -89,8 +89,6 @@ function editProductData($product)
     return true;
 }
 
-
-
 function getCategoryName($cID)
 {
     global $conn;

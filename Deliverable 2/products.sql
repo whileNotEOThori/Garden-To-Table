@@ -1,4 +1,4 @@
-use garden_to_table;
+USE garden_to_table;
 
 CREATE TABLE products (
     pID INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +15,6 @@ CREATE TABLE products (
     FOREIGN KEY (cID) REFERENCES categories(cID)
 );
 
-select * from garden_to_table.products;
+SELECT * FROM garden_to_table.products;
 
-select * from garden_to_table.products order by price desc;
+SELECT * FROM garden_to_table.products ORDER BY price DESC;

@@ -6,4 +6,4 @@ CREATE TABLE admins(
     FOREIGN KEY (uID) REFERENCES users(uID)
 );
 
-select * from garden_to_table.admins;
+SELECT * FROM garden_to_table.admins;
