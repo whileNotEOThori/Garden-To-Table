@@ -135,4 +135,36 @@ class buyer extends user
         $this->streetAddress = $updatedStreetAddress;
         return true;
     }
+
+    public function quickAddToCart()
+    {
+        $productID = $_POST['quickAddToCart'];
+
+        if (isset($_SESSION['cart'][$productID]))
+            $_SESSION['cart'][$productID]++;
+        else
+            $_SESSION['cart'][$productID] = 1;
+    }
+
+    public function addToCart()
+    {
+        $productID = $_POST['addToCart'];
+        $quantity = $_POST['productQuantity'];
+
+        if ($quantity == 0)
+            unset($_SESSION['cart'][$productID]);
+        else
+            $_SESSION['cart'][$productID] = $quantity;
+    }
+
+    public function removeFromCart()
+    {
+        $productID = $_POST['removeProduct'];
+
+        // Remove the selected product from the cart
+        unset($_SESSION['cart'][$productID]);
+
+        // If the cart is now empty, reset it to an empty array
+        if (empty($_SESSION['cart'])) $_SESSION['cart'] = array();
+    }
 }

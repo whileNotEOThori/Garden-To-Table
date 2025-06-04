@@ -167,11 +167,11 @@ function displayCartProductTable()
           <tr>
           <th scope='col'>Image</th>
           <th scope='col'>Name</th>
-          <th scope='col'>Unit Mass [g]</th>
-          <th scope='col'>Unit Price [R]</th>
+          <th scope='col'>Unit Mass</th>
+          <th scope='col'>Unit Price</th>
           <th scope='col'>Quantity</th>
-          <th scope='col'>Total Mass [g]</th>
-          <th scope='col'>Total Price [R]</th>
+          <th scope='col'>Total Mass</th>
+          <th scope='col'>Total Price</th>
           </tr>
         </thead>
         <tbody>";
@@ -184,8 +184,8 @@ function displayCartProductTable()
         echo "<tr>
             <td><img height='50px' width='50px' src='data:image/jpeg;base64,$image'></td>
             <td>" . $productRow['name'] . "</td>
-            <td>" . $productRow['mass'] . "</td>
-            <td>" .  $productRow['price'] . "</td>
+            <td>" . $productRow['mass'] . "g</td>
+            <td>R" .  $productRow['price'] . "</td>
             <td> 
                 <div class='d-flex justify-content-center align-items-center gap-2'>
                     <div class='form-floating mb-0'>
@@ -197,15 +197,13 @@ function displayCartProductTable()
                     </form>
                 </div>
             </td>
-            <td>" .  $productRow['mass'] * $quantity . "</td>
-            <td>" .  $productRow['price'] * $quantity . "</td>
+            <td>" .  $productRow['mass'] * $quantity . "g</td>
+            <td>R" .  $productRow['price'] * $quantity . "</td>
           </tr>";
     }
     echo "</tbody>
       </table>
-      <p><strong>Service Fee:</strong> R" . $total * $_ENV['SERVICE_FEE'] . " </p>
-      <p><strong>Total:</strong> R" . $total . " </p>
-      <p><strong>Grand Total:</strong> R" . $total * (1 + $_ENV['SERVICE_FEE']) . " </p>";
+      <p><strong>Total:</strong> R" . $total . " </p>";
 }
 
 function displayCheckOutProductTable()
