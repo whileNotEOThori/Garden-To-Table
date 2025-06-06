@@ -11,11 +11,11 @@
     <!-- Footer -->
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="viewpage.php" class="nav-link px-2 text-body-secondary">View</a></li>
+            <li class="nav-item"><a href="viewproductspage.php" class="nav-link px-2 text-body-secondary">View Products</a></li>
             <li class="nav-item"><a href="addproductpage.php" class="nav-link px-2 text-body-secondary">Add Product</a></li>
             <li class="nav-item"><a href="editproductpage.php" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
             <li class="nav-item"><a href="deleteproductpage.php" class="nav-link px-2 text-body-secondary">Delete Product</a></li>
-            <li class="nav-item"><a href="" class="nav-link px-2 text-body-secondary">Process Order</a></li>
+            <li class="nav-item"><a href="vieworderspage.php" class="nav-link px-2 text-body-secondary">View Orders</a></li>
         </ul>
         <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
     </footer>

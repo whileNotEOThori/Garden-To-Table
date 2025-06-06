@@ -15,3 +15,5 @@ INSERT INTO garden_to_table.status (name) VALUES ('Ready for collection');
 INSERT INTO garden_to_table.status (name) VALUES ('Delivered');
 INSERT INTO garden_to_table.status (name) VALUES ('Collected');
 INSERT INTO garden_to_table.status (name) VALUES ('Paid Out');
+
+DROP TABLE `garden_to_table`.`status`;

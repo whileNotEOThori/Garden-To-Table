@@ -8,3 +8,5 @@ CREATE TABLE revenue(
 );
 
 SELECT * FROM garden_to_table.revenue;
+
+drop table garden_to_table.revenue;

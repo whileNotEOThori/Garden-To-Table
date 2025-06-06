@@ -17,3 +17,14 @@ CREATE TABLE orders (
 );
 
 SELECT * FROM garden_to_table.orders;
+
+ALTER TABLE `garden_to_table`.`orders` 
+DROP FOREIGN KEY `orders_ibfk_2`;
+ALTER TABLE `garden_to_table`.`orders` 
+DROP COLUMN `statusID`,
+DROP INDEX `statusID` ;
+;
+
+ALTER TABLE garden_to_table.orders ADD COLUMN paidOut BOOLEAN DEFAULT FALSE;
+
+alter table garden_to_table.orders rename column created_at to timeOrdered;
