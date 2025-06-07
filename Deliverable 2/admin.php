@@ -89,4 +89,68 @@ class admin extends user
 
         return $result->fetch_assoc()['numSellers'];
     }
+
+    public function viewUsers()
+    {
+        global $conn;
+
+        // $query = $conn->prepare("SELECT users.*, buyers.*, sellers.*, admins.*  FROM users LEFT JOIN buyers ON users.uID = buyers.uID LEFT JOIN sellers ON users.uID = sellers.uID LEFT JOIN admins ON users.uID = admins.uID");
+        $query = $conn->prepare("SELECT users.uID AS user_uID, buyers.bID, sellers.sID, admins.aID, users.firstName, users.lastName, users.phoneNumber, users.emailAddress, buyers.postcode AS buyer_postcode, buyers.streetAddress AS buyer_streetAddress, sellers.postcode AS seller_postcode, sellers.streetAddress AS seller_streetAddress, sellers.totalSales, sellers.deliveryRate 
+        FROM users 
+        LEFT JOIN buyers ON users.uID = buyers.uID 
+        LEFT JOIN sellers ON users.uID = sellers.uID 
+        LEFT JOIN admins ON users.uID = admins.uID");
+
+        if (!$query) die("View users query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("View users query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            echo "
+        <div class='table-responsive'>
+        <table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>User ID</th>
+          <th scope='col'>Buyer ID</th>
+          <th scope='col'>Seller ID</th>
+          <th scope='col'>Admin ID</th>
+          <th scope='col'>First Name</th>
+          <th scope='col'>Last Name</th>
+          <th scope='col'>Phone Number</th>
+          <th scope='col'>Email Address</th>
+          <th scope='col'>Post Code</th>
+          <th scope='col'>Street Address</th>
+          <th scope='col'>Total Sales</th>
+          <th scope='col'>Delivery Rate</th>
+          </tr>
+        </thead>
+        <tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
+            <th scope='row'>" . $row['user_uID'] . "</th>
+            <td>" . $row['bID'] . "</td>
+            <td>" . $row['sID'] . "</td>
+            <td>" . $row['aID'] . "</td>
+            <td>" . $row['firstName'] . "</td>
+            <td>" . $row['lastName'] . "</td>
+            <td>" . $row['phoneNumber'] . "</td>
+            <td>" . $row['emailAddress'] . "</td>
+            <td>" . (!empty($row['sID']) ? $row['seller_postcode'] : (!empty($row['bID']) ? $row['buyer_postcode'] : '')) . "</td>
+            <td>" . (!empty($row['sID']) ? $row['seller_streetAddress'] : (!empty($row['bID']) ? $row['buyer_streetAddress'] : '')) . "</td>
+            <td>" . $row['totalSales'] . "</td>
+            <td>" . $row['deliveryRate'] . "</td>
+          </tr>";
+            }
+            echo "</tbody>
+      </table>
+      </div>";
+        } else {
+            echo "<h3>No users</h3>";
+        }
+    }
 }
