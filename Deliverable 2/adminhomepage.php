@@ -28,8 +28,13 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Users</h5>
-                            <p class="card-text"><strong>First Name: </strong> <?php echo $_SESSION['admin']->firstName ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editFirstNameModal" href="">Edit</a></p>
-                            <p class="card-text"><strong>Last Name: </strong> <?php echo $_SESSION['admin']->lastName ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editLastNameModal" href="">Edit</a></p>
+                            <p class="card-text"><strong>Number of Users: </strong> <?php echo $_SESSION['admin']->getNumUsers() ?></p>
+                            <p class="card-text"><strong>Number of Admins: </strong> <?php echo $_SESSION['admin']->getNumAdmins() ?></p>
+                            <p class="card-text"><strong>Number of Buyers: </strong> <?php echo $_SESSION['admin']->getNumBuyers() ?></p>
+                            <p class="card-text"><strong>Number of Sellers: </strong> <?php echo $_SESSION['admin']->getNumSellers() ?></p>
+
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#createAdminModal" class="btn btn-primary">Create Admin</button>
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="btn btn-danger">Delete User</button>
                         </div>
                     </div>
                 </section>
@@ -80,6 +85,9 @@ isAdminSignedIn();
 
     <!-- Sign out modal -->
     <?php require_once('signoutmodal.php') ?>
+
+    <!-- Admin modal -->
+    <?php require_once('adminModals.php') ?>
 </body>
 
 </html>
