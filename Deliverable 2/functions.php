@@ -2,6 +2,7 @@
 require_once("connect.php");
 require_once("seller.php");
 require_once("buyer.php");
+require_once("admin.php");
 require_once("product.php");
 
 function getCategories()
@@ -123,6 +124,34 @@ function getBuyerData($userID)
 
     if (!$query->execute())
         die("Get buyer data query execution failed: " . $query->error);
+
+    $result = $query->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "<script> alert('The entered email does not have a buyer account') </script>";
+        exit();
+    }
+
+    $query->close();
+
+    return $result->fetch_assoc();
+}
+
+function getAdminData($userID)
+{
+    global $conn;
+    $tableName = "admins";
+
+    //get the seller ID of th User
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+
+    if (!$query)
+        die("Get admin data query prepare failed: " . $conn->error);
+
+    $query->bind_param("s", $userID);
+
+    if (!$query->execute())
+        die("Get admin data query execution failed: " . $query->error);
 
     $result = $query->get_result();
 

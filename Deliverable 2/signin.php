@@ -53,8 +53,14 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
     }
 
     //determine if the user has admin account if they opted to sign in as one
-    if ($userType == "admin")
-        $tableName = "admins";
+    if ($userType == "admin") {
+        $adminRow = getAdminData($userID);
+
+        if ($adminRow == null || $adminRow == false) {
+            echo "<script> alert('The user does not have a admin account.') </script>";
+            exit;
+        }
+    }
 
     //Extract user's encrypted password from the result from the user query
     $encryptedPassword = $userRow['password'];
@@ -79,8 +85,10 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         }
 
         //Instantiate a admin object with the user's data from the database as a session variable then direct the user to the admin section of the website
-        /*if ($userType == "admin")
-                header("location: sellerhomepage.html");*/
+        if ($userType == "admin") {
+            $_SESSION['admin'] = new admin($userRow, $adminRow);
+            header("location: adminhomepage.php");
+        }
         exit;
     } else {
         echo "<script> alert('Incorrect password entered.') </script>";
