@@ -90,6 +90,42 @@ class admin extends user
         return $result->fetch_assoc()['numSellers'];
     }
 
+    public function getNumProducts()
+    {
+        global $conn;
+        $tableName = "products";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numProducts FROM $tableName");
+
+        if (!$query) die("Get number of products query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get number of products query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numProducts'];
+    }
+
+    public function getNumCategories()
+    {
+        global $conn;
+        $tableName = "categories";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numCategories FROM $tableName");
+
+        if (!$query) die("Get number of categories query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get number of categories query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numCategories'];
+    }
+
     public function viewUsers()
     {
         global $conn;

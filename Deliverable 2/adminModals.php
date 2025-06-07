@@ -83,6 +83,64 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="addCategoryModalLabel">Add Category</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add Category Form -->
+                    <form action="adminManagement.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <!-- Category Name Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Category Name" required />
+                                <label for="categoryName">Category Name</label>
+                            </div>
+                        </div>
+
+                        <!-- Create Admin Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="createAdmin" value="createAdmin" class="btn btn-primary">Create Admin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Modal -->
+    <div class="modal fade" id="deleteProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="deleteProductModalLabel">Delete Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Delete Form -->
+                    <form action="adminManagement.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <!-- User ID Input Div -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="productID" name="productID" placeholder="Product ID" required />
+                                <label for="productID">Product ID</label>
+                            </div>
+                        </div>
+
+                        <!-- Delete User Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="deleteUser" value="deleteUser" class="btn btn-danger">Delete User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

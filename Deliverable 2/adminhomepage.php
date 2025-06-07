@@ -45,8 +45,11 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Products</h5>
-                            <p class="card-text"><strong>Email Address: </strong> <?php echo $_SESSION['admin']->emailAddress ?></p>
-                            <p class="card-text"><strong>Phone Number: </strong> <?php echo $_SESSION['admin']->phoneNumber ?> &emsp; <a data-bs-toggle="modal" data-bs-target="#editPhoneNumberModal" href="">Edit</a> </p>
+                            <p class="card-text"><strong>Number of Products: </strong> <?php echo $_SESSION['admin']->getNumProducts() ?></p>
+                            <p class="card-text"><strong>Number of Categories: </strong> <?php echo $_SESSION['admin']->getNumCategories() ?></p>
+
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#addCategoryModal" class="btn btn-primary">Add Category</button>
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#deleteProductModal" class="btn btn-danger">Delete Product</button>
                         </div>
                     </div>
                 </section>
