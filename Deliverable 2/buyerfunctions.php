@@ -10,6 +10,28 @@ function isBuyerSignedIn()
     }
 }
 
+function isBuyerAlsoSeller()
+{
+    global $conn;
+    $tableName = "sellers";
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+
+    if (!$query) die("Is buyer also a seller query prepare failed: " . $conn->error);
+
+    $query->bind_param("i", $_SESSION['buyer']->uID);
+
+    if (!$query->execute()) die("Is buyer also a seller query execution failed: " . $query->error);
+
+    $result = $query->get_result();
+    $query->close();
+
+    if ($result->num_rows == 0)
+        return false;
+
+    return $result->fetch_assoc()['sID'];
+}
+
 function displayProductCard($productRow)
 {
     echo
@@ -65,10 +87,16 @@ function getAllProducts()
 {
     global $conn;
     $tableName = "products";
+    $isBuyerAlsoSeller = isBuyerAlsoSeller();
 
-    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0");
-
-    if (!$query) die("Get all products query prepare failed: " . $conn->error);
+    if (!$isBuyerAlsoSeller) {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0");
+        if (!$query) die("Get all products query prepare failed: " . $conn->error);
+    } else {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND sID != ?");
+        if (!$query) die("Get all products query prepare failed: " . $conn->error);
+        $query->bind_param('i', $isBuyerAlsoSeller);
+    }
 
     if (!$query->execute()) die("Get all products query execution failed: " . $query->error);
 
@@ -88,12 +116,16 @@ function getProductsFiltered()
 {
     global $conn;
     $tableName = "products";
+    $isBuyerAlsoSeller = isBuyerAlsoSeller();
 
-    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ?");
-
-    if (!$query) die("Display filtered product cards query prepare failed: " . $conn->error);
-
-    $query->bind_param('i', $_SESSION['filterState']);
+    if (!$isBuyerAlsoSeller) {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ?");
+        if (!$query) die("Display filtered product cards query prepare failed: " . $conn->error);
+    } else {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? AND sID != ?");
+        if (!$query) die("Display filtered product cards query prepare failed: " . $conn->error);
+        $query->bind_param('ii', $_SESSION['filterState'], $isBuyerAlsoSeller);
+    }
 
     if (!$query->execute()) die("Display filtered product cards query execution failed: " . $query->error);
 
@@ -115,9 +147,20 @@ function getProductsSorted()
     $tableName = "products";
     $order = $_SESSION['orderState'];
 
+    $isBuyerAlsoSeller = isBuyerAlsoSeller();
+
+    if (!$isBuyerAlsoSeller) {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 $order");
+        if (!$query) die("Get products sorted query prepare failed: " . $conn->error);
+    } else {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0  AND sID != ? $order");
+        if (!$query) die("Get products sorted query prepare failed: " . $conn->error);
+        $query->bind_param('i', $isBuyerAlsoSeller);
+    }
+
     $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 $order");
 
-    if (!$query) die("Get products sorted query prepare failed: " . $conn->error);
+    // if (!$query) die("Get products sorted query prepare failed: " . $conn->error);
 
     if (!$query->execute()) die("Get products sorted query execution failed: " . $query->error);
 
@@ -139,11 +182,16 @@ function getProductsFilteredAndSorted()
     $tableName = "products";
     $order = $_SESSION['orderState'];
 
-    $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? $order");
+    $isBuyerAlsoSeller = isBuyerAlsoSeller();
 
-    if (!$query) die("Get products filtered and sorted query prepare failed: " . $conn->error);
-
-    $query->bind_param('i', $_SESSION['filterState']);
+    if (!$isBuyerAlsoSeller) {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > AND cID = ? 0 $order");
+        if (!$query) die("Get products filtered and sorted query prepare failed: " . $conn->error);
+    } else {
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE quantity > 0 AND cID = ? AND sID != ? $order");
+        if (!$query) die("Get products filtered and sorted query prepare failed: " . $conn->error);
+        $query->bind_param('ii', $_SESSION['filterState'] ,$isBuyerAlsoSeller);
+    }
 
     if (!$query->execute()) die("Get products filtered and sorted query execution failed: " . $query->error);
 

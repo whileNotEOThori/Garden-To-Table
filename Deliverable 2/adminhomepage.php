@@ -62,8 +62,9 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Orders</h5>
-                            <p class="card-text"><strong>Postcode: </strong> </p>
-                            <p class="card-text"><strong>Street Address: </strong> </p>
+                            <p class="card-text"><strong>Number of Orders Made: </strong> </p>
+                            <p class="card-text"><strong>Number of Orders Requesting Delivery: </strong> </p>
+                            <p class="card-text"><strong>Number of Orders Requesting Collection: </strong> </p>
                         </div>
                     </div>
                 </section>
@@ -73,8 +74,10 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Finances</h5>
-                            <p class="card-text"><strong>Orders Made: </strong> </p>
-                            <p class="card-text"><strong>Total Spent: </strong>R </p>
+                            <p class="card-text"><strong>Total Sales: </strong> </p>
+                            <p class="card-text"><strong>Total Service Fees: </strong>R </p>
+                            <p class="card-text"><strong>Total Delivery Fees: </strong>R </p>
+                            <p class="card-text"><strong>Total Sales to be Paid Out: </strong>R </p>
                         </div>
                     </div>
                 </section>
