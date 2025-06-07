@@ -196,6 +196,7 @@ class buyer extends user
     {
         $total = 0.00;
         $trackedSellers = array();
+
         foreach ($_SESSION['cart'] as $productID => $quantity) {
             $productRow = getProductRow($productID);
 
@@ -206,8 +207,79 @@ class buyer extends user
             $deliveryInfo = getSellerDeliveryInfo($sellerID);
 
             $total += (abs($deliveryInfo['postcode'] - $this->postcode) + 1) * $deliveryInfo['deliveryRate'];
+
+            $trackedSellers[$sellerID] = true;
         }
 
         return $total;
+    }
+
+    function generateItem_Quant()
+    {
+        $item_quant = "";
+
+        foreach ($_SESSION['cart'] as $productID => $quantity)
+            $item_quant = $item_quant . $productID . ":" . $quantity . ";";
+
+        return rtrim($item_quant, ";");
+    }
+
+    function updateStock()
+    {
+        global $conn;
+        $tableName = "products";
+
+        foreach ($_SESSION['cart'] as $productID => $quantity) {
+            $updatedQuant = getProductRow($productID)['quantity'] -  $_SESSION['cart'][$productID];
+            $query = $conn->prepare("UPDATE $tableName SET quantity = ? WHERE pID = ?");
+
+            if (!$query) die("Place order update quant query prepare failed (pID)" . $productID . ": " . $conn->error);
+
+            $query->bind_param("ii", $updatedQuant, $productID);
+
+            if (!$query->execute()) die("Place order update quant query prepare failed (pID)" . $productID . ": " . $query->error);
+
+            $query->close();
+        }
+
+        return true;
+    }
+
+    public function placeOrder($deliveryOrCollection)
+    {
+        global $conn;
+        $tableName = 'orders';
+        $item_quant = $this->generateItem_Quant();
+        $cartTotal = $this->getCartTotal();
+        $serviceFee = $cartTotal * $_ENV['SERVICE_FEE'];
+        $grandTotal = $cartTotal + $serviceFee;
+
+        if ($deliveryOrCollection == "delivery")
+            $query = $conn->prepare("INSERT INTO $tableName (bID, item_quant, delivery, collection, amount, serviceFee, deliveryFee, totalAmount) VALUES (?,?,?,?,?,?,?,?)");
+        else
+            $query = $conn->prepare("INSERT INTO $tableName (bID, item_quant, amount, serviceFee, totalAmount) VALUES (?,?,?,?,?)");
+
+        if (!$query) die("Place order query prepare failed: " . $conn->error);
+
+        if ($deliveryOrCollection == "delivery") {
+            $deliveryFee = $this->calcDeliveryFee();
+            $grandTotal += $deliveryFee;
+            $delivery = 1;
+            $collection = 0;
+            $query->bind_param("isssdddd", $_SESSION['buyer']->bID, $item_quant, $delivery, $collection, $cartTotal, $serviceFee, $deliveryFee, $grandTotal);
+        } else
+            $query->bind_param("isddd", $this->bID, $item_quant, $cartTotal, $serviceFee, $grandTotal);
+
+        if (!$query->execute()) die("Place Order query execute failed: " . $query->error);
+
+        $query->close();
+
+        $this->updateStock();
+
+        echo "<script> alert('Your order has been placed')</script>";
+
+        //empty and reset cart
+        unset($_SESSION['cart']);
+        $_SESSION['cart'] = array();
     }
 }
