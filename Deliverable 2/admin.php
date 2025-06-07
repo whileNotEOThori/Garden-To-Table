@@ -153,4 +153,61 @@ class admin extends user
             echo "<h3>No users</h3>";
         }
     }
+
+    public function viewProducts()
+    {
+        global $conn;
+        $tableName = "products";
+
+        $query = $conn->prepare("SELECT * FROM $tableName");
+
+        if (!$query)
+            die("View products query prepare failed: " . $conn->error);
+
+        if (!$query->execute())
+            die("View products query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        if ($result->num_rows > 0) {
+            echo "
+        <div class='table-responsive'>
+        <table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>Product ID</th>
+          <th scope='col'>Seller ID</th>
+          <th scope='col'>Category</th>
+          <th scope='col'>Name</th>
+          <th scope='col'>Description</th>
+          <th scope='col'>Mass [g]</th>
+          <th scope='col'>Price [R]</th>
+          <th scope='col'>Quantity</th>
+          <th scope='col'>Image</th>
+          </tr>
+        </thead>
+        <tbody>";
+            while ($row = $result->fetch_assoc()) {
+                $product = new product($row);
+                echo "<tr>
+            <th scope='row'>" . $product->pID . "</th>
+            <th scope='row'>" . $product->sID . "</th>
+            <td>" . getCategoryName($product->cID) . "</td>
+            <td>" . $product->name . "</td>
+            <td>" . $product->description . "</td>
+            <td>" .  $product->mass . "</td>
+            <td>" .  $product->price . "</td>
+            <td>" . $product->quantity . "</td>
+            <td><img height='50px' width='50px' src='data:image/jpeg;base64,$product->image' /></td>
+          </tr>";
+            }
+            echo "</tbody>
+      </table>
+      </div>";
+        } else {
+            echo "<h3>No products being sold</h3>";
+        }
+
+        $query->close();
+    }
 }
