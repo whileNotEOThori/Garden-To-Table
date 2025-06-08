@@ -74,10 +74,10 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Finances</h5>
-                            <p class="card-text"><strong>Total Sales: </strong> </p>
-                            <p class="card-text"><strong>Total Service Fees: </strong>R </p>
-                            <p class="card-text"><strong>Total Delivery Fees: </strong>R </p>
-                            <p class="card-text"><strong>Total Sales to be Paid Out: </strong>R </p>
+                            <p class="card-text"><strong>Total Sales: </strong>R <?php echo $_SESSION['admin']->getTotalSales(); ?> </p>
+                            <p class="card-text"><strong>Total Service Fees: </strong>R <?php echo $_SESSION['admin']->getTotalServiceFees(); ?></p>
+                            <p class="card-text"><strong>Total Delivery Fees: </strong>R <?php echo $_SESSION['admin']->getTotalDeliveryFees(); ?></p>
+                            <p class="card-text"><strong>Total Sales to be Paid Out: </strong>R <?php echo $_SESSION['admin']->getTotalUnpaid(); ?> </p>
                         </div>
                     </div>
                 </section>

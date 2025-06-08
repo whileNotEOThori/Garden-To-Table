@@ -180,6 +180,78 @@ class admin extends user
         return $result->fetch_assoc()['numCollectionOrders'];
     }
 
+    public function getTotalSales()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT SUM(totalAmount) AS totalSales FROM $tableName");
+
+        if (!$query) die("Get total sales query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get total sales query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['totalSales'];
+    }
+
+    public function getTotalServiceFees()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT SUM(serviceFee) AS totalServiceFees FROM $tableName");
+
+        if (!$query) die("Get total service fees query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get total service fees query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['totalServiceFees'];
+    }
+
+    public function getTotalDeliveryFees()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT SUM(deliveryFee) AS totalDeliveryFees FROM $tableName");
+
+        if (!$query) die("Get total delivery fees query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get total delivery fees query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['totalDeliveryFees'];
+    }
+
+    public function getTotalUnpaid()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT SUM(amount) AS unpaid FROM $tableName WHERE paidOut = 0");
+
+        if (!$query) die("Get total amount unpaid query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get total amount unpaid query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['unpaid'];
+    }
+
     public function viewUsers()
     {
         global $conn;
