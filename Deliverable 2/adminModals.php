@@ -123,7 +123,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Delete Form -->
-                    <form action="adminManagement.php" method="POST">
+                    <form action="adminmanagement.php" method="POST">
                         <div class="container" style="width: 450px">
                             <!-- User ID Input Div -->
                             <div class="form-floating mb-3">
@@ -135,6 +135,31 @@
                         <!-- Delete User Button -->
                         <div class="container" style="display: flex; justify-content: center">
                             <button type="submit" name="deleteProduct" value="deleteProduct" class="btn btn-danger">Delete Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pay Out Modal -->
+    <div class="modal fade" id="payOutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="payOutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-center" id="payOutModalLabel">Payout</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Payout Form -->
+                    <form action="adminmanagement.php" method="POST">
+                        <div class="container" style="width: 450px">
+                            <p>A total of <strong>R<?php echo $_SESSION['admin']->getTotalUnpaid() ?></strong> will be paid out to all the relevant sellers. Would you like to proceed with this payment.</p>
+                        </div>
+
+                        <!-- Delete User Button -->
+                        <div class="container" style="display: flex; justify-content: center">
+                            <button type="submit" name="payOut" value="payOut" class="btn btn-primary">Pay out</button>
                         </div>
                     </form>
                 </div>

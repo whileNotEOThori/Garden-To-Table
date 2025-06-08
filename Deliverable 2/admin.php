@@ -249,7 +249,9 @@ class admin extends user
 
         $query->close();
 
-        return $result->fetch_assoc()['unpaid'];
+        $totalUnpaid = $result->fetch_assoc()['unpaid'];
+
+        return (empty($totalUnpaid)) ? 0.00 : $totalUnpaid;
     }
 
     public function viewUsers()
@@ -532,5 +534,21 @@ class admin extends user
         if (!$query->execute()) die("Delete product query execution failed: " . $query->error);
 
         $query->close();
+    }
+
+    public function payout()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("UPDATE $tableName SET paidOut = 1 WHERE paidOut = 0");
+
+        if (!$query) die("Payout prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Payout query execution failed: " . $query->error);
+
+        $query->close();
+
+        return true;
     }
 }

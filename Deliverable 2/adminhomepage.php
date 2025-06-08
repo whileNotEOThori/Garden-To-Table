@@ -78,6 +78,8 @@ isAdminSignedIn();
                             <p class="card-text"><strong>Total Service Fees: </strong>R <?php echo $_SESSION['admin']->getTotalServiceFees(); ?></p>
                             <p class="card-text"><strong>Total Delivery Fees: </strong>R <?php echo $_SESSION['admin']->getTotalDeliveryFees(); ?></p>
                             <p class="card-text"><strong>Total Sales to be Paid Out: </strong>R <?php echo $_SESSION['admin']->getTotalUnpaid(); ?> </p>
+
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#payOutModal" class="btn btn-primary">Pay Out</button>
                         </div>
                     </div>
                 </section>

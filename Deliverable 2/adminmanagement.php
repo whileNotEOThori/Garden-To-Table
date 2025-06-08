@@ -28,3 +28,10 @@ if (isset($_POST['deleteProduct'])) {
     header("location: adminhomepage.php");
     exit;
 }
+
+if (isset($_POST['payOut'])) {
+    $_SESSION['admin']->payout();
+
+    header("location: adminhomepage.php");
+    exit;
+}
