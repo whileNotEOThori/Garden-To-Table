@@ -65,7 +65,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Delete Form -->
-                    <form action="adminManagement.php" method="POST">
+                    <form action="adminmanagement.php" method="POST">
                         <div class="container" style="width: 450px">
                             <!-- User ID Input Div -->
                             <div class="form-floating mb-3">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Add Category Form -->
-                    <form action="adminManagement.php" method="POST">
+                    <form action="adminmanagement.php" method="POST">
                         <div class="container" style="width: 450px">
                             <!-- Category Name Input Div -->
                             <div class="form-floating mb-3">
@@ -105,7 +105,7 @@
 
                         <!-- Create Admin Button -->
                         <div class="container" style="display: flex; justify-content: center">
-                            <button type="submit" name="createAdmin" value="createAdmin" class="btn btn-primary">Create Admin</button>
+                            <button type="submit" name="addCategory" value="addCategory" class="btn btn-primary">Add Category</button>
                         </div>
                     </form>
                 </div>
@@ -134,7 +134,7 @@
 
                         <!-- Delete User Button -->
                         <div class="container" style="display: flex; justify-content: center">
-                            <button type="submit" name="deleteUser" value="deleteUser" class="btn btn-danger">Delete User</button>
+                            <button type="submit" name="deleteProduct" value="deleteProduct" class="btn btn-danger">Delete Product</button>
                         </div>
                     </form>
                 </div>

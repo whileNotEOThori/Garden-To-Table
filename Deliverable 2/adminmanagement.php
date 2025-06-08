@@ -11,10 +11,19 @@ if (isset($_POST['deleteUser'])) {
     exit;
 }
 
-if (isset($_POST['createAdmin'])) {
+if (isset($_POST['addCategory'])) {
     $categoryName = $_POST['categoryName'];
 
     $_SESSION['admin']->addCategory($categoryName);
+
+    header("location: adminhomepage.php");
+    exit;
+}
+
+if (isset($_POST['deleteProduct'])) {
+    $productID = $_POST['productID'];
+
+    $_SESSION['admin']->deleteProduct($productID);
 
     header("location: adminhomepage.php");
     exit;

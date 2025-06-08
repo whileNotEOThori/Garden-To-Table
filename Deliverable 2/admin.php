@@ -517,4 +517,20 @@ class admin extends user
 
         $query->close();
     }
+
+    public function deleteProduct($productID)
+    {
+        global $conn;
+        $tableName = "products";
+
+        $query = $conn->prepare("DELETE FROM $tableName WHERE pID = ?");
+
+        if (!$query) die("Delete product query prepare failed: " . $conn->error);
+
+        $query->bind_param("i", $productID);
+
+        if (!$query->execute()) die("Delete product query execution failed: " . $query->error);
+
+        $query->close();
+    }
 }
