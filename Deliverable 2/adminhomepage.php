@@ -62,9 +62,9 @@ isAdminSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Orders</h5>
-                            <p class="card-text"><strong>Number of Orders Made: </strong> </p>
-                            <p class="card-text"><strong>Number of Orders Requesting Delivery: </strong> </p>
-                            <p class="card-text"><strong>Number of Orders Requesting Collection: </strong> </p>
+                            <p class="card-text"><strong>Number of Orders Made: </strong><?php echo $_SESSION['admin']->getNumOrders(); ?> </p>
+                            <p class="card-text"><strong>Number of Orders Requesting Delivery:</strong> <?php echo $_SESSION['admin']->getNumDeliveryOrders(); ?> </p>
+                            <p class="card-text"><strong>Number of Orders Requesting Collection: </strong><?php echo $_SESSION['admin']->getNumCollectionOrders(); ?> </p>
                         </div>
                     </div>
                 </section>

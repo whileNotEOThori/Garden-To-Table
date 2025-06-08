@@ -126,6 +126,60 @@ class admin extends user
         return $result->fetch_assoc()['numCategories'];
     }
 
+    public function getNumOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numOrders FROM $tableName");
+
+        if (!$query) die("Get number of orders  query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get number of orders  query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numOrders'];
+    }
+
+    public function getNumDeliveryOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numDeliveryOrders FROM $tableName WHERE delivery = 1");
+
+        if (!$query) die("Get number of delivery orders query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get number of delivery orders query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numDeliveryOrders'];
+    }
+
+    public function getNumCollectionOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT COUNT(*) AS numCollectionOrders FROM $tableName WHERE collection = 1");
+
+        if (!$query) die("Get number of collection orders query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("Get number of collection orders query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        return $result->fetch_assoc()['numCollectionOrders'];
+    }
+
     public function viewUsers()
     {
         global $conn;
