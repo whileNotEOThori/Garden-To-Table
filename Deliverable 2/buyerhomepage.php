@@ -65,8 +65,8 @@ isBuyerSignedIn();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">History</h5>
-                            <p class="card-text"><strong>Orders Made: </strong> <?php echo $_SESSION['buyer']->firstName ?></p>
-                            <p class="card-text"><strong>Total Spent: </strong>R <?php echo $_SESSION['buyer']->streetAddress ?></p>
+                            <p class="card-text"><strong>Orders Made: </strong> <?php echo $_SESSION['buyer']->getNumOrdersMade() ?></p>
+                            <p class="card-text"><strong>Total Spent: </strong>R <?php echo $_SESSION['buyer']->getTotalSpent() ?></p>
                         </div>
                     </div>
                 </section>
