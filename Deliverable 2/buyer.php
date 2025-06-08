@@ -1,5 +1,6 @@
 <?php
 require_once("user.php");
+require_once("buyerfunctions.php");
 
 class buyer extends user
 {
@@ -244,21 +245,9 @@ class buyer extends user
         return rtrim($item_quant, ";");
     }
 
-    function extractItem_Quant($item_quants)
-    {
-        $arr = array();
-        $pairs = explode(';', $item_quants);
-        foreach ($pairs as $pair) {
-            if (trim($pair) === '') continue;
-            list($pID, $quant) = explode(':', $pair);
-            $arr[$pID] = (int)$quant;
-        }
-        return $arr;
-    }
-
     function printItem_Quant($item_quant)
     {
-        $arr = $this->extractItem_Quant($item_quant);
+        $arr = extractItem_Quant($item_quant);
 
         $result = "";
 
@@ -362,8 +351,8 @@ class buyer extends user
           </tr>
         </thead>
         <tbody>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
         <th scope='row'>" . $row['oID'] . "</th>
         <td>" . $this->printItem_Quant($row['item_quant']) . "</td>
         <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
@@ -373,7 +362,7 @@ class buyer extends user
         <td>R" .   $row['totalAmount'] . "</td>
         <td>" .  $row['timeOrdered'] . "</td>
         </tr>";
-        }
+            }
             echo "</tbody>
       </table>
       </div>";

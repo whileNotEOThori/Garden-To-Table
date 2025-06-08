@@ -15,7 +15,7 @@
             <li class="nav-item"><a href="addproductpage.php" class="nav-link px-2 text-body-secondary">Add Product</a></li>
             <li class="nav-item"><a href="editproductpage.php" class="nav-link px-2 text-body-secondary">Edit Product</a></li>
             <li class="nav-item"><a href="deleteproductpage.php" class="nav-link px-2 text-body-secondary">Delete Product</a></li>
-            <li class="nav-item"><a href="vieworderspage.php" class="nav-link px-2 text-body-secondary">View Orders</a></li>
+            <li class="nav-item"><a href="sellervieworders.php" class="nav-link px-2 text-body-secondary">View Orders</a></li>
         </ul>
         <p class="text-center text-body-secondary"><img src="images/GTT Logo.jpg" alt="Logo" height="50px" /> Garden To Table ©. All rights reserved.</p>
     </footer>

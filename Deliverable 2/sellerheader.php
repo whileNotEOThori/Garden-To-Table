@@ -25,7 +25,7 @@
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="addproductpage.php">Add Product</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="editproductpage.php">Edit Product</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="deleteproductpage.php">Delete Product</a></li>
-                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="vieworderspage.php">View Orders</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="sellervieworders.php">View Orders</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal" href="">Sign Out</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" style="color: darkolivegreen;" id="header-nav-link" href="sellerhomepage.php"><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['seller']->firstName . " " . $_SESSION['seller']->lastName ?></a></li>
                     </ul>

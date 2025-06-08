@@ -347,3 +347,15 @@ function getSellerDeliveryInfo($sellerID)
 
     return $result->fetch_assoc();
 }
+
+function extractItem_Quant($item_quants)
+{
+    $arr = array();
+    $pairs = explode(';', $item_quants);
+    foreach ($pairs as $pair) {
+        if (trim($pair) === '') continue;
+        list($pID, $quant) = explode(':', $pair);
+        $arr[$pID] = (int)$quant;
+    }
+    return $arr;
+}

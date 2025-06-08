@@ -382,51 +382,100 @@ class seller extends user
         return true;
     }
 
-    public function viewOrders()
+    function getProductIDs()
     {
         global $conn;
         $tableName = "products";
 
-        $query = $conn->prepare("SELECT * FROM $tableName WHERE sID = ?");
+        $query = $conn->prepare("SELECT pID FROM $tableName WHERE sID = ?");
 
-        if (!$query)
-            die("View listed products query prepare failed: " . $conn->error);
+        if (!$query) die("Get product IDs query prepare failed: " . $conn->error);
 
-        $query->bind_param("i", $_SESSION['seller']->sID);
+        $query->bind_param('i', $this->sID);
 
-        if (!$query->execute())
-            die("View listed products query execution failed: " . $query->error);
+        if (!$query->execute()) die("Get product IDs query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            $productIDs = array();
+
+            while ($row = $result->fetch_assoc())
+                $productIDs[] = $row['pID'];
+        }
+
+        return $productIDs;
+    }
+
+    function getSellersProductsFromOrder($arr)
+    {
+        $products = $this->getProductIDs();
+
+        foreach ($arr as $productID => $quantity)
+            if (!in_array($productID, $products)) unset($arr[$productID]);
+
+        return $arr;
+    }
+
+    function printItem_Quant($item_quant)
+    {
+        $arr = extractItem_Quant(($item_quant));
+        $sellerProducts = $this->getSellersProductsFromOrder($arr);
+
+        $result = "";
+
+        foreach ($sellerProducts as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+            $result = $result .  $productRow['name'] . ":" . $quantity . "\n";
+        }
+
+        return $result;
+    }
+
+    public function viewOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT * FROM $tableName");
+
+        if (!$query) die("View orders query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("View orders query execution failed: " . $query->error);
 
         $result = $query->get_result();
 
         if ($result->num_rows > 0) {
-            echo "
-        <div class='table-responsive'>
+            echo "<div class='table-responsive'>
         <table class='table table-striped'>
         <thead>
           <tr>
           <th scope='col'>Order ID</th>
-          <th scope='col'>Buyer</th>
+          <th scope='col'>Buyer ID</th>
           <th scope='col'>Item: Quantity</th>
           <th scope='col'>Delivery/Collection</th>
           <th scope='col'>Amount</th>
           <th scope='col'>Delivery Fee</th>
-          <th scope='col'>Time Ordered</th>
+          <th scope='col'>Service Fee</th>
+          <th scope='col'>Total Amount</th>
+          <th scope='col'>Date</th>
           <th scope='col'>Paid Out</th>
           </tr>
         </thead>
         <tbody>";
             while ($row = $result->fetch_assoc()) {
-                $product = new product($row);
                 echo "<tr>
-            <th scope='row'>" . $product->pID . "</th>
-            <td>" . getCategoryName($product->cID) . "</td>
-            <td>" . $product->name . "</td>
-            <td>" . $product->description . "</td>
-            <td>" .  $product->mass . "</td>
-            <td>" .  $product->price . "</td>
-            <td>" . $product->quantity . "</td>
-            <td><img height='50px' width='50px' src='data:image/jpeg;base64,$product->image' /></td>
+            <th scope='row'>" . $row['oID'] . "</th>
+            <td>" . $row['bID'] . "</td>
+            <td>" . $this->printItem_Quant($row['item_quant']) . "</td> 
+            <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
+            <td>R" . $row['amount'] . "</td>
+            <td>R" .  $row['deliveryFee'] . "</td>
+            <td>R" .  $row['serviceFee'] . "</td>
+            <td>R" .   $row['totalAmount'] . "</td>
+            <td>" .  $row['timeOrdered'] . "</td>
+            <td>" .  (($row['paidOut'] == 1) ? "Yes" : "No") . "</td>
           </tr>";
             }
             echo "</tbody>
