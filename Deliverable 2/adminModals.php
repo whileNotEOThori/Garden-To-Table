@@ -18,7 +18,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Create Admin Form -->
-                    <form action="adminManagement.php" method="POST">
+                    <form action="signup.php" method="POST">
                         <div class="container" style="width: 450px">
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">

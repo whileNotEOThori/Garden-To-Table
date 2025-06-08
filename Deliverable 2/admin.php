@@ -428,4 +428,9 @@ class admin extends user
 
         $query->close();
     }
+
+    public function createAdmin()
+    {
+        
+    }
 }

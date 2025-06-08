@@ -109,6 +109,7 @@ function getSellerData($userID)
     return $result->fetch_assoc();
 }
 
+
 function getBuyerData($userID)
 {
     global $conn;
@@ -148,7 +149,7 @@ function getAdminData($userID)
     if (!$query)
         die("Get admin data query prepare failed: " . $conn->error);
 
-    $query->bind_param("s", $userID);
+    $query->bind_param("i", $userID);
 
     if (!$query->execute())
         die("Get admin data query execution failed: " . $query->error);
@@ -208,6 +209,31 @@ function isAlreadySeller($userID)
     $query->close();
 
     if ($sellerCheckQueryResult->num_rows > 0)
+        return true;
+
+    return false;
+}
+
+function isAlreadyAdmin($userID)
+{
+    global $conn;
+    $tableName = "admins";
+
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE uID = ?");
+
+    if (!$query)
+        die("Admin check query prepare failed: " . $conn->error);
+
+    $query->bind_param("s", $userID);
+
+    if (!$query->execute())
+        die("Admin check query execution failed: " . $query->error);
+
+    $adminCheckQueryResult = $query->get_result();
+
+    $query->close();
+
+    if ($adminCheckQueryResult->num_rows > 0)
         return true;
 
     return false;
@@ -296,6 +322,27 @@ function addSellerToTable($userID, $streetAddress, $postcode)
 
     if (!$query->execute())
         die("Seller sign up query execution failed: " . $query->error);
+
+    $query->close();
+
+    return true;
+}
+
+function addAdminToTable($userID)
+{
+    global $conn;
+    $tableName = "admins";
+
+    $query = $conn->prepare("INSERT INTO $tableName (uID) VALUES (?)");
+
+    // Check for SQL errors
+    if (!$query)
+        die("Admin signup query prepare failed: " . $conn->error);
+
+    $query->bind_param("i", $userID);
+
+    if (!$query->execute())
+        die("Admin sign up query execution failed: " . $query->error);
 
     $query->close();
 
