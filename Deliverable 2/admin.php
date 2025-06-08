@@ -500,4 +500,21 @@ class admin extends user
 
         $query->close();
     }
+
+    public function addCategory($categoryName)
+    {
+        global $conn;
+        $tableName = "categories";
+
+        $query = $conn->prepare("INSERT INTO $tableName (name) VALUES (?)");
+
+        // Check for SQL errors
+        if (!$query) die("Add category query prepare failed: " . $conn->error);
+
+        $query->bind_param("s", $categoryName);
+
+        if (!$query->execute()) die("Add category query execution failed: " . $query->error);
+
+        $query->close();
+    }
 }
