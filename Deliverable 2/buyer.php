@@ -245,20 +245,6 @@ class buyer extends user
         return rtrim($item_quant, ";");
     }
 
-    function printItem_Quant($item_quant)
-    {
-        $arr = extractItem_Quant($item_quant);
-
-        $result = "";
-
-        foreach ($arr as $productID => $quantity) {
-            $productRow = getProductRow($productID);
-            $result = $result .  $productRow['name'] . ":" . $quantity . "\n";
-        }
-
-        return $result;
-    }
-
     function updateStock()
     {
         global $conn;
@@ -354,7 +340,7 @@ class buyer extends user
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>
         <th scope='row'>" . $row['oID'] . "</th>
-        <td>" . $this->printItem_Quant($row['item_quant']) . "</td>
+        <td>" . printItem_Quant($row['item_quant']) . "</td>
         <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
         <td>R" . $row['amount'] . "</td>
         <td>R" .  $row['serviceFee'] . "</td>

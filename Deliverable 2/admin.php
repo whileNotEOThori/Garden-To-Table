@@ -246,4 +246,60 @@ class admin extends user
 
         $query->close();
     }
+
+    public function viewOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT * FROM $tableName");
+
+        if (!$query) die("View orders query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("View orders query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        if ($result->num_rows > 0) {
+            echo "
+        <div class='table-responsive'>
+        <table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>Order ID</th>
+          <th scope='col'>Buyer ID</th>
+          <th scope='col'>Item: Quantity</th>
+          <th scope='col'>delivery/Collection</th>
+          <th scope='col'>Amount</th>
+          <th scope='col'>Service Fee</th>
+          <th scope='col'>Delivery Fee</th>
+          <th scope='col'>Total Amount</th>
+          <th scope='col'>Date</th>
+          <th scope='col'>Paid Out</th>
+          </tr>
+        </thead>
+        <tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
+            <th scope='row'>" . $row['oID'] . "</th>
+            <th scope='row'>" . $row['bID'] . "</th>
+            <td>" . printItem_Quant($row['item_quant']) . "</td>
+            <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
+            <td>R" . $row['amount'] . "</td>
+            <td>R" .  $row['serviceFee'] . "</td>
+            <td>R" .  $row['deliveryFee'] . "</td>
+            <td>R" .   $row['totalAmount'] . "</td>
+            <td>" .  $row['timeOrdered'] . "</td>
+            <td>" .  (($row['paidOut'] == 1) ? "Yes" : "No") . "</td>
+            </tr>";
+            }
+            echo "</tbody>
+      </table>
+      </div>";
+        } else {
+            echo "<h3>No orders made</h3>";
+        }
+
+        $query->close();
+    }
 }

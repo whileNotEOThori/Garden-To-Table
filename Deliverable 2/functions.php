@@ -337,11 +337,11 @@ function getSellerDeliveryInfo($sellerID)
 
     $query = $conn->prepare("SELECT postcode, deliveryRate FROM $tableName WHERE sID = ?");
 
-    if (!$query) die("Get seller delivery info query prepare failed: ".$conn->error);
+    if (!$query) die("Get seller delivery info query prepare failed: " . $conn->error);
 
-    $query->bind_param('i',$sellerID);
+    $query->bind_param('i', $sellerID);
 
-    if (!$query->execute()) die("Get seller delivery info query failed: ". $query->error);
+    if (!$query->execute()) die("Get seller delivery info query failed: " . $query->error);
 
     $result = $query->get_result();
 
@@ -358,4 +358,18 @@ function extractItem_Quant($item_quants)
         $arr[$pID] = (int)$quant;
     }
     return $arr;
+}
+
+function printItem_Quant($item_quant)
+{
+    $arr = extractItem_Quant($item_quant);
+
+    $result = "";
+
+    foreach ($arr as $productID => $quantity) {
+        $productRow = getProductRow($productID);
+        $result = $result .  $productRow['name'] . ":" . $quantity . "\n";
+    }
+
+    return $result;
 }
