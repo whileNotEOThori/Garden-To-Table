@@ -224,6 +224,32 @@ class buyer extends user
         return rtrim($item_quant, ";");
     }
 
+    function extractItem_Quant($item_quants)
+    {
+        $arr = array();
+        $pairs = explode(';', $item_quants);
+        foreach ($pairs as $pair) {
+            if (trim($pair) === '') continue;
+            list($pID, $quant) = explode(':', $pair);
+            $arr[$pID] = (int)$quant;
+        }
+        return $arr;
+    }
+
+    function printItem_Quant($item_quant)
+    {
+        $arr = $this->extractItem_Quant($item_quant);
+
+        $result = "";
+
+        foreach ($arr as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+            $result = $result .  $productRow['name'] . ":" . $quantity . "\n";
+        }
+
+        return $result;
+    }
+
     function updateStock()
     {
         global $conn;
@@ -281,5 +307,58 @@ class buyer extends user
         //empty and reset cart
         unset($_SESSION['cart']);
         $_SESSION['cart'] = array();
+    }
+
+    public function viewOrders()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE bID = ?");
+
+        if (!$query) die("Buyer view orders query prepare failed: " . $conn->error);
+
+        $query->bind_param("i", $this->bID);
+
+        if (!$query->execute()) die("Buyer view orders query execute failed: " . $query->error);
+
+        $result = $query->get_result();
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            echo "
+        <div class='table-responsive'>
+        <table class='table table-striped'>
+        <thead>
+          <tr>
+          <th scope='col'>Order ID</th>
+          <th scope='col'>Item: Quantity</th>
+          <th scope='col'>Delivery/Collection</th>
+          <th scope='col'>Amount</th>
+          <th scope='col'>Service Fee</th>
+          <th scope='col'>Delivery Fee</th>
+          <th scope='col'>Total Amount</th>
+          <th scope='col'>Date</th>
+          </tr>
+        </thead>
+        <tbody>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>
+        <th scope='row'>" . $row['oID'] . "</th>
+        <td>" . $this->printItem_Quant($row['item_quant']) . "</td>
+        <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
+        <td>R" . $row['amount'] . "</td>
+        <td>R" .  $row['serviceFee'] . "</td>
+        <td>R" .  $row['deliveryFee'] . "</td>
+        <td>R" .   $row['totalAmount'] . "</td>
+        <td>" .  $row['timeOrdered'] . "</td>
+        </tr>";
+        }
+            echo "</tbody>
+      </table>
+      </div>";
+        } else {
+            echo "<h3>No Orders have been placed yet</h3>";
+        }
     }
 }

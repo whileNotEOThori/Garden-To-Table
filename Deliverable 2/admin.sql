@@ -7,3 +7,5 @@ CREATE TABLE admins(
 );
 
 SELECT * FROM garden_to_table.admins;
+
+insert into garden_to_table.admins values (1,7);
