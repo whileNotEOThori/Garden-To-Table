@@ -429,8 +429,75 @@ class admin extends user
         $query->close();
     }
 
-    public function createAdmin()
+    public function deleteUser($userID)
     {
-        
+        global $conn;
+
+        if (isAlreadyAdmin($userID)) {
+            $tableName = "admins";
+
+            $query = $conn->prepare("DELETE FROM $tableName WHERE uID = ?");
+
+            if (!$query) die("Delete user: admin query prepare failed: " . $conn->error);
+
+            $query->bind_param("i", $userID);
+
+            if (!$query->execute()) die("Delete user: admin query execution failed: " . $query->error);
+
+            $query->close();
+        }
+
+        if (isAlreadyBuyer($userID)) {
+            $tableName = "buyers";
+
+            $query = $conn->prepare("DELETE FROM $tableName WHERE uID = ?");
+
+            if (!$query) die("Delete user: buyer query prepare failed: " . $conn->error);
+
+            $query->bind_param("i", $userID);
+
+            if (!$query->execute()) die("Delete user: buyer query execution failed: " . $query->error);
+
+            $query->close();
+        }
+
+        if (isAlreadySeller($userID)) {
+            $sellerID = getSellerData($userID)['sID'];
+            $tableName = "sellers";
+
+            $query = $conn->prepare("DELETE FROM $tableName WHERE uID = ?");
+
+            if (!$query) die("Delete user: seller query prepare failed: " . $conn->error);
+
+            $query->bind_param("i", $userID);
+
+            if (!$query->execute()) die("Delete user: seller query execution failed: " . $query->error);
+
+            $query->close();
+
+            $tableName = "products";
+
+            $query = $conn->prepare("DELETE FROM $tableName WHERE sID = ?");
+
+            if (!$query) die("Delete user: seller's products query prepare failed: " . $conn->error);
+
+            $query->bind_param("i", $sellerID);
+
+            if (!$query->execute()) die("Delete user: seller's products query execution failed: " . $query->error);
+
+            $query->close();
+        }
+
+        $tableName = "users";
+
+        $query = $conn->prepare("DELETE FROM $tableName WHERE uID = ?");
+
+        if (!$query) die("Delete user: user query prepare failed: " . $conn->error);
+
+        $query->bind_param("i", $userID);
+
+        if (!$query->execute()) die("Delete user: user query execution failed: " . $query->error);
+
+        $query->close();
     }
 }

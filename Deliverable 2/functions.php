@@ -109,7 +109,6 @@ function getSellerData($userID)
     return $result->fetch_assoc();
 }
 
-
 function getBuyerData($userID)
 {
     global $conn;
