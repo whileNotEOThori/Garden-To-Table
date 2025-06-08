@@ -125,12 +125,6 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
             echo "<script> alert('The admin data could not be retrieved.') </script>";
             exit;
         }
-
-        // remove all session variables on sign up
-        session_unset();
-
-        // Instantiate a seller
-        $_SESSION['admin'] = new admin($userRow, $sellerRow);
     }
 
     echo "<script> alert('Account created successfully') </script>";
