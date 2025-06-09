@@ -74,17 +74,33 @@ session_start();
       <h2>FAQ</h2>
       <!-- FAQ Accordion -->
       <div class="accordion" id="faqAccordion">
-        <!-- Collection/delivery -->
+        <!-- Who can sign up -->
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              How do I get my order?
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#who" aria-expanded="false" aria-controls="who">
+              Who can sign up?
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div id="who" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              Orders need to be collected by the buyer from the seller. If the buyer requires delivery of a product they would need to arrange delivery for themselves and coordinate the collection
-              process with the seller. We recommend buyers make use of services like Uber Courier and Bolt Send
+              Anyone can sign up - whether you are a buyer looking for fresh produce or a seller with a surplus harvest.
+            </div>
+          </div>
+        </div>
+
+        <!-- What can I sell -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#what" aria-expanded="false" aria-controls="what">
+              What can I sell?
+            </button>
+          </h2>
+          <div id="what" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Currently, you can sell:
+              <ul>
+                <?php listCategories(); ?>
+              </ul>
             </div>
           </div>
         </div>
@@ -92,27 +108,53 @@ session_start();
         <!-- Charges -->
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#charges" aria-expanded="false" aria-controls="charges">
               What are the charges?
             </button>
           </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">Garden To Table will charge a <?php echo $_ENV['SERVICE_FEE'] * 100 ?>% services fee on all orders.</div>
+          <div id="charges" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">Garden To Table will charge a <?php echo $_ENV['SERVICE_FEE'] * 100 ?>% services fee on all orders and delivery fees are calculated based on a rate per 10km set by the seller.</div>
+          </div>
+        </div>
+
+        <!-- Collection/delivery -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#delivery" aria-expanded="false" aria-controls="delivery">
+              How do I get my order?
+            </button>
+          </h2>
+          <div id="delivery" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Garden To Table offers buyers the option to select between collecting their order from the sellers or having it delivered to their address. We encourage local transactions to reduce transportation costs and environmental impacts.
+            </div>
           </div>
         </div>
 
         <!-- Payment -->
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#payment" aria-expanded="false" aria-controls="payment">
               How do I pay for my order?
             </button>
           </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div id="payment" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">The buyer will EFT the Garden To Table will</div>
           </div>
         </div>
-        
+
+        <!-- Safety -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#safety" aria-expanded="false" aria-controls="safety">
+              Is it safe?
+            </button>
+          </h2>
+          <div id="safety" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">We prioritize user safety by verifying accounts and encouraging community-based transactions. Always meet in public places or within known neighborhoods when possible.</div>
+          </div>
+        </div>
+
       </div>
     </section>
 

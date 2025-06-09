@@ -36,6 +36,35 @@ function getCategories()
     $query->close();
 }
 
+function listCategories()
+{
+    global $conn;
+    $tableName = "categories";
+
+    $query = $conn->prepare("SELECT * FROM $tableName");
+
+    if (!$query)
+        die("Get category query prepare failed: " . $conn->error);
+
+    if (!$query->execute())
+        die("Get category query execution failed" . $query->error);
+
+    $result = $query->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "<script> alert('There are no categories') </script>";
+        // header('location: editproductpage.php');
+        exit;
+    }
+
+    while ($row  = $result->fetch_assoc()) {
+        $categoryName = $row['name'];
+        echo "<li>" . $categoryName . "</li> ";
+    }
+
+    $query->close();
+}
+
 function getSortCriteria()
 {
     if (isset($_SESSION['sortState'])) {
