@@ -31,7 +31,41 @@ session_start();
     <!-- About -->
     <section id="about">
       <h2>About Us</h2>
-      <p>Garden To Table is a community-centric C2C E-Commerce website targeted towards cultivating entreprenuership</p>
+      <div class="row ">
+        <div class="col col-12 col-md-6 mb-3">
+          <div class="card m-2">
+            <div class="card-body">
+              <h5>Garden To Table is a community-driven C2C (consumer-to-consumer) marketplace where everyday growers, urban farmers, and home gardeners can buy, sell, or trade fresh produce within their local area. Born out of a need to support food accessibility and economic sustainability in townships and lower-income communities, our platform connects neighbors to share the bounty of their gardens — straight to the table.</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col col-12 col-md-6 mb-3">
+          <div class="card m-2">
+            <div class="card-body">
+              <h5>We believe in:</h5>
+              <h6>
+                <ul>
+                  <li>Empowering local growers</li>
+                  <li>Reducing food waste</li>
+                  <li>Supporting community-based economies</li>
+                  <li>Encouraging healthier lifestyles through fresh produce</li>
+                </ul>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col mb-3">
+          <div class="card m-2">
+            <div class="card-body">
+              <h5>No expensive transport or middlemen — just real, local food exchanged with ease. Whether you're looking for fresh tomatoes, organic herbs, or extra fruit from a backyard tree, Garden To Table is your trusted local marketplace.</h5>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- FAQ -->
@@ -66,7 +100,7 @@ session_start();
             <div class="accordion-body">Garden To Table will charge a <?php echo $_ENV['SERVICE_FEE'] * 100 ?>% services fee on all orders.</div>
           </div>
         </div>
-        
+
         <!-- Payment -->
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -78,6 +112,7 @@ session_start();
             <div class="accordion-body">The buyer will EFT the Garden To Table will</div>
           </div>
         </div>
+        
       </div>
     </section>
 
