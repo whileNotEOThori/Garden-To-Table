@@ -35,3 +35,17 @@ if (isset($_POST['payOut'])) {
     header("location: adminhomepage.php");
     exit;
 }
+
+if (isset($_POST['markAsReadButton'])) {
+    $messageID = $_POST['markAsReadButton'];
+    $_SESSION['admin']->markMessageAsRead($messageID);
+    header("location: adminmessages.php");
+    exit;
+}
+
+if (isset($_POST['markAsUnreadButton'])) {
+    $messageID = $_POST['markAsUnreadButton'];
+    $_SESSION['admin']->markMessageAsUnread($messageID);
+    header("location: adminmessages.php");
+    exit;
+}

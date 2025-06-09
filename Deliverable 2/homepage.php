@@ -24,20 +24,6 @@ session_start();
         <h1 id="hero-title">Garden To Table</h1>
         <div class="col-lg-6 mx-auto">
           <h3 class="lead mb-4" id="call-to-action">Affordable. Nutritious. Quality. Locally grown produce.</h3>
-          <div class="d-flex gap-3 justify-content-center lead fw-normal">
-            <a class="icon-link" href="sell.html">
-              Sell
-              <svg class="bi" aria-hidden="true">
-                <use xlink:href="#chevron-right"></use>
-              </svg>
-            </a>
-            <a class="icon-link" href="buy.html">
-              Buy
-              <svg class="bi" aria-hidden="true">
-                <use xlink:href="#chevron-right"></use>
-              </svg>
-            </a>
-          </div>
         </div>
       </div>
     </section>
@@ -68,6 +54,7 @@ session_start();
             </div>
           </div>
         </div>
+
         <!-- Charges -->
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -79,6 +66,7 @@ session_start();
             <div class="accordion-body">Garden To Table will charge a <?php echo $_ENV['SERVICE_FEE'] * 100 ?>% services fee on all orders.</div>
           </div>
         </div>
+        
         <!-- Payment -->
         <div class="accordion-item">
           <h2 class="accordion-header">

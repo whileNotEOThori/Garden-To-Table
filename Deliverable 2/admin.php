@@ -551,4 +551,36 @@ class admin extends user
 
         return true;
     }
+
+    public function markMessageAsRead($messageID)
+    {
+        global $conn;
+        $tableName = "messages";
+
+        $query = $conn->prepare("UPDATE $tableName SET isRead = 1 WHERE mID = ?");
+
+        if (!$query) die("Mark message as read query prepare failed: " . $conn->error);
+
+        $query->bind_param('i', $messageID);
+
+        if (!$query->execute()) die("Mark message as read query execution failed: " . $query->error);
+
+        $query->close();
+    }
+
+    public function markMessageAsUnread($messageID)
+    {
+        global $conn;
+        $tableName = "messages";
+
+        $query = $conn->prepare("UPDATE $tableName SET isRead = 0 WHERE mID = ?");
+
+        if (!$query) die("Mark message as unread query prepare failed: " . $conn->error);
+
+        $query->bind_param('i', $messageID);
+
+        if (!$query->execute()) die("Mark message as unread query execution failed: " . $query->error);
+
+        $query->close();
+    }
 }

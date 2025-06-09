@@ -24,7 +24,7 @@ if (isset($_POST['contactUs'])) {
 
     echo "<script> alert('We have received your message') </script>";
     sleep(3);
-    header('location: homepage.html');
+    header('location: homepage.php');
 
     $messageInsertQuery->close();
     $conn->close();

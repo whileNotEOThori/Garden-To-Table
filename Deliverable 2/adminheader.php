@@ -21,9 +21,10 @@
                 <!-- Navbar links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="adminviewusers.php">View Users</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="adminviewproducts.php">View Products</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="adminvieworders.php">View Orders</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="adminviewusers.php">View Users</a></li>
+                        <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" href="adminmessages.php">Messages</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" id="header-nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal" href="">Sign Out</a></li>
                         <li class="nav-item"><a class="nav-link fs-6" style="color: darkolivegreen;" id="header-nav-link" href="adminhomepage.php"><?php echo " <i class='bi bi-person-circle'></i> " . $_SESSION['admin']->firstName . " " . $_SESSION['admin']->lastName ?></a></li>
                     </ul>
