@@ -74,7 +74,7 @@ session_start();
 
         <!-- Terms and Conditions -->
         <div class="container" style="display: flex; justify-content: center">
-          <p>By clicking "Sign Up", I agree to the following: <a href="">Terms and Conditions</a></p>
+          <p>By clicking "Sign Up", I agree to the following: <a href="" data-bs-toggle="modal" data-bs-target="#termsAndCondtions">Terms and Conditions</a></p>
         </div>
 
         <!-- Sign Up Button -->
@@ -98,6 +98,51 @@ session_start();
 
   <!-- Buyer Sign In Modal -->
   <?php require_once("buyersigninmodal.php") ?>
+
+  <!--Terms and Condition Modal -->
+  <div class="modal fade" id="termsAndCondtions" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="termsAndCondtionsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="termsAndCondtionsLabel">Terms and Conditions</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>By signing up for Garden To Table, you agree to the following terms:</h5>
+
+          <p><strong>1. Eligibility<br></strong>
+            You must be at least 18 years old or have parental consent to register.
+            You agree to provide accurate and truthful information.</p>
+
+          <p><strong>2. Account Responsibility<br></strong>
+            You are responsible for maintaining the confidentiality of your login credentials.
+            You must notify us immediately of any unauthorized use of your account.</p>
+
+          <p><strong>3. Conduct<br></strong>
+            You agree not to misuse the platform for illegal activities, spamming, or harmful conduct.
+            You must not post false or misleading product listings.</p>
+
+          <p><strong>4. Transactions<br></strong>
+            Garden To Table is not responsible for the quality, delivery, or payment of goods exchanged. We simply connect buyers and sellers.
+            All transactions are to be negotiated and completed between the two parties.</p>
+
+          <p><strong>5. Content and Listings<br></strong>
+            You are responsible for any content or product listings you post.
+            Offensive, misleading, or illegal content will be removed and may result in account suspension.</p>
+
+          <p><strong>6. Privacy<br></strong>
+            We respect your privacy and only collect information necessary to support platform functionality.
+            We do not share your personal information with third parties without your consent.</p>
+
+          <p><strong>7. Changes and Updates<br></strong>
+            We may update these terms from time to time. Continued use of the platform after changes means you agree to the new terms.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

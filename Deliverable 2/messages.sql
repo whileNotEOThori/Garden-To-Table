@@ -14,4 +14,6 @@ CREATE TABLE messages (
 
 SELECT * FROM garden_to_table.messages;
 
+update garden_to_table.messages set isRead = 1 where mID = 1;
+
 ALTER TABLE garden_to_table.messages RENAME COLUMN id to mID;
