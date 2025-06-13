@@ -5,7 +5,7 @@ function isSellerSignedIn()
 {
     if (empty($_SESSION['seller'])) {
         // echo "<script> alert('You have been signed out. Sign In again.') </script>";
-        header("location: homepage.php");
+        header("location: index.php");
         exit;
     }
 }

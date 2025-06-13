@@ -25,9 +25,9 @@
                 <li class="nav-item"><a class="nav-link px-2 text-body-secondary" href="" data-bs-toggle="modal" data-bs-target="#buyerSignInModal">Buy</a></li>
             <?php endif; ?>
 
-            <li class="nav-item"><a href="homepage.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
-            <li class="nav-item"><a href="homepage.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
-            <li class="nav-item"><a href="homepage.php#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+            <li class="nav-item"><a href="index.php#about" class="nav-link px-2 text-body-secondary">About Us</a></li>
+            <li class="nav-item"><a href="index.php#faq" class="nav-link px-2 text-body-secondary">FAQ</a></li>
+            <li class="nav-item"><a href="index.php#contact" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
             <li class="nav-item"><a href="signuppage.php" class="nav-link px-2 text-body-secondary">Sign Up</a></li>
             <li class="nav-item"><a href="signinpage.php" class="nav-link px-2 text-body-secondary">Sign In</a></li>
         </ul>
