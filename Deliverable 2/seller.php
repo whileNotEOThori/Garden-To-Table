@@ -13,7 +13,9 @@ class seller extends user
     public $branchCode;
     public $accountNumber;
     public $deliveryRate;
+    public $numProductsListed;
     public $numProductsSold;
+    public $productsQuantityInStock;
     public $numOrders;
     public $numOrdersProcessed;
     public $numOrdersPending;
@@ -36,7 +38,9 @@ class seller extends user
         $this->branchCode = $sellerRow['branchCode'];
         $this->accountNumber = $sellerRow['accountNumber'];
         $this->deliveryRate = $sellerRow['deliveryRate'];
+        $this->numProductsListed = 0;
         $this->numProductsSold = 0;
+        $this->productsQuantityInStock = 0;
         $this->numOrders = 0;
         $this->numOrdersProcessed = 0;
         $this->numOrdersPending = 0;
@@ -177,26 +181,6 @@ class seller extends user
         $this->branchCode = $updatedBranchCode;
         $this->accountNumber = $updatedAccountNumber;
         return true;
-    }
-
-    public function getNumListedProducts()
-    {
-        global $conn;
-        $tableName = "products";
-
-        $query = $conn->prepare("SELECT COUNT(*) AS numProducts FROM $tableName WHERE sID = ?");
-
-        if (!$query) die("Get number of listed products query prepare failed: " . $conn->error);
-
-        $query->bind_param('i', $this->sID);
-
-        if (!$query->execute()) die("Get number of listed products query execution failed: " . $query->error);
-
-        $result = $query->get_result();
-
-        $query->close();
-
-        return $result->fetch_assoc()['numProducts'];
     }
 
     public function viewListedProducts()
@@ -502,8 +486,34 @@ class seller extends user
         $query->close();
     }
 
+    function getProductsInsights()
+    {
+        global $conn;
+        $tableName = "products";
+
+        $query = $conn->prepare("SELECT * FROM $tableName WHERE sID = ?");
+
+        if (!$query) die("Get number of listed products query prepare failed: " . $conn->error);
+
+        $query->bind_param('i', $this->sID);
+
+        if (!$query->execute()) die("Get number of listed products query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        $this->numProductsListed = $result->num_rows;
+        $this->productsQuantityInStock = 0;
+
+        while ($product = $result->fetch_assoc())
+            $this->productsQuantityInStock += $product['quantity'];
+    }
+
     public function getSellerInsights()
     {
+        $this->getProductsInsights();
+
         global $conn;
         $tableName = "orders";
 

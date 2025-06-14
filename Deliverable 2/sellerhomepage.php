@@ -86,8 +86,9 @@ $_SESSION['seller']->getSellerInsights()
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Products</h5>
-							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->getNumListedProducts() ?></p>
+							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->numProductsListed ?></p>
 							<p class="card-text"><strong>Number of products sold: </strong> <?php echo $_SESSION['seller']->numProductsSold ?></p>
+							<p class="card-text"><strong>Quantity of products in stock: </strong> <?php echo $_SESSION['seller']->productsQuantityInStock ?></p>
 						</div>
 					</div>
 				</section>
