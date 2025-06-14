@@ -13,6 +13,7 @@ class seller extends user
     public $branchCode;
     public $accountNumber;
     public $deliveryRate;
+    public $numProductsSold;
 
     public function __construct($userRow, $sellerRow)
     {
@@ -30,6 +31,7 @@ class seller extends user
         $this->branchCode = $sellerRow['branchCode'];
         $this->accountNumber = $sellerRow['accountNumber'];
         $this->deliveryRate = $sellerRow['deliveryRate'];
+        $this->numProductsSold = 0;
     }
 
     public function editFirstName($updatedFirstName)
@@ -465,6 +467,8 @@ class seller extends user
         </thead>
         <tbody>";
             while ($row = $result->fetch_assoc()) {
+                if (empty($this->getSellersProductsFromOrder(extractItem_Quant($row['item_quant'])))) continue;
+
                 echo "<tr>
             <th scope='row'>" . $row['oID'] . "</th>
             <td>" . $row['bID'] . "</td>
@@ -486,5 +490,34 @@ class seller extends user
         }
 
         $query->close();
+    }
+
+    public function getNumProductsSold($orders)
+    {
+        $this->numProductsSold = 0;
+        while ($row = $orders->fetch_assoc()) {
+            $item_quant = $row['item_quant'];
+            $arr = extractItem_Quant(($item_quant));
+            $sellerProducts = $this->getSellersProductsFromOrder($arr);
+
+            foreach ($sellerProducts as $productID => $quantity)
+                $this->numProductsSold += $quantity;
+        }
+    }
+
+    public function getSellerInsights()
+    {
+        global $conn;
+        $tableName = "orders";
+
+        $query = $conn->prepare("SELECT * FROM $tableName");
+
+        if (!$query) die("View orders query prepare failed: " . $conn->error);
+
+        if (!$query->execute()) die("View orders query execution failed: " . $query->error);
+
+        $result = $query->get_result();
+
+        $this->getNumProductsSold($result);
     }
 }

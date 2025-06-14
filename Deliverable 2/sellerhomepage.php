@@ -4,6 +4,8 @@ session_start();
 
 //redirect the user back to the homepage to sign in again if there is no active session
 isSellerSignedIn();
+
+$_SESSION['seller']->getSellerInsights()
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +87,7 @@ isSellerSignedIn();
 						<div class="card-body">
 							<h5 class="card-title">Products</h5>
 							<p class="card-text"><strong>Number of products listed: </strong> <?php echo $_SESSION['seller']->getNumListedProducts() ?></p>
-							<p class="card-text"><strong>Number of products purchase: </strong> <?php echo $_SESSION['seller']->streetAddress ?></p>
+							<p class="card-text"><strong>Number of products sold: </strong> <?php echo $_SESSION['seller']->numProductsSold ?></p>
 						</div>
 					</div>
 				</section>

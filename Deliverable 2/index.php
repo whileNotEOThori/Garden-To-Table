@@ -44,14 +44,14 @@ session_start();
           <div class="card m-2">
             <div class="card-body">
               <h5>We believe in:</h5>
-              <h6>
+              <h5>
                 <ul>
                   <li>Empowering local growers</li>
                   <li>Reducing food waste</li>
                   <li>Supporting community-based economies</li>
                   <li>Encouraging healthier lifestyles through fresh produce</li>
                 </ul>
-              </h6>
+              </h5>
             </div>
           </div>
         </div>
