@@ -266,6 +266,27 @@ class buyer extends user
         return true;
     }
 
+    function updateSellerSales()
+    {
+        foreach ($_SESSION['cart'] as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+            $sellerID = $productRow['sID'];
+            $salesIncrease = $productRow['price'] * $quantity;
+
+            global $conn;
+            $tableName = "sellers";
+            $query = $conn->prepare("UPDATE $tableName SET totalSales = totalSales + ? WHERE sID = ?");
+
+            if (!$query) die("Update seller sales query prepare failed: " . $conn->error);
+
+            $query->bind_param("di", $salesIncrease, $sellerID);
+
+            if (!$query->execute()) die("Update seller sales query execution failed: " . $query->error);
+
+            $query->close();
+        }
+    }
+
     public function placeOrder($deliveryOrCollection)
     {
         global $conn;
@@ -296,6 +317,7 @@ class buyer extends user
         $query->close();
 
         $this->updateStock();
+        $this->updateSellerSales();
 
         echo "<script> alert('Your order has been placed')</script>";
 

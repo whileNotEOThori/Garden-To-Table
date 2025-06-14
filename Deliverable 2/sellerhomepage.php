@@ -111,7 +111,7 @@ $_SESSION['seller']->getSellerInsights()
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Revenue</h5>
-							<p class="card-text"><strong>Total Sales: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
+							<p class="card-text"><strong>Total Sales: </strong> <?php echo $_SESSION['seller']->totalSales ?></p>
 							<p class="card-text"><strong>Paid out: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
 							<p class="card-text"><strong>Pending: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>
 						</div>
