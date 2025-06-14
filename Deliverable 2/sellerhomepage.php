@@ -98,9 +98,9 @@ $_SESSION['seller']->getSellerInsights()
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Orders</h5>
-							<p class="card-text"><strong>Numbers of orders: </strong> <?php echo $_SESSION['seller']->bankName ?></p>
-							<p class="card-text"><strong>Orders Processed: </strong> <?php echo $_SESSION['seller']->branchCode ?></p>
-							<p class="card-text"><strong>Orders Pending: </strong> <?php echo $_SESSION['seller']->accountNumber ?></p>
+							<p class="card-text"><strong>Numbers of orders: </strong> <?php echo $_SESSION['seller']->numOrders ?></p>
+							<p class="card-text"><strong>Orders Processed: </strong> <?php echo $_SESSION['seller']->numOrdersProcessed ?></p>
+							<p class="card-text"><strong>Orders Pending: </strong> <?php echo $_SESSION['seller']->numOrdersPending ?></p>
 						</div>
 					</div>
 				</section>
