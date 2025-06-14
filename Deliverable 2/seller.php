@@ -17,6 +17,8 @@ class seller extends user
     public $numOrders;
     public $numOrdersProcessed;
     public $numOrdersPending;
+    public $salesPaid;
+    public $salesUnpaid;
 
     public function __construct($userRow, $sellerRow)
     {
@@ -38,6 +40,8 @@ class seller extends user
         $this->numOrders = 0;
         $this->numOrdersProcessed = 0;
         $this->numOrdersPending = 0;
+        $this->salesPaid = 0.00;
+        $this->salesUnpaid = 0.00;
     }
 
     public function editFirstName($updatedFirstName)
@@ -498,32 +502,6 @@ class seller extends user
         $query->close();
     }
 
-    public function getNumProductsSold($orders)
-    {
-        $this->numProductsSold = 0;
-        $this->numOrders = 0;
-        $this->numOrdersProcessed = 0;
-        $this->numOrdersPending = 0;
-
-        while ($order = $orders->fetch_assoc()) {
-            $item_quant = $order['item_quant'];
-            $arr = extractItem_Quant(($item_quant));
-            $sellerProducts = $this->getSellersProductsFromOrder($arr);
-
-            if (!empty($sellerProducts)) {
-                $this->numOrders++;
-
-                if ($order['paidOut'] == 0)
-                    $this->numOrdersProcessed++;
-                else
-                    $this->numOrdersPending++;
-            }
-
-            foreach ($sellerProducts as $productID => $quantity)
-                $this->numProductsSold += $quantity;
-        }
-    }
-
     public function getSellerInsights()
     {
         global $conn;
@@ -537,6 +515,36 @@ class seller extends user
 
         $result = $query->get_result();
 
-        $this->getNumProductsSold($result);
+        $this->numProductsSold = 0;
+        $this->numOrders = 0;
+        $this->numOrdersProcessed = 0;
+        $this->numOrdersPending = 0;
+        $this->salesUnpaid = 0;
+
+        while ($order = $result->fetch_assoc()) {
+            $item_quant = $order['item_quant'];
+            $arr = extractItem_Quant(($item_quant));
+            $sellerProducts = $this->getSellersProductsFromOrder($arr);
+
+            if (empty($sellerProducts)) continue;
+
+            $this->numOrders++;
+
+            if ($order['paidOut'] == 1)
+                $this->numOrdersProcessed++;
+            else
+                $this->numOrdersPending++;
+
+            foreach ($sellerProducts as $productID => $quantity) {
+                $this->numProductsSold += $quantity;
+
+                if ($order['paidOut'] == 1) continue;
+
+                $productRow = getProductRow($productID);
+                $this->salesUnpaid += $productRow['price'] * $quantity;
+            }
+
+            $this->salesPaid = $this->totalSales - $this->salesUnpaid;
+        }
     }
 }
