@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editFirstNameForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="firstNameEdit" name="firstNameEdit" placeholder="First Name" required />
@@ -48,7 +48,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editLastNameForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="lastNameEdit" name="lastNameEdit" placeholder="Last Name" required />
@@ -77,7 +77,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editPhoneNumberForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="phoneNumberEdit" name="phoneNumberEdit" placeholder="Phone Number" required />
@@ -106,7 +106,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editPostcodeForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="postcodeEdit" name="postcodeEdit" placeholder="Postcode" required />
@@ -135,7 +135,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editStreetAddressForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="tel" class="form-control" id="streetAddressEdit" name="streetAddressEdit" placeholder="Street Address" required />
@@ -164,7 +164,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editBankingDetailsForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- Bank Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="bankNameEdit" name="bankNameEdit" placeholder="Bank Name" required />
@@ -205,7 +205,7 @@
                 <div class="modal-body">
                     <!-- Sign In Form -->
                     <form id="editDeliveryRateForm" action="editUserInfo.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- Bank Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="deliveryRateEdit" name="deliveryRateEdit" placeholder="Delivery Rate" min="1" value="1" required />

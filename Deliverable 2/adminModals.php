@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <!-- Create Admin Form -->
                     <form action="signup.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- First Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required />
@@ -66,7 +66,7 @@
                 <div class="modal-body">
                     <!-- Delete Form -->
                     <form action="adminmanagement.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- User ID Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="userID" name="userID" placeholder="User ID" required />
@@ -95,7 +95,7 @@
                 <div class="modal-body">
                     <!-- Add Category Form -->
                     <form action="adminmanagement.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- Category Name Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Category Name" required />
@@ -124,7 +124,7 @@
                 <div class="modal-body">
                     <!-- Delete Form -->
                     <form action="adminmanagement.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- User ID Input Div -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="productID" name="productID" placeholder="Product ID" required />
@@ -153,7 +153,7 @@
                 <div class="modal-body">
                     <!-- Payout Form -->
                     <form action="adminmanagement.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <p>A total of <strong>R<?php echo $_SESSION['admin']->getTotalUnpaid() ?></strong> will be paid out to all the relevant sellers. Would you like to proceed with this payment.</p>
                         </div>
 

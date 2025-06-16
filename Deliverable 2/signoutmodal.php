@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <!-- Sign Out Form -->
                     <form id="sellerSignOutForm" action="signout.php" method="POST">
-                        <div class="container" style="width: 450px">
+                        <div class="container" >
                             <!-- Message -->
                             <p>Are you sure you want to sign out?</p>
                             <p>All your progress will be lost.</p>
