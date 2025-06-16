@@ -139,7 +139,7 @@ session_start();
             </button>
           </h2>
           <div id="payment" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">The buyer will EFT the Garden To Table will</div>
+            <div class="accordion-body">Payments on Garden To Table are all facilitated electronically using debit and credit cards. The buyer will select whether they are paying using their debit or credit card then they will have to enter their card details to process the order and payment. </div>
           </div>
         </div>
 
