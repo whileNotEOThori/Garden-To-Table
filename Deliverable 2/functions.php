@@ -373,12 +373,6 @@ function getProductRow($productID)
 
     $result = $query->get_result();
 
-    //not necessary because the users selects from existing products
-    if ($result->num_rows == 0) {
-        echo "<script> alert('The product is not stored in the database') </script>";
-        exit;
-    }
-
     $query->close();
 
     return $result->fetch_assoc();
