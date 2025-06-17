@@ -4,8 +4,9 @@ require_once('functions.php');
 function isSellerSignedIn()
 {
     if (empty($_SESSION['seller'])) {
-        // echo "<script> alert('You have been signed out. Sign In again.') </script>";
-        header("location: index.php");
+        echo "<script> alert('No seller session progress. You have been signed out. Sign In again.') </script>
+        window.location.href = 'index.php';
+        </script>";
         exit;
     }
 }
@@ -26,12 +27,6 @@ function getProductIDandName()
         die("Product ID and Name query execution failed" . $query->error);
 
     $result = $query->get_result();
-
-    if ($result->num_rows == 0) {
-        echo "<script> alert('There are no products to edit') </script>";
-        // header('location: editproductpage.php');
-        exit;
-    }
 
     while ($row  = $result->fetch_assoc()) {
         $productID = $row['pID'];

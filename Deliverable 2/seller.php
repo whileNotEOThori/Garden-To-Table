@@ -295,6 +295,7 @@ class seller extends user
     public function editProduct()
     {
         global $conn;
+
         //retrieve/extract the edited product information entered in the form
         $productID = $_POST['productID+Name'];
         $productName = $_POST['productName'];
@@ -307,22 +308,15 @@ class seller extends user
 
         if (empty($productID)) die("Error: Product ID is empty or invalid." . $productID);
 
-        if ($productID == "") {
-            echo "<script> alert('You have not selected a product to edit')</script>";
-            exit;
-        }
+        if ($productID == "") return "You have not selected a product to edit";
 
-        if ($productName == "" && $productDescription == "" && $productCategory == "" && $productMass == "" && $productPrice == "" && $productQuantity == "") {
-            echo "<script> alert('You have made an edits to the selected product')</script>";
-            exit;
-        }
+        if ($productName == "" && $productDescription == "" && $productCategory == "" && $productMass == "" && $productPrice == "" && $productQuantity == "")
+            return "'You have made an edits to the selected product";
 
         // get product data to create an object
         $productRow = getProductRow($productID);
-        if ($productRow == null || $productRow == false) {
-            echo "<script> alert('The product you have selected does not exist so we cannot make any edits to it')</script>";
-            exit;
-        }
+        if ($productRow == null || $productRow == false) return "The product you have selected does not exist so we cannot make any edits to it";
+
         $product = new product($productRow);
 
         //assign the product with the new/edited values
@@ -340,12 +334,9 @@ class seller extends user
 
         //do the same for image
 
-        if (!editProductData($product)) {
-            echo "<script> alert('There was an error editing the product you have selected')</script>";
-            exit;
-        }
+        if (!editProductData($product)) return "There was an error editing the product you have selected";
 
-        echo "<script> alert('you have successfully edited the product')</script>";
+        return true;
     }
 
     function deleteProduct($productID)
