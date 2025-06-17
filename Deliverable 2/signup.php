@@ -21,8 +21,10 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
     }
 
     if ($userType == "") {
-        echo "<script> alert('Select a valid user type.') </script>";
-        exit();
+        echo "<script> alert('Select a valid user type.') 
+        window.location.href = 'signuppage.php';
+        </script>";
+        exit;
     }
 
     //encrypt password
@@ -31,7 +33,9 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
     // NULL Check
     $emailCheckResult = emailCheck($emailAddress);
     if ($emailCheckResult == null || $emailCheckResult == false) {
-        echo "<script> alert('An account is already linked to this email address') </script>";
+        echo "<script> alert('An account is already linked to this email address')  
+        window.location.href = 'signuppage.php';
+        </script>";
         exit;
     }
 
@@ -41,35 +45,45 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
 
         if ($userType == "buyer") {
             if (isAlreadyBuyer(($userID))) {
-                echo "<script> alert('The entered email is already registered to a buyer account') </script>";
-                exit();
+                echo "<script> alert('The entered email is already registered to a buyer account') 
+                window.location.href = 'signuppage.php';
+        </script>";
+                exit;
             }
         }
 
         if ($userType == "seller") {
             if (isAlreadySeller($userID)) {
-                echo "<script> alert('The entered email is already registered to a seller account') </script>";
-                exit();
+                echo "<script> alert('The entered email is already registered to a seller account') 
+                window.location.href = 'signuppage.php';
+                </script>";
+                exit;
             }
         }
 
         if ($userType == "admin") {
             if (isAlreadyAdmin($userID)) {
-                echo "<script> alert('The entered email is already registered to a admin account') </script>";
-                exit();
+                echo "<script> alert('The entered email is already registered to a admin account') 
+                window.location.href = 'signuppage.php';
+                </script>";
+                exit;
             }
         }
     } else {
         //insert the details into the 
         if (!addUserToTable($firstName, $lastName, $phoneNumber, $emailAddress, $password)) {
-            echo "<script> alert('The user details could not be added into the user table') </script>";
-            exit();
+            echo "<script> alert('The user details could not be added into the user table') 
+            window.location.href = 'signuppage.php';
+            </script>";
+            exit;
         }
     }
 
     $userRow = getUserData($emailAddress);
     if ($userRow == null || $userRow == false) {
-        echo "<script> alert('The user data could not be retrieved.') </script>";
+        echo "<script> alert('The user data could not be retrieved.') 
+        window.location.href = 'signuppage.php';
+        </script>";
         exit;
     }
 
@@ -97,13 +111,17 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
 
     if ($userType == "seller") {
         if (!addSellerToTable($userID, $streetAddress, $postcode)) {
-            echo "<script> alert('The seller details could not be added into the user table') </script>";
-            exit();
+            echo "<script> alert('The seller details could not be added into the user table') 
+            window.location.href = 'signuppage.php';
+        </script>";
+            exit;
         }
 
         $sellerRow = getSellerData($userID);
         if ($sellerRow == null || $sellerRow == false) {
-            echo "<script> alert('The seller data could not be retrieved.') </script>";
+            echo "<script> alert('The seller data could not be retrieved.') 
+            window.location.href = 'signuppage.php';
+        </script>";
             exit;
         }
 
@@ -116,24 +134,43 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
 
     if ($userType == "admin") {
         if (!addAdminToTable($userID)) {
-            echo "<script> alert('The admin details could not be added into the user table') </script>";
-            exit();
+            echo "<script> alert('The admin details could not be added into the user table') 
+            window.location.href = 'signuppage.php';
+        </script>";
+            exit;
         }
 
         $adminRow = getAdminData($userID);
         if ($adminRow == null || $adminRow == false) {
-            echo "<script> alert('The admin data could not be retrieved.') </script>";
+            echo "<script> alert('The admin data could not be retrieved.') 
+            window.location.href = 'signuppage.php';
+        </script>";
             exit;
         }
     }
 
-    echo "<script> alert('Account created successfully') </script>";
+    // echo "<script> alert('Account created successfully') </script>";
 
-    if ($userType == "seller") header("location: sellerhomepage.php");
+    if ($userType == "seller") {
+        echo "<script> alert('Seller account created successfully. Welcome to Garden To Table, " . $firstName . " " . $lastName . "')
+        window.location.href = 'sellerhomepage.php';
+        </script>";
+        exit;
+    }
 
-    if ($userType == "buyer") header("location: buyerhomepage.php");
+    if ($userType == "buyer") {
+        echo "<script> alert('Buyer account created successfully. Welcome to Garden To Table, " . $firstName . " " . $lastName . "')
+        window.location.href = 'buyerhomepage.php';
+        </script>";
+        exit;
+    }
 
-    if ($userType == "admin") header('Location: ' . $_SERVER["HTTP_REFERER"]);
+    if ($userType == "buyer") {
+        echo "<script> alert('Admin account for " . $firstName . " " . $lastName . " has been created successfully.')
+        window.location.href = '" . $_SERVER["HTTP_REFERER"] . "';
+        </script>";
+        exit;
+    }
 
     $conn->close();
 }
