@@ -4,7 +4,15 @@ require_once('seller.php');
 session_start();
 
 if (isset($_POST['addProduct'])) {
-    $_SESSION['seller']->addProduct();
+    $result = $_SESSION['seller']->addProduct();
 
-    header("location: addproductpage.php");
+    if ($result === true)
+        echo "<script> alert('" . $_POST['productName'] . " have been added to your listings.') </script>";
+    else
+        echo "<script> alert('Failed to add " . $_POST['productName'] . ": " . htmlspecialchars($result) . ".') </script>";
+
+    echo "<script>    
+    window.location.href = 'addproductpage.php';
+    </script>";
+    exit;
 }
