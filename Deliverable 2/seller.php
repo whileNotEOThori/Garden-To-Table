@@ -234,7 +234,7 @@ class seller extends user
       </table>
       </div>";
         } else {
-            echo "<h3>No products being sold</h3>";
+            echo "<h3>No products currently listed</h3>";
         }
 
         $query->close();
@@ -394,12 +394,11 @@ class seller extends user
         $result = $query->get_result();
         $query->close();
 
-        if ($result->num_rows > 0) {
-            $productIDs = array();
+        $productIDs = array();
 
+        if ($result->num_rows > 0)
             while ($row = $result->fetch_assoc())
                 $productIDs[] = $row['pID'];
-        }
 
         return $productIDs;
     }
