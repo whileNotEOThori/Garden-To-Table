@@ -12,5 +12,8 @@ if (isset($_POST['deleteProductYes']))
         echo "<script> alert('The products is not present in the database') </script>";
 
 unset($_SESSION['deleteProductRow']);
-header('location: deleteproductpage.php');
+
+echo "<script>    
+    window.location.href = 'deleteproductpage.php';
+    </script>";
 exit;
