@@ -17,15 +17,21 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
 
     //double check if a usertype has been selected
     if ($userType == "") {
-        echo "<script> alert('Select a valid user type.') </script>";
-        exit();
+        echo "<script>
+                alert('Select a valid user type.');
+                window.location.href = 'signinpage.php';
+            </script>";
+        exit;
     }
 
     //get the user's data from the table
     $userRow = getUserData($emailAddress);
 
     if ($userRow == null || $userRow == false) {
-        echo "<script> alert('The user details do not have an account.') </script>";
+        echo "<script>
+                alert('The entered email is not registered to an account');
+                window.location.href = 'signinpage.php';
+            </script>";
         exit;
     }
 
@@ -37,7 +43,9 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         $buyerRow = getBuyerData($userID);
 
         if ($buyerRow == null || $buyerRow == false) {
-            echo "<script> alert('The user does not have a buyer account.') </script>";
+            echo "<script> alert('The user does not have a buyer account.') 
+            window.location.href = 'signinpage.php';
+            </script>";
             exit;
         }
     }
@@ -47,7 +55,9 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         $sellerRow = getSellerData($userID);
 
         if ($sellerRow == null || $sellerRow == false) {
-            echo "<script> alert('The user does not have a seller account.') </script>";
+            echo "<script> alert('The user does not have a seller account.') 
+            window.location.href = 'signinpage.php';
+            </script>";
             exit;
         }
     }
@@ -57,7 +67,9 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         $adminRow = getAdminData($userID);
 
         if ($adminRow == null || $adminRow == false) {
-            echo "<script> alert('The user does not have a admin account.') </script>";
+            echo "<script> alert('The user does not have a admin account.') 
+            window.location.href = 'signinpage.php';
+            </script>";
             exit;
         }
     }
@@ -91,7 +103,10 @@ if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['bu
         }
         exit;
     } else {
-        echo "<script> alert('Incorrect password entered.') </script>";
+        echo "<script> alert('Incorrect email password combination entered.') 
+        window.location.href = 'signinpage.php';
+            </script>";
+        exit;
     }
 
     $conn->close();

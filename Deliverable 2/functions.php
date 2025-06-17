@@ -100,12 +100,6 @@ function getUserData($emailAddress)
 
     $result = $query->get_result();
 
-    //check if the email address is already linked to an account
-    if ($result->num_rows == 0) {
-        echo "<script> alert('The entered email is not registered to an account') </script>";
-        exit();
-    }
-
     $query->close();
 
     return $result->fetch_assoc();
@@ -127,11 +121,6 @@ function getSellerData($userID)
         die("Get seller data query execution failed: " . $query->error);
 
     $result = $query->get_result();
-
-    if ($result->num_rows == 0) {
-        echo "<script> alert('The entered email does not have a seller account') </script>";
-        exit();
-    }
 
     $query->close();
 
@@ -156,11 +145,6 @@ function getBuyerData($userID)
 
     $result = $query->get_result();
 
-    if ($result->num_rows == 0) {
-        echo "<script> alert('The entered email does not have a buyer account') </script>";
-        exit();
-    }
-
     $query->close();
 
     return $result->fetch_assoc();
@@ -183,11 +167,6 @@ function getAdminData($userID)
         die("Get admin data query execution failed: " . $query->error);
 
     $result = $query->get_result();
-
-    if ($result->num_rows == 0) {
-        echo "<script> alert('The entered email does not have a buyer account') </script>";
-        exit();
-    }
 
     $query->close();
 
