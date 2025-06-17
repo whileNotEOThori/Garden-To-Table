@@ -22,9 +22,10 @@ if (isset($_POST['contactUs'])) {
     if (!$messageInsertQuery->execute())
         die("Execution failed: " . $messageInsertQuery->error);
 
-    echo "<script> alert('We have received your message') </script>";
-    sleep(3);
-    header('location: index.php');
+    echo "<script>
+        alert('We have received your message');
+        window.location.href = 'index.php';
+    </script>";
 
     $messageInsertQuery->close();
     $conn->close();
