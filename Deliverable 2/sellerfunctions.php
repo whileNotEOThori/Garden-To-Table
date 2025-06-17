@@ -4,7 +4,7 @@ require_once('functions.php');
 function isSellerSignedIn()
 {
     if (empty($_SESSION['seller'])) {
-        echo "<script> alert('No seller session progress. You have been signed out. Sign In again.') </script>
+        echo "<script> alert('No seller session in progress. You have been signed out. Sign In again.') </script>
         window.location.href = 'index.php';
         </script>";
         exit;

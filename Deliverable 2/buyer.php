@@ -326,6 +326,32 @@ class buyer extends user
         $_SESSION['cart'] = array();
     }
 
+    function getSellersAddresses($order)
+    {
+        $item_quant = extractItem_Quant($order['item_quant']);
+        $sellersAddresses = array();
+
+        foreach ($item_quant as $productID => $quantity) {
+            $productRow = getProductRow($productID);
+            $sellerID = $productRow['sID'];
+
+            if (!isset($sellersAddresses[$sellerID])) $sellersAddresses[$sellerID] = getSellerAddress($sellerID);
+        }
+
+        return $sellersAddresses;
+    }
+
+    function displaySellerAddresses($order)
+    {
+
+        $arr = $this->getSellersAddresses($order);
+        $result = "";
+        foreach ($arr as $sellerID => $addressInfo)
+            $result = $result . $addressInfo . "\n";
+
+        return $addressInfo;
+    }
+
     public function viewOrders()
     {
         global $conn;
@@ -351,6 +377,7 @@ class buyer extends user
           <th scope='col'>Order ID</th>
           <th scope='col'>Item: Quantity</th>
           <th scope='col'>Delivery/Collection</th>
+          <th scope='col'>Sellers' Delivery Address</th>
           <th scope='col'>Amount</th>
           <th scope='col'>Service Fee</th>
           <th scope='col'>Delivery Fee</th>
@@ -364,6 +391,7 @@ class buyer extends user
         <th scope='row'>" . $row['oID'] . "</th>
         <td>" . printItem_Quant($row['item_quant']) . "</td>
         <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
+        <td>" . (($row['delivery'] == 1) ? '' : $this->displaySellerAddresses($row)) . "</td>
         <td>R" . $row['amount'] . "</td>
         <td>R" .  $row['serviceFee'] . "</td>
         <td>R" .  $row['deliveryFee'] . "</td>

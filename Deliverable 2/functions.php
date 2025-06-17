@@ -444,3 +444,26 @@ function getBuyersAddress($buyerID)
 
     return "<strong>Postcode:</strong> " .  $result['postcode'] . "\n<strong>Street Address:</strong> " . $result['streetAddress'];
 }
+
+function getSellerAddress($sellerID) 
+{
+    global $conn;
+    $tableName = "sellers";
+
+    //get the seller ID of th User
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE sID = ?");
+
+    if (!$query)
+        die("Get seller address query prepare failed: " . $conn->error);
+
+    $query->bind_param("i", $sellerID);
+
+    if (!$query->execute())
+        die("Get seller address query execution failed: " . $query->error);
+
+    $result = $query->get_result()->fetch_assoc();
+
+    $query->close();
+
+    return "<strong>Postcode:</strong> " .  $result['postcode'] . "\n<strong>Street Address:</strong> " . $result['streetAddress'];
+}

@@ -4,8 +4,9 @@ require_once('functions.php');
 function isBuyerSignedIn()
 {
     if (empty($_SESSION['buyer'])) {
-        // echo "<script> alert('You have been signed out. Sign In again.') </script>";
-        header("location: index.php");
+        echo "<script> alert('No buyer session in progress. You have been signed out. Sign In again.') 
+        window.location.href = 'index.php';
+        </script>";
         exit;
     }
 }
@@ -329,3 +330,5 @@ function getFilterCategories()
 
     $query->close();
 }
+
+
