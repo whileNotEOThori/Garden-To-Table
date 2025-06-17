@@ -429,6 +429,7 @@ class seller extends user
           <th scope='col'>Buyer ID</th>
           <th scope='col'>Item: Quantity</th>
           <th scope='col'>Delivery/Collection</th>
+          <th scope='col'>Buyer's Delivery Address</th>
           <th scope='col'>Amount</th>
           <th scope='col'>Delivery Fee</th>
           <th scope='col'>Service Fee</th>
@@ -446,6 +447,7 @@ class seller extends user
             <td>" . $row['bID'] . "</td>
             <td>" . $this->printItem_Quant($row['item_quant']) . "</td> 
             <td>" . (($row['delivery'] == 1) ? 'delivery' : 'collection') . "</td>
+            <td>" . (($row['delivery'] == 1) ? getBuyersAddress($row['bID']) : '') . "</td>
             <td>R" . $row['amount'] . "</td>
             <td>R" .  $row['deliveryFee'] . "</td>
             <td>R" .  $row['serviceFee'] . "</td>

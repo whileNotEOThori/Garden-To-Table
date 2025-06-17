@@ -421,3 +421,26 @@ function printItem_Quant($item_quant)
 
     return $result;
 }
+
+function getBuyersAddress($buyerID)
+{
+    global $conn;
+    $tableName = "buyers";
+
+    //get the seller ID of th User
+    $query = $conn->prepare("SELECT * FROM $tableName WHERE bID = ?");
+
+    if (!$query)
+        die("Get buyer address query prepare failed: " . $conn->error);
+
+    $query->bind_param("i", $buyerID);
+
+    if (!$query->execute())
+        die("Get buyer address query execution failed: " . $query->error);
+
+    $result = $query->get_result()->fetch_assoc();
+
+    $query->close();
+
+    return "<strong>Postcode:</strong> " .  $result['postcode'] . "\n<strong>Street Address:</strong> " . $result['streetAddress'];
+}
