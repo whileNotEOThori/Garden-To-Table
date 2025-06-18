@@ -501,6 +501,8 @@ class admin extends user
         if (!$query->execute()) die("Delete user: user query execution failed: " . $query->error);
 
         $query->close();
+
+        return true;
     }
 
     public function addCategory($categoryName)
@@ -518,6 +520,8 @@ class admin extends user
         if (!$query->execute()) die("Add category query execution failed: " . $query->error);
 
         $query->close();
+
+        return true;
     }
 
     public function deleteProduct($productID)
@@ -534,6 +538,8 @@ class admin extends user
         if (!$query->execute()) die("Delete product query execution failed: " . $query->error);
 
         $query->close();
+        
+        return true;
     }
 
     public function payout()

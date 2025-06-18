@@ -27,6 +27,15 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
         exit;
     }
 
+    // Validate password strength
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,}$/', $password)) {
+        echo "<script>
+        alert('Password must be at least 8 characters long and include a letter, a number, and a special character.');
+        window.location.href = 'signuppage.php';
+        </script>";
+        exit;
+    }
+
     //encrypt password
     $password = password_hash($password, PASSWORD_BCRYPT);
 
@@ -165,7 +174,7 @@ if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
         exit;
     }
 
-    if ($userType == "buyer") {
+    if ($userType == "admin") {
         echo "<script> alert('Admin account for " . $firstName . " " . $lastName . " has been created successfully.')
         window.location.href = '" . $_SERVER["HTTP_REFERER"] . "';
         </script>";

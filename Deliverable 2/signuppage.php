@@ -10,6 +10,18 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Garden To Table</title>
   <?php require_once("stylingdependecies.php") ?>
+
+  <script>
+    document.getElementById("signUpForm").addEventListener("submit", function(e) {
+      const password = document.getElementById("password").value;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&^]).{8,}$/;
+
+      if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters long and include a letter, a number, and a special character.");
+        e.preventDefault(); // Stop form from submitting
+      }
+    });
+  </script>
 </head>
 
 <body>
@@ -143,6 +155,7 @@ session_start();
       </div>
     </div>
   </div>
+
 </body>
 
 </html>
