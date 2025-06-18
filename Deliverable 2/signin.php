@@ -4,8 +4,17 @@ session_start();
 
 if (isset($_POST['signIn']) || isset($_POST['sellerSignIn']) || isset($_POST['buyerSignIn'])) {
     //retrieve/extract the information entered in the form
-    $emailAddress = $_POST['emailAddress'];
-    $password = $_POST['password'];
+    // Sanitize and validate email address
+    $emailAddress = filter_input(INPUT_POST, "emailAddress", FILTER_SANITIZE_EMAIL);
+    if (!$emailAddress || !filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+        echo "<script>
+                alert('Please enter a valid email address.');
+                window.location.href = 'signinpage.php';
+            </script>";
+        exit;
+    }
+    // Sanitize and validate password input
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
     //Set the usertype based off how the user is signing in
     if (isset($_POST['sellerSignIn'])) //seller modal signin
