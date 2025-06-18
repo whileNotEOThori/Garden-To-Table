@@ -2,11 +2,21 @@
 require_once('connect.php');
 
 if (isset($_POST['contactUs'])) {
-    //retrieve/extract the information entered in the form
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $emailAddress = $_POST['emailAddress'];
-    $message = $_POST['message'];
+    // Sanitize and validate the information entered in the form
+    $firstName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_SPECIAL_CHARS);
+    $lastName = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_SPECIAL_CHARS);
+    $emailAddress = filter_input(INPUT_POST, 'emailAddress', FILTER_SANITIZE_EMAIL);
+    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Validate required fields
+    if (empty($firstName) || empty($lastName) || empty($emailAddress) || empty($message)) {
+        die("All fields are required.");
+    }
+
+    // Validate email address
+    if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+        die("Invalid email address.");
+    }
 
     //set table name
     $tableName = "messages";
