@@ -5,16 +5,67 @@ session_start();
 
 if (isset($_POST['signUp']) || isset($_POST['createAdmin'])) {
     //retrieve/extract the information entered in the form
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $phoneNumber = $_POST['phoneNum'];
-    $emailAddress = $_POST['emailAddress'];
+    // Sanitize and validate user input
+    $firstName = filter_var(trim($_POST['firstName']), FILTER_SANITIZE_SPECIAL_CHARS);
+    $lastName = filter_var(trim($_POST['lastName']), FILTER_SANITIZE_SPECIAL_CHARS);
+    $phoneNumber = filter_var(trim($_POST['phoneNum']), FILTER_SANITIZE_SPECIAL_CHARS);
+    $emailAddress = filter_var(trim($_POST['emailAddress']), FILTER_SANITIZE_EMAIL);
+
+    // Validate required fields
+    if (empty($firstName) || empty($lastName) || empty($phoneNumber) || empty($emailAddress)) {
+        echo "<script> alert('All fields are required.') 
+        window.location.href = 'signuppage.php';
+        </script>";
+        exit;
+    }
+
+    // Validate email format
+    if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+        echo "<script> alert('Invalid email address.') 
+        window.location.href = 'signuppage.php';
+        </script>";
+        exit;
+    }
+
+    // Validate phone number (basic check: digits only, length 7-15)
+    if (!preg_match('/^\d{7,15}$/', $phoneNumber)) {
+        echo "<script> alert('Invalid phone number. Only digits allowed, length 7-15.') 
+        window.location.href = 'signuppage.php';
+        </script>";
+        exit;
+    }
 
     if (isset($_POST['signUp'])) {
-        $password = $_POST['password'];
-        $userType = $_POST['userType'];
-        $streetAddress = $_POST['streetAddress'];
-        $postcode = $_POST['postcode'];
+        // Sanitize user input
+        $password = trim($_POST['password']);
+        $userType = filter_var(trim($_POST['userType']), FILTER_SANITIZE_SPECIAL_CHARS);
+        $streetAddress = filter_var(trim($_POST['streetAddress']), FILTER_SANITIZE_SPECIAL_CHARS);
+        $postcode = filter_var(trim($_POST['postcode']), FILTER_SANITIZE_SPECIAL_CHARS);
+
+        // Validate required fields
+        if (empty($password) || empty($userType) || empty($streetAddress) || empty($postcode)) {
+            echo "<script> alert('All fields are required.') 
+            window.location.href = 'signuppage.php';
+            </script>";
+            exit;
+        }
+
+        // Validate userType
+        $allowedUserTypes = ['buyer', 'seller'];
+        if (!in_array($userType, $allowedUserTypes)) {
+            echo "<script> alert('Invalid user type selected.') 
+            window.location.href = 'signuppage.php';
+            </script>";
+            exit;
+        }
+
+        // Validate postcode (digits only, length 3-10)
+        if (!preg_match('/^\d{3,10}$/', $postcode)) {
+            echo "<script> alert('Invalid postcode. Only digits allowed, length 3-10.') 
+            window.location.href = 'signuppage.php';
+            </script>";
+            exit;
+        }
     } else {
         $userType = "admin";
         $password = $firstName . $lastName . "Adm!nP@ssword";
